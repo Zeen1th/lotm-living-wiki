@@ -317,3 +317,15 @@ test('resolvers run cleanly over new collections at cap', () => {
   const visibleLocs = E.visibleOf(LOTM.locations, cap, E.resolveLocation);
   assert.ok(visibleLocs.length >= 1, 'at least one location visible at cap');
 });
+
+test('org HQ is not introduced after the org itself (temporal invariant)', () => {
+  for (const o of LOTM.organizations) {
+    for (const s of (o.states || [])) {
+      if (!s.hq_location_id) continue;
+      const loc = LOTM.locations.find(l => l.id === s.hq_location_id);
+      assert.ok(loc, `${o.id} hq ${s.hq_location_id} missing`);
+      assert.ok(loc.first_appeared_chapter <= o.first_appeared_chapter,
+        `${o.id} (ch${o.first_appeared_chapter}) references HQ ${loc.id} introduced later (ch${loc.first_appeared_chapter})`);
+    }
+  }
+});

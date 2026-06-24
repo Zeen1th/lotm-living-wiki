@@ -831,10 +831,12 @@ function OrgDetail({ org, chapter, onClose, navigate }){
     ? Eng.resolveCharacter(Eng.byId(LOTM.characters, state.leader_id), chapter)
     : null;
 
-  /* resolve hq */
-  const hqLoc = (state && state.hq_location_id)
-    ? Eng.byId(LOTM.locations, state.hq_location_id)
-    : null;
+  /* resolve hq — only when the location is visible at current chapter */
+  const hqLoc = (function(){
+    if(!(state && state.hq_location_id)) return null;
+    const l = Eng.byId(LOTM.locations, state.hq_location_id);
+    return (l && Eng.isVisible(l, chapter)) ? l : null;
+  })();
 
   /* visible members */
   const members = (org.member_ids || [])

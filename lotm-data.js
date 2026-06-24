@@ -234,7 +234,7 @@
             since_chapter: 3,
             blurb_ar: 'كنيسة إله العواصف؛ نفوذها يمتدّ على بحر سونيا وتتبعها فصائل بحرية.',
             leader_id: null,
-            hq_location_id: 'soniasea',
+            hq_location_id: null, // soniasea (ch5) > church_storms (ch3); no spoiler-safe HQ within ch.250
           },
         ],
         member_ids: ['alger'],
