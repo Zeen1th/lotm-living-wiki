@@ -10,11 +10,11 @@ Single self-contained HTML file — open it in any browser, no build step.
 
 ## TL;DR
 
-- **File:** `index.html` (app) + `lotm-engine.js` + `lotm-data.js` (content); legacy `lotm-world-atlas.html` retained for reference.
+- **Files:** `index.html` (app) + `lotm-engine.js` (resolver) + `data/*.js` (content, one file per type) + `tools/grounding.js` (quote verifier); legacy `lotm-world-atlas.html` retained for reference.
 - **Stack:** React 18 + ReactDOM (UMD via CDN), Tailwind Play CDN, Babel Standalone, Google Fonts. Lucide icons are hand-inlined as SVG React components (no runtime dep).
-- **Run:** open `index.html` directly, or serve the folder.
-- **Status:** Phase 1 shell complete — RTL Arabic, red-moon theme, chapter slider. Characters section (Task 4) pending.
-- Data lives in `lotm-data.js`; tests run with `node --test`.
+- **Run:** open `index.html` directly, or serve the folder (preview config `lotm-wiki`, port 3737).
+- **Status:** Phases 1 & 2 (interactive wiki shell) complete and merged. Data layer now **cited + quoted** (every fact carries a verbatim chapter quote, verified by tests). Content is still a small grounded seed — Track B (full ch.1–250 extraction) is next.
+- **Data lives in `data/*.js`** (split by type: characters, pathways, families, organizations, locations, eras, documents, glossary, meta, events). **Tests:** `node --test` runs engine + data-integrity + the **grounding** suite (verifies each quote exists in its EPUB chapter). Adding content: see **[docs/INJECTION.md](docs/INJECTION.md)**. Spoiler cutoff lives in `data/meta.js` (`encodedThroughChapter`); never encode past it.
 
 ---
 
