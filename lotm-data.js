@@ -18,8 +18,7 @@
         first_appeared_chapter: 1, status: 'alive',
         pathway: { id: 'seer', name_ar: 'مسار الرائي' },
         aliases: [
-          { name: 'جيرمان سبارو', since_chapter: 30 },
-          { name: 'شيرلوك موريارتي', since_chapter: 210 },
+          { name: 'شيرلوك موريارتي', since_chapter: 215 },
         ],
         states: [
           { since_chapter: 1,  sequence: 'التسلسل 9: متمرس', location: 'تينغن', faction: 'لا أحد',
@@ -30,7 +29,7 @@
         events: [
           { chapter: 1,   type: 'intro',   text: 'الاستيقاظ في جسد كلاين مورتي.' },
           { chapter: 21,  type: 'advance', text: 'الترقّي إلى التسلسل 8 (مهرج).' },
-          { chapter: 30,  type: 'identity',text: 'اتخاذ هوية "جيرمان سبارو".' },
+          { chapter: 215, type: 'identity',text: 'ظهور هوية "شيرلوك موريارتي".' },
         ],
         abilities: ['العرافة الدقيقة', 'خفة حركة خارقة', 'قراءة حركات الخصم', 'التحكم بتعابير الوجه'],
         relationships: [{ id: 'audrey', type: 'زميل في النادي', since_chapter: 21 }],
