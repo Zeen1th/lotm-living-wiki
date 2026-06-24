@@ -8,7 +8,9 @@
       name_en: 'Seer Pathway',
       family_id: null,
       color: '#2e6b8c',
-      first_appeared_chapter: 1,   // anchor: كلاين (Seer/Clown) from ch1
+      // 'مسار الرائي' as a full phrase is not found ≤ch250 in this EPUB; anchor via كلاين at ch1.
+      first_appeared_chapter: 1,
+      first_appeared_quote: 'كلاين موريتي ، مواطن من مملكة لوين',
       sequences: [],
       blurb_ar: 'مسار الرائي — مسار كلاين مورتي؛ يمنح العرافة والرؤية الخارقة والحدّة الذهنية.',
       sources: [1],
@@ -19,10 +21,13 @@
       name_en: 'Spectator Pathway',
       family_id: null,
       color: '#7a4a9c',
-      first_appeared_chapter: 16,  // anchor: أودري هول من ch16
+      // NOTE: first_appeared_chapter corrected from 16 → 219 (first chapter where
+      // 'مسار المتفرج' as a phrase appears in the EPUB). Anchor quote via أودري (ch5).
+      first_appeared_chapter: 219,
+      first_appeared_quote: 'مسار المتفرج',
       sequences: [],
-      blurb_ar: 'مسار المتفرّج — مسار أودري هول؛ يمنح الحدة العقلية وقدرات الإدراك النفسي والتواصل الذهني.',
-      sources: [16],
+      blurb_ar: 'مسار المتفرّج — مسار أودري هال؛ يمنح الحدة العقلية وقدرات الإدراك النفسي والتواصل الذهني.',
+      sources: [219],
     },
     {
       id: 'sailor',
@@ -30,10 +35,13 @@
       name_en: 'Sailor Pathway',
       family_id: null,
       color: '#1a4a7a',
-      first_appeared_chapter: 21,  // anchor: ألجير ويلسون من ch21
+      // NOTE: first_appeared_chapter corrected from 21 → 145 (first chapter where
+      // 'مسار البحار' phrase appears in the EPUB). Name anchor via ألجر (ch5).
+      first_appeared_chapter: 145,
+      first_appeared_quote: 'مسار البحار',
       sequences: [],
-      blurb_ar: 'مسار البحّار — مسار ألجير ويلسون؛ يمنح السيطرة على البحار والرياح والعواصف.',
-      sources: [21],
+      blurb_ar: 'مسار البحّار — مسار ألجر ويلسون؛ يمنح السيطرة على البحار والرياح والعواصف.',
+      sources: [145],
     },
     {
       id: 'sun',
@@ -41,10 +49,13 @@
       name_en: 'Sun Pathway',
       family_id: null,
       color: '#c8940a',
-      first_appeared_chapter: 121, // anchor: ديريك بيرغ من ch121
+      // NOTE: first_appeared_chapter corrected from 121 → 140 (first chapter where
+      // 'مسار الشمس' phrase appears). Character Derrick first appears at ch137.
+      first_appeared_chapter: 140,
+      first_appeared_quote: 'مسار الشمس',
       sequences: [],
       blurb_ar: 'مسار الشمس — مسار ديريك بيرغ؛ يمنح ضوءاً مقدّساً وإشعاعاً في الأرض المهجورة.',
-      sources: [121, 140],
+      sources: [140],
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;
