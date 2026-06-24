@@ -10,10 +10,11 @@ Single self-contained HTML file — open it in any browser, no build step.
 
 ## TL;DR
 
-- **File:** `lotm-world-atlas.html` (one file, ~700 lines, fully self-contained).
+- **File:** `index.html` (app) + `lotm-engine.js` + `lotm-data.js` (content); legacy `lotm-world-atlas.html` retained for reference.
 - **Stack:** React 18 + ReactDOM (UMD via CDN), Tailwind Play CDN, Babel Standalone, Google Fonts. Lucide icons are hand-inlined as SVG React components (no runtime dep).
-- **Run:** open the file directly, **or** serve the folder and visit `/lotm-world-atlas.html`.
-- **Status:** Complete and verified in-browser. No console errors.
+- **Run:** open `index.html` directly, or serve the folder.
+- **Status:** Phase 1 shell complete — RTL Arabic, red-moon theme, chapter slider. Characters section (Task 4) pending.
+- Data lives in `lotm-data.js`; tests run with `node --test`.
 
 ---
 

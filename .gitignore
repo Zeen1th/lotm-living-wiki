@@ -2,3 +2,4 @@ _epub_extract/
 *.epub
 node_modules/
 .DS_Store
+.superpowers/
