@@ -16,7 +16,7 @@
       {
         id: 'klein', name_ar: 'كلاين مورتي', name_en: 'Klein Moretti',
         first_appeared_chapter: 1, status: 'alive',
-        pathway: { id: 'fool', name_ar: 'مسار الأحمق' },
+        pathway: { id: 'seer', name_ar: 'مسار الرائي' },
         aliases: [
           { name: 'شيرلوك موريارتي', since_chapter: 215 },
         ],
@@ -114,28 +114,21 @@
 
     // ── PATHWAYS ────────────────────────────────────────────────────────────
     // Only seeded if pathway name appears ≤ch250. sequences left empty (Track B).
+    // Pathway "first_appeared" anchored to the character who reveals it to the
+    // reader (defensible) — the bare pathway labels barely occur in this
+    // translation, so naive word-greps are unreliable. Track B re-grounds with
+    // reading context + fills the sequence ladders.
     pathways: [
-      {
-        id: 'fool',
-        name_ar: 'مسار الأحمق',
-        name_en: 'Fool Pathway',
-        family_id: null,   // The "Fool" family (سيد الألغاز) not confirmed ≤ch250 in Arabic text
-        color: '#5b3a8c',
-        first_appeared_chapter: 5,   // grep: ch5 الأحمق (Tarot card reading scene)
-        sequences: [],
-        blurb_ar: 'مسار الأحمق — مسار كلاين مورتي؛ يرتبط ببطاقة التاروت "الأحمق" وبالأسرار فوق الضباب الرمادي.',
-        sources: [5, 7],
-      },
       {
         id: 'seer',
         name_ar: 'مسار الرائي',
         name_en: 'Seer Pathway',
         family_id: null,
         color: '#2e6b8c',
-        first_appeared_chapter: 4,   // grep: ch4 رائي (context: pathway term)
+        first_appeared_chapter: 1,   // anchor: كلاين (Seer/Clown) from ch1
         sequences: [],
-        blurb_ar: 'مسار الرائي — مسار كلاين الأصلي قبل التحوّل؛ يمنح قدرات العرافة والرؤية الخارقة.',
-        sources: [4],
+        blurb_ar: 'مسار الرائي — مسار كلاين مورتي؛ يمنح العرافة والرؤية والحدّة الذهنية. تسلسلاته تشمل "المتمرّس" و"المهرّج".',
+        sources: [1],
       },
       {
         id: 'spectator',
@@ -143,10 +136,10 @@
         name_en: 'Spectator Pathway',
         family_id: null,
         color: '#7a4a9c',
-        first_appeared_chapter: 6,   // grep: ch6 المتفرّج
+        first_appeared_chapter: 16,  // anchor: أودري هول من ch16
         sequences: [],
-        blurb_ar: 'مسار المتفرّج — مسار أودري هول؛ يمنح الحدة العقلية وقدرات الإدراك النفسي.',
-        sources: [6, 16],
+        blurb_ar: 'مسار المتفرّج — مسار أودري هول؛ يمنح الحدة العقلية وقدرات الإدراك النفسي والتواصل الذهني.',
+        sources: [16],
       },
       {
         id: 'sailor',
@@ -154,10 +147,10 @@
         name_en: 'Sailor Pathway',
         family_id: null,
         color: '#1a4a7a',
-        first_appeared_chapter: 4,   // grep: ch4 بحار
+        first_appeared_chapter: 21,  // anchor: ألجير ويلسون من ch21
         sequences: [],
-        blurb_ar: 'مسار البحّار — مسار ألجير ويلسون؛ يمنح السيطرة على البحار والعواصف.',
-        sources: [4, 21],
+        blurb_ar: 'مسار البحّار — مسار ألجير ويلسون؛ يمنح السيطرة على البحار والرياح والعواصف.',
+        sources: [21],
       },
       {
         id: 'sun',
@@ -165,10 +158,10 @@
         name_en: 'Sun Pathway',
         family_id: null,
         color: '#c8940a',
-        first_appeared_chapter: 140, // grep: ch140 مسار الشمس
+        first_appeared_chapter: 121, // anchor: ديريك بيرغ من ch121
         sequences: [],
-        blurb_ar: 'مسار الشمس — مسار ديريك بيرغ؛ يمنح ضوءاً مقدّساً وإشعاعاً إلهياً في الأرض المهجورة.',
-        sources: [140],
+        blurb_ar: 'مسار الشمس — مسار ديريك بيرغ؛ يمنح ضوءاً مقدّساً وإشعاعاً في الأرض المهجورة.',
+        sources: [121, 140],
       },
     ],
 
