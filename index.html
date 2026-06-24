@@ -501,14 +501,12 @@ function App(){
   // We capture the "was-empty" flag as a state initializer so it's evaluated synchronously
   // before any renders run the useChapter effect.
   const [storageWasEmpty] = useState(()=> localStorage.getItem('lotm.chapter') == null);
-  const [overlayDismissed, setOverlayDismissed] = useState(false);
   const [overlayOpen, setOverlayOpen] = useState(storageWasEmpty);
 
-  const showOverlay = overlayOpen && !overlayDismissed;
+  const showOverlay = overlayOpen;
 
   function handleDismiss(){
     setOverlayOpen(false);
-    setOverlayDismissed(true);
   }
 
   function renderView(){
