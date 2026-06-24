@@ -2,7 +2,7 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const E = require('../lotm-engine.js');
-const LOTM = require('../lotm-data.js');
+const LOTM = require('../data/index.js');
 
 // ── Existing Phase-1 tests (unchanged) ──────────────────────────────────────
 
