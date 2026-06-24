@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lord of the Mysteries — World Atlas</title>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@700;900&family=IM+Fell+English:ital@0;1&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --void:#080a0d;        /* near-black slate */
+    --abyss:#04050a;       /* forsaken pitch black */
+    --panel:#0e1218;       /* glass panel base */
+    --slate:#1a212c;       /* land slate */
+    --slate-2:#232c3a;
+    --sea:#0a1119;         /* deep ocean */
+    --sea-2:#10202a;       /* teal lift */
+    --fog:#3a4655;         /* muted fog grey */
+    --parchment:#d8c39a;   /* parchment tint */
+    --parchment-dim:#9c8e6f;
+    --crimson:#b3122b;     /* primary accent */
+    --crimson-glow:#ef2d45;
+    --brass:#c8a24a;       /* steampunk secondary */
+    --brass-dim:#8a7330;
+    --line:rgba(200,162,74,.16);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body,#root{ height:100%; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 700px at 75% -10%, rgba(179,18,43,.10), transparent 60%),
+      radial-gradient(900px 600px at 10% 110%, rgba(200,162,74,.06), transparent 55%),
+      var(--void);
+    color:#cdd3da;
+    font-family:'Spectral', Georgia, serif;
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+  }
+
+  .font-display{ font-family:'Cinzel', serif; }
+  .font-deco{ font-family:'Cinzel Decorative', serif; }
+  .font-old{ font-family:'IM Fell English', serif; }
+  .eyebrow{ font-family:'Cinzel', serif; letter-spacing:.34em; text-transform:uppercase; }
+
+  /* ---- glass ---- */
+  .glass{
+    background:linear-gradient(160deg, rgba(22,28,38,.92), rgba(10,13,18,.92));
+    border:1px solid var(--line);
+    backdrop-filter:blur(10px);
+  }
+  .hairline{ border-top:1px solid var(--line); }
+
+  /* ---- scrollbar ---- */
+  .scroller::-webkit-scrollbar{ width:9px; }
+  .scroller::-webkit-scrollbar-track{ background:transparent; }
+  .scroller::-webkit-scrollbar-thumb{ background:linear-gradient(var(--brass-dim),var(--crimson)); border-radius:9px; border:2px solid var(--void); }
+
+  /* ---- map regions ---- */
+  .region{ transition:fill .5s ease, stroke .5s ease, opacity .5s ease, filter .5s ease; cursor:pointer; }
+  .region:hover{ filter:brightness(1.35) saturate(1.1); }
+  .region.dim{ opacity:.18; }
+  .region.active{ filter:brightness(1.45) drop-shadow(0 0 10px rgba(200,162,74,.45)); }
+
+  .panZoom{ transition:transform 1s cubic-bezier(.22,.61,.18,1); transform-origin:0 0; }
+
+  /* ---- pins ---- */
+  .pin{ cursor:pointer; }
+  .pin .halo{ transform-origin:center; transform-box:fill-box; }
+  .pin .label-plate{ opacity:0; transform:translateY(4px); transition:opacity .3s ease, transform .3s ease; }
+  .pin:hover .label-plate, .pin.open .label-plate{ opacity:1; transform:translateY(0); }
+  .pin.dim{ opacity:.2; pointer-events:none; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .pin .halo{ animation:beat 2.6s ease-in-out infinite; }
+    .fogwisp{ animation:drift 26s ease-in-out infinite alternate; }
+    .fogwisp.b{ animation-duration:34s; animation-delay:-8s; }
+    .bolt{ animation:flick 5.5s steps(1) infinite; }
+    .bolt.b{ animation-delay:2.7s; animation-duration:6.8s; }
+    .ember{ animation:rise 9s linear infinite; }
+  }
+  @keyframes beat{ 0%,100%{ transform:scale(1); opacity:.55 } 50%{ transform:scale(1.7); opacity:0 } }
+  @keyframes drift{ from{ transform:translateX(-18px) } to{ transform:translateX(26px) } }
+  @keyframes flick{ 0%,92%,100%{ opacity:0 } 93%,95%{ opacity:.9 } 94%{ opacity:.2 } }
+  @keyframes rise{ from{ transform:translateY(0); opacity:0 } 10%{opacity:.7} 90%{opacity:.2} to{ transform:translateY(-60px); opacity:0 } }
+
+  /* ---- modal ---- */
+  .backdrop{ animation:fade .35s ease both; }
+  .sheet{ animation:rise-in .45s cubic-bezier(.16,.84,.3,1) both; }
+  @keyframes fade{ from{opacity:0} to{opacity:1} }
+  @keyframes rise-in{ from{opacity:0; transform:translateY(22px) scale(.97)} to{opacity:1; transform:none} }
+  @media (prefers-reduced-motion: reduce){
+    .backdrop,.sheet{ animation:none !important; }
+    .panZoom{ transition:none !important; }
+  }
+
+  .chip{ transition:transform .2s ease, border-color .2s ease, background .2s ease; }
+  .chip:hover{ transform:translateY(-2px); border-color:var(--crimson-glow); }
+
+  .listrow{ transition:background .25s ease, border-color .25s ease, transform .25s ease; }
+  .listrow:hover{ transform:translateX(3px); }
+
+  ::selection{ background:rgba(179,18,43,.4); color:#fff; }
+  .focus-ring:focus-visible{ outline:2px solid var(--brass); outline-offset:2px; }
+  .vignette{ box-shadow:inset 0 0 200px 60px rgba(0,0,0,.85); pointer-events:none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/plain" id="appsrc">
+const { useState, useMemo, useEffect, useRef } = React;
+
+/* ----------------------------------------------------------------
+   ICONS — hand-set Lucide glyphs (MIT) so the app stays self-contained
+-----------------------------------------------------------------*/
+const I = ({ size=20, sw=2, children, ...p }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" {...p}>{children}</svg>
+);
+const Search   = (p)=> <I {...p}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></I>;
+const X        = (p)=> <I {...p}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></I>;
+const Pin      = (p)=> <I {...p}><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></I>;
+const Compass  = (p)=> <I {...p}><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/><circle cx="12" cy="12" r="10"/></I>;
+const Anchor   = (p)=> <I {...p}><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><circle cx="12" cy="5" r="3"/></I>;
+const Crown    = (p)=> <I {...p}><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.52l4.276 3.664a1 1 0 0 0 1.516-.294z"/><path d="M5 21h14"/></I>;
+const Skull    = (p)=> <I {...p}><path d="M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z"/><circle cx="15" cy="12" r="1"/><circle cx="9" cy="12" r="1"/></I>;
+const Eye      = (p)=> <I {...p}><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></I>;
+const Zap      = (p)=> <I {...p}><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></I>;
+const Users    = (p)=> <I {...p}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></I>;
+const Scroll   = (p)=> <I {...p}><path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></I>;
+const Landmark = (p)=> <I {...p}><path d="M10 18v-7"/><path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M3 22h18"/><path d="M6 18v-7"/></I>;
+const Moon     = (p)=> <I {...p}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9"/></I>;
+const Scale    = (p)=> <I {...p}><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></I>;
+const Sun      = (p)=> <I {...p}><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></I>;
+const Rope     = (p)=> <I {...p}><path d="M12 22V8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/><circle cx="12" cy="5" r="3"/></I>;
+
+/* ----------------------------------------------------------------
+   DATA — geography, cities, characters
+-----------------------------------------------------------------*/
+const REGIONS = [
+  { id:'feynapotter', name:'Feynapotter', kind:'region', icon:Landmark, cx:480, cy:84,
+    poly:'390,70 560,55 576,100 400,110',
+    fill:'land', tagline:'The cold northern marches',
+    lore:'A frostbitten strip crowning the Northern Continent, its borders forever contested by the powers below it.' },
+
+  { id:'intis', name:'Intis Republic', kind:'region', icon:Landmark, cx:248, cy:212,
+    poly:'150,150 250,120 342,142 362,212 322,300 222,312 162,262 140,200',
+    fill:'land', tagline:'Republic of revolution & sorcery',
+    lore:'Born of revolution, Intis broke its monarchy in blood and embraced the Beyonder arts more openly than any rival. It glares east toward Loen across old wounds.' },
+
+  { id:'loen', name:'Loen Kingdom', kind:'region', icon:Crown, cx:462, cy:205,
+    poly:'400,112 472,96 532,122 526,192 470,228 410,206 388,160',
+    fill:'land', tagline:'The fog-wreathed isle empire',
+    lore:'An island realm of steam, gaslight and gathering fog — heart of the Tarot Club and the Backlund underworld. Steam engines turn while older things stir beneath.' },
+
+  { id:'feysac', name:'Feysac Empire', kind:'region', icon:Skull, cx:696, cy:206,
+    poly:'580,110 700,94 812,130 822,232 742,302 620,302 576,222',
+    fill:'land', tagline:'War-forged empire of the East',
+    lore:'A militarist empire devoted to the God of Combat, its legions and its faith both hardened on the anvil of endless border war.' },
+
+  { id:'southern', name:'Southern Continent', kind:'region', icon:Landmark, cx:505, cy:505,
+    poly:'232,442 420,420 600,425 782,452 760,562 560,592 360,586 242,540',
+    fill:'land', tagline:'Beyond the stormwall',
+    lore:'Severed from the North by the Berserk Sea, the Southern Continent keeps its own gods, ruins and unmapped interiors — a frontier few northerners survive.' },
+
+  { id:'forsaken', name:'Forsaken Land of the Gods', kind:'region', icon:Zap, cx:914, cy:400,
+    poly:'862,140 962,128 978,300 950,502 876,512 852,332',
+    fill:'abyss', tagline:'The lightless far East',
+    lore:'A drowned, lightning-scourged expanse where the old gods fell. Monsters roam its black coasts and no sane chart names what waits inland.' },
+
+  { id:'fogsea', name:'Fog Sea', kind:'sea', icon:Eye, cx:92, cy:214,
+    tagline:'The pale west', label:[92,214],
+    lore:'West of Intis the world dissolves into permanent white fog — a sea that swallows ships and the sense of direction alike.' },
+
+  { id:'soniasea', name:'Sonia Sea', kind:'sea', icon:Anchor, cx:582, cy:268,
+    tagline:'Pirate waters east of Loen', label:[600,250],
+    lore:'East of Loen lie the warm, lawless Sonia waters — colonial trade lanes thick with privateers, smugglers and the Church of the Storm.' },
+
+  { id:'berserksea', name:'Berserk Sea', kind:'sea', icon:Zap, cx:500, cy:376,
+    tagline:'The stormwall between worlds', label:[500,376],
+    lore:'A belt of perpetual tempest dividing the Northern and Southern Continents. The Berserk Sea is less a passage than a verdict.' },
+];
+
+const CITIES = [
+  { id:'backlund', name:'Backlund', kind:'city', region:'Loen Kingdom', regionId:'loen', icon:Crown,
+    cx:455, cy:158, accent:'crimson',
+    tagline:'The City of Hope',
+    lore:'Capital of the Loen Kingdom, split by the Tussock River into the gilded Upper City and the soot-choked East Borough. Steam and gaslight glow through an eternal fog where the Tarot Club gathers above the world and secret societies knife one another below.',
+    chars:['klein','audrey'] },
+
+  { id:'rorsted', name:'Rorsted Archipelago', kind:'city', region:'Sonia Sea', regionId:'soniasea', icon:Anchor,
+    cx:580, cy:264, accent:'brass',
+    tagline:'A pirate-infested colonial sea',
+    lore:'A scatter of islands in the Sonia Sea where colonial fleets, pirate kings and the Church of the God of Storms all stake claims. Cannon-smoke and salt hang over every harbour, and a hanged man’s rope means more than the gallows here.',
+    chars:['alger'] },
+
+  { id:'silver', name:'City of Silver', kind:'city', region:'Forsaken Land of the Gods', regionId:'forsaken', icon:Sun,
+    cx:912, cy:300, accent:'brass',
+    tagline:'A dark, isolated city of the fallen East',
+    lore:'A lone bastion of light marooned in the Forsaken Land of the Gods, ringed by perpetual lightning and the monsters that prowl the black. Within its walls a single radiant faith holds back the dark — and one luminous figure burns brightest of all.',
+    chars:['derrick'] },
+];
+
+const CHARACTERS = {
+  klein:  { id:'klein',  name:'Klein Moretti', alias:'Sherlock Moriarty', pathway:'Seer · The Fool',
+            icon:Moon,  locId:'backlund', accent:'crimson',
+            note:'Transmigrator turned Seer; in secret, the enigmatic master detective Sherlock Moriarty — and the silent presiding Fool above the gray fog.' },
+  audrey: { id:'audrey', name:'Audrey Hall', alias:'Justice', pathway:'Spectator · Justice',
+            icon:Scale, locId:'backlund', accent:'brass',
+            note:'A noble lady of Backlund who hides a sharp, fearless mind beneath the manners of high society. Member of the Tarot Club as "Justice."' },
+  alger:  { id:'alger',  name:'Alger Wilson', alias:'The Hanged Man', pathway:'Sailor · The Hanged Man',
+            icon:Rope,  locId:'rorsted', accent:'brass',
+            note:'A devout, calculating sailor-priest navigating the Sonia Sea’s politics. Tarot Club seat: "The Hanged Man."' },
+  derrick:{ id:'derrick',name:'Derrick Berg', alias:'The Sun', pathway:'Sun · The Sun',
+            icon:Sun,   locId:'silver', accent:'crimson',
+            note:'A soldier of the City of Silver whose unbreakable hope ignites a new light in the Forsaken Land — the rising "Sun."' },
+};
+
+const ALL_PLACES = [...CITIES, ...REGIONS];
+const placeById = (id)=> ALL_PLACES.find(p=>p.id===id);
+
+/* ----------------------------------------------------------------
+   SMALL UI BITS
+-----------------------------------------------------------------*/
+const accentHex = (a)=> a==='crimson' ? 'var(--crimson-glow)' : 'var(--brass)';
+
+function Crest({ size=42, accent='crimson' }){
+  const c = accentHex(accent);
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <path d="M24 3l17 6v13c0 12-8 19-17 23C15 41 7 34 7 22V9z"
+            fill="rgba(8,10,13,.9)" stroke={c} strokeWidth="1.3"/>
+      <path d="M24 9l11 4v9c0 8-5 12.5-11 15-6-2.5-11-7-11-15v-9z"
+            fill="none" stroke="rgba(216,195,154,.45)" strokeWidth=".8"/>
+      <circle cx="24" cy="22" r="3.4" fill={c}/>
+      <path d="M24 13v18M14 22h20" stroke="rgba(216,195,154,.5)" strokeWidth=".8"/>
+    </svg>
+  );
+}
+
+/* ----------------------------------------------------------------
+   THE MAP
+-----------------------------------------------------------------*/
+function WorldMap({ selectedId, matchSet, searching, onPlace }){
+  const target = selectedId ? placeById(selectedId) : null;
+  const s = target ? 1.85 : 1;
+  const cx = target ? target.cx : 500;
+  const cy = target ? target.cy : 320;
+  const tx = target ? (500 - s*cx) : 0;
+  const ty = target ? (320 - s*cy) : 0;
+  const transform = `translate(${tx}px, ${ty}px) scale(${s})`;
+
+  const isDim = (id)=> searching && !matchSet.has(id);
+
+  return (
+    <svg viewBox="0 0 1000 640" className="w-full h-full block" preserveAspectRatio="xMidYMid meet"
+         role="img" aria-label="World map of Lord of the Mysteries">
+      <defs>
+        <radialGradient id="seaGrad" cx="50%" cy="38%" r="80%">
+          <stop offset="0%" stopColor="#11212c"/>
+          <stop offset="55%" stopColor="var(--sea)"/>
+          <stop offset="100%" stopColor="#05080c"/>
+        </radialGradient>
+        <linearGradient id="landGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#2b3543"/>
+          <stop offset="100%" stopColor="#161d27"/>
+        </linearGradient>
+        <linearGradient id="abyssGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#0a0c12"/>
+          <stop offset="100%" stopColor="var(--abyss)"/>
+        </linearGradient>
+        <radialGradient id="stormGrad" cx="50%" cy="50%" r="60%">
+          <stop offset="0%" stopColor="rgba(120,40,55,.30)"/>
+          <stop offset="100%" stopColor="rgba(120,40,55,0)"/>
+        </radialGradient>
+        <filter id="soft"><feGaussianBlur stdDeviation="7"/></filter>
+        <filter id="glowF" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="3.4" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <pattern id="latlong" width="56" height="56" patternUnits="userSpaceOnUse">
+          <path d="M56 0H0V56" fill="none" stroke="rgba(200,162,74,.05)" strokeWidth="1"/>
+        </pattern>
+      </defs>
+
+      {/* base sea */}
+      <rect x="0" y="0" width="1000" height="640" fill="url(#seaGrad)"/>
+      <rect x="0" y="0" width="1000" height="640" fill="url(#latlong)"/>
+
+      <g className="panZoom" style={{ transform }}>
+        {/* faint current lines */}
+        <g stroke="rgba(120,160,180,.10)" strokeWidth="1" fill="none">
+          <path d="M40 130 C 200 110, 360 150, 520 120"/>
+          <path d="M60 420 C 260 400, 520 440, 760 415"/>
+          <path d="M540 280 C 640 300, 720 270, 820 300"/>
+        </g>
+
+        {/* Berserk Sea storm band */}
+        <ellipse cx="500" cy="376" rx="470" ry="58" fill="url(#stormGrad)"/>
+        <g className="region" data-id="berserksea"
+           onClick={()=>onPlace('berserksea')}
+           opacity={isDim('berserksea') ? .25 : 1}>
+          <rect x="40" y="332" width="920" height="92" fill="rgba(40,60,72,.10)"/>
+          <g stroke="rgba(150,180,200,.18)" strokeWidth="1.4" fill="none">
+            <path d="M70 360q14-10 28 0t28 0 28 0 28 0"/>
+            <path d="M360 396q14-10 28 0t28 0 28 0 28 0"/>
+            <path d="M640 356q14-10 28 0t28 0 28 0 28 0"/>
+            <path d="M150 410q14-10 28 0t28 0 28 0"/>
+          </g>
+        </g>
+
+        {/* LAND regions */}
+        {REGIONS.filter(r=>r.poly).map(r=>{
+          const active = selectedId===r.id;
+          const cls = 'region' + (active?' active':'') + (isDim(r.id)?' dim':'');
+          const fill = r.fill==='abyss' ? 'url(#abyssGrad)' : 'url(#landGrad)';
+          const stroke = r.fill==='abyss' ? 'rgba(120,60,75,.5)' : 'rgba(200,162,74,.30)';
+          return (
+            <polygon key={r.id} points={r.poly} className={cls} fill={fill}
+                     stroke={active?'var(--brass)':stroke}
+                     strokeWidth={active?2:1.2}
+                     onClick={()=>onPlace(r.id)}/>
+          );
+        })}
+
+        {/* coast hatching on Forsaken Land + monsters hint */}
+        <g opacity={isDim('forsaken')?.2:.8} pointerEvents="none">
+          <polyline className="bolt" points="905,160 898,210 916,214 902,275" fill="none" stroke="var(--brass)" strokeWidth="1.6" filter="url(#glowF)"/>
+          <polyline className="bolt b" points="936,340 928,392 945,396 930,452" fill="none" stroke="var(--crimson-glow)" strokeWidth="1.4" filter="url(#glowF)"/>
+          {[ [875,470],[940,250],[955,420],[870,360] ].map((p,i)=>(
+            <circle key={i} className="ember" cx={p[0]} cy={p[1]} r="1.6" fill="rgba(200,162,74,.7)"/>
+          ))}
+        </g>
+
+        {/* Rorsted archipelago islets */}
+        <g opacity={isDim('rorsted')?.2:1}>
+          {[[568,256,7],[592,250,5],[582,276,6],[604,268,4]].map((p,i)=>(
+            <ellipse key={i} cx={p[0]} cy={p[1]} rx={p[2]} ry={p[2]*0.7} fill="url(#landGrad)" stroke="rgba(200,162,74,.3)" strokeWidth=".8"/>
+          ))}
+        </g>
+
+        {/* drifting fog wisps over the Fog Sea */}
+        <g pointerEvents="none" opacity={isDim('fogsea')?.15:.9}>
+          <ellipse className="fogwisp"   cx="95"  cy="200" rx="70" ry="34" fill="rgba(180,190,200,.10)" filter="url(#soft)"/>
+          <ellipse className="fogwisp b" cx="120" cy="250" rx="58" ry="26" fill="rgba(180,190,200,.08)" filter="url(#soft)"/>
+        </g>
+        {/* faint fog over Loen / Backlund */}
+        <ellipse className="fogwisp b" cx="455" cy="165" rx="60" ry="22" fill="rgba(190,200,210,.07)" filter="url(#soft)" pointerEvents="none"/>
+
+        {/* SEA labels */}
+        {REGIONS.filter(r=>r.kind==='sea').map(r=>(
+          <text key={r.id} x={r.label[0]} y={r.label[1]}
+                textAnchor="middle"
+                className="eyebrow"
+                style={{ fontSize: r.id==='berserksea'?13:11, fill:'rgba(180,196,210,.5)', letterSpacing:'.3em',
+                         opacity:isDim(r.id)?.25:1, cursor:'pointer' }}
+                onClick={()=>onPlace(r.id)}>
+            {r.name.toUpperCase()}
+          </text>
+        ))}
+
+        {/* LAND labels */}
+        {REGIONS.filter(r=>r.poly).map(r=>(
+          <text key={'l'+r.id} x={r.cx} y={r.cy} textAnchor="middle"
+                className="font-display"
+                style={{ fontSize:r.id==='forsaken'?11:12, fontWeight:600,
+                         fill:r.fill==='abyss'?'rgba(200,140,150,.65)':'rgba(216,195,154,.78)',
+                         pointerEvents:'none', letterSpacing:'.08em',
+                         opacity:isDim(r.id)?.25:1 }}>
+            {r.name}
+          </text>
+        ))}
+
+        {/* CITY PINS */}
+        {CITIES.map(c=>{
+          const open = selectedId===c.id;
+          const col = accentHex(c.accent);
+          return (
+            <g key={c.id} className={'pin'+(open?' open':'')+(isDim(c.id)?' dim':'')}
+               transform={`translate(${c.cx},${c.cy})`}
+               onClick={()=>onPlace(c.id)} role="button" tabIndex="0"
+               aria-label={c.name}
+               onKeyDown={(e)=>{ if(e.key==='Enter') onPlace(c.id); }}>
+              <circle className="halo" r="9" fill={col}/>
+              <circle r="6.5" fill="rgba(8,10,13,.95)" stroke={col} strokeWidth="2" filter="url(#glowF)"/>
+              <circle r="2.4" fill={col}/>
+              {/* label plate */}
+              <g className="label-plate" transform="translate(0,-16)">
+                <rect x="-52" y="-15" width="104" height="19" rx="3"
+                      fill="rgba(8,10,13,.92)" stroke={col} strokeWidth=".8"/>
+                <text x="0" y="-2" textAnchor="middle" className="font-display"
+                      style={{ fontSize:9.5, fill:'var(--parchment)', letterSpacing:'.12em', fontWeight:600 }}>
+                  {c.name.toUpperCase()}
+                </text>
+              </g>
+            </g>
+          );
+        })}
+      </g>
+    </svg>
+  );
+}
+
+/* ----------------------------------------------------------------
+   SIDEBAR
+-----------------------------------------------------------------*/
+function Sidebar({ tab, setTab, query, setQuery, locations, chars, selectedId, onPlace, onChar }){
+  return (
+    <aside className="glass w-full md:w-[340px] shrink-0 h-full flex flex-col">
+      {/* brand */}
+      <div className="px-5 pt-5 pb-4">
+        <div className="flex items-center gap-3">
+          <Crest size={40}/>
+          <div className="leading-tight">
+            <div className="eyebrow" style={{ fontSize:9, color:'var(--brass)' }}>Beyonder Cartography</div>
+            <h1 className="font-deco text-[19px] tracking-wide" style={{ color:'var(--parchment)' }}>World Atlas</h1>
+          </div>
+        </div>
+        <p className="font-old italic text-[12.5px] mt-3 leading-snug" style={{ color:'var(--parchment-dim)' }}>
+          &ldquo;Everyone is equal before the mysteries…&rdquo; — charting the gray fog, the seas, and the fallen East.
+        </p>
+      </div>
+
+      {/* search */}
+      <div className="px-5">
+        <div className="flex items-center gap-2 px-3 h-11 rounded-md"
+             style={{ background:'rgba(0,0,0,.35)', border:'1px solid var(--line)' }}>
+          <Search size={16} style={{ color:'var(--brass)' }}/>
+          <input
+            value={query} onChange={e=>setQuery(e.target.value)}
+            placeholder="Search lands, seas, characters…"
+            aria-label="Search locations and characters"
+            className="bg-transparent outline-none w-full text-[13.5px] focus-ring"
+            style={{ color:'#dfe4ea' }}/>
+          {query && (
+            <button onClick={()=>setQuery('')} className="opacity-60 hover:opacity-100 focus-ring" aria-label="Clear search">
+              <X size={15}/>
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* tabs */}
+      <div className="px-5 mt-4 flex gap-1">
+        {[['places','Locations',Compass],['chars','Registry',Users]].map(([key,lbl,Ico])=>(
+          <button key={key} onClick={()=>setTab(key)}
+            className="flex-1 h-9 rounded-md text-[11px] eyebrow flex items-center justify-center gap-2 focus-ring transition"
+            style={ tab===key
+              ? { background:'linear-gradient(180deg,rgba(179,18,43,.28),rgba(179,18,43,.12))', color:'var(--parchment)', border:'1px solid var(--crimson)' }
+              : { color:'var(--parchment-dim)', border:'1px solid transparent', background:'rgba(255,255,255,.02)' } }>
+            <Ico size={14}/> {lbl}
+          </button>
+        ))}
+      </div>
+
+      {/* list */}
+      <div className="scroller mt-3 px-3 pb-4 overflow-y-auto flex-1">
+        {tab==='places' && (
+          <PlaceList locations={locations} selectedId={selectedId} onPlace={onPlace}/>
+        )}
+        {tab==='chars' && (
+          <CharList chars={chars} onChar={onChar} selectedId={selectedId}/>
+        )}
+      </div>
+
+      <div className="hairline px-5 py-2.5 flex items-center justify-between text-[10px]" style={{ color:'var(--parchment-dim)' }}>
+        <span className="eyebrow" style={{ letterSpacing:'.22em' }}>22 Sequences</span>
+        <span className="font-old italic">Tarot Club archives</span>
+      </div>
+    </aside>
+  );
+}
+
+function GroupLabel({ children }){
+  return (
+    <div className="eyebrow px-2 mt-3 mb-1.5 text-[9.5px] flex items-center gap-2" style={{ color:'var(--brass-dim)' }}>
+      <span>{children}</span>
+      <span className="flex-1 h-px" style={{ background:'var(--line)' }}/>
+    </div>
+  );
+}
+
+function PlaceList({ locations, selectedId, onPlace }){
+  const cities = locations.filter(l=>l.kind==='city');
+  const lands  = locations.filter(l=>l.kind==='region' && l.poly);
+  const seas   = locations.filter(l=>l.kind==='sea');
+  if(!locations.length) return <Empty label="No lands match that name."/>;
+  const Row = (l)=>{
+    const Ico = l.icon || Pin;
+    const active = selectedId===l.id;
+    const col = l.accent ? accentHex(l.accent) : 'var(--brass)';
+    return (
+      <button key={l.id} onClick={()=>onPlace(l.id)}
+        className="listrow w-full text-left px-2.5 py-2.5 rounded-md flex items-center gap-3 mb-1 focus-ring"
+        style={ active
+          ? { background:'linear-gradient(90deg,rgba(179,18,43,.20),transparent)', border:'1px solid var(--crimson)' }
+          : { border:'1px solid transparent' } }>
+        <span className="grid place-items-center w-8 h-8 rounded-md shrink-0"
+              style={{ background:'rgba(0,0,0,.4)', color:col, border:'1px solid var(--line)' }}>
+          <Ico size={16}/>
+        </span>
+        <span className="min-w-0">
+          <span className="font-display block text-[13.5px] truncate" style={{ color:'var(--parchment)' }}>{l.name}</span>
+          <span className="block text-[11px] truncate font-old italic" style={{ color:'var(--parchment-dim)' }}>{l.tagline}</span>
+        </span>
+        {l.kind==='city' && <span className="ml-auto"><Pin size={13} style={{ color:col }}/></span>}
+      </button>
+    );
+  };
+  return (
+    <div>
+      {cities.length>0 && <><GroupLabel>Registered Cities</GroupLabel>{cities.map(Row)}</>}
+      {lands.length>0 &&  <><GroupLabel>Continents &amp; Realms</GroupLabel>{lands.map(Row)}</>}
+      {seas.length>0 &&   <><GroupLabel>Seas &amp; Straits</GroupLabel>{seas.map(Row)}</>}
+    </div>
+  );
+}
+
+function CharList({ chars, onChar, selectedId }){
+  if(!chars.length) return <Empty label="No Beyonders by that name."/>;
+  return (
+    <div className="pt-1">
+      {chars.map(c=>{
+        const Ico = c.icon;
+        const loc = placeById(c.locId);
+        const col = accentHex(c.accent);
+        const active = selectedId===c.locId;
+        return (
+          <button key={c.id} onClick={()=>onChar(c)}
+            className="listrow w-full text-left px-2.5 py-2.5 rounded-md flex items-center gap-3 mb-1.5 focus-ring"
+            style={ active
+              ? { background:'linear-gradient(90deg,rgba(200,162,74,.16),transparent)', border:'1px solid var(--brass)' }
+              : { border:'1px solid var(--line)', background:'rgba(255,255,255,.015)' } }>
+            <span className="grid place-items-center w-9 h-9 rounded-full shrink-0"
+                  style={{ background:'rgba(0,0,0,.45)', color:col, border:`1px solid ${col}` }}>
+              <Ico size={17}/>
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="font-display block text-[13.5px] truncate" style={{ color:'var(--parchment)' }}>{c.name}</span>
+              <span className="block text-[11px] truncate" style={{ color:col }}>{c.alias}</span>
+            </span>
+            <span className="text-[9.5px] eyebrow text-right shrink-0" style={{ color:'var(--parchment-dim)' }}>
+              {loc?.name?.split(' ')[0]}
+            </span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function Empty({ label }){
+  return (
+    <div className="px-3 py-10 text-center">
+      <div className="inline-grid place-items-center w-12 h-12 rounded-full mb-3" style={{ border:'1px dashed var(--line)', color:'var(--brass-dim)' }}>
+        <Search size={18}/>
+      </div>
+      <p className="font-old italic text-[12.5px]" style={{ color:'var(--parchment-dim)' }}>{label}</p>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------
+   MODAL
+-----------------------------------------------------------------*/
+function Modal({ place, onClose, onChar }){
+  useEffect(()=>{
+    const h = (e)=>{ if(e.key==='Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return ()=> window.removeEventListener('keydown', h);
+  },[onClose]);
+
+  if(!place) return null;
+  const Ico = place.icon || Pin;
+  const isCity = place.kind==='city';
+  const accent = place.accent || 'brass';
+  const col = accentHex(accent);
+  const chars = (place.chars||[]).map(id=>CHARACTERS[id]).filter(Boolean);
+  const region = place.regionId ? placeById(place.regionId) : null;
+
+  return (
+    <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
+         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
+         onClick={onClose} role="dialog" aria-modal="true" aria-label={place.name}>
+      <div className="sheet glass w-full max-w-[560px] rounded-xl overflow-hidden relative"
+           style={{ boxShadow:'0 30px 80px rgba(0,0,0,.7)' }}
+           onClick={e=>e.stopPropagation()}>
+
+        {/* top accent rail */}
+        <div style={{ height:3, background:`linear-gradient(90deg, transparent, ${col}, transparent)` }}/>
+
+        {/* header */}
+        <div className="px-6 pt-5 pb-4 relative">
+          <button onClick={onClose} aria-label="Close"
+            className="absolute right-4 top-4 w-9 h-9 grid place-items-center rounded-md focus-ring transition hover:scale-105"
+            style={{ background:'rgba(0,0,0,.4)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}>
+            <X size={17}/>
+          </button>
+
+          <div className="flex items-center gap-2 eyebrow text-[9.5px]" style={{ color:col }}>
+            <span className="w-6 h-px" style={{ background:col }}/>
+            {isCity ? `${place.region} · Registered Site` : (place.kind==='sea' ? 'Open Waters' : 'Continental Realm')}
+          </div>
+
+          <div className="flex items-center gap-4 mt-3">
+            <span className="grid place-items-center w-14 h-14 rounded-lg shrink-0"
+                  style={{ background:'rgba(0,0,0,.5)', color:col, border:`1px solid ${col}` }}>
+              <Ico size={26}/>
+            </span>
+            <div>
+              <h2 className="font-deco text-[26px] leading-none" style={{ color:'var(--parchment)' }}>{place.name}</h2>
+              <p className="font-old italic text-[14px] mt-1.5" style={{ color:col }}>{place.tagline}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="px-6 pb-6">
+          {/* lore */}
+          <div className="hairline pt-4">
+            <div className="flex items-center gap-2 eyebrow text-[9.5px] mb-2" style={{ color:'var(--brass-dim)' }}>
+              <Scroll size={13}/> Field Notes
+            </div>
+            <p className="text-[13.5px] leading-relaxed" style={{ color:'#c2c9d1' }}>{place.lore}</p>
+          </div>
+
+          {/* characters */}
+          {chars.length>0 && (
+            <div className="mt-5">
+              <div className="flex items-center gap-2 eyebrow text-[9.5px] mb-2.5" style={{ color:'var(--brass-dim)' }}>
+                <Users size={13}/> Registered Beyonders
+              </div>
+              <div className="grid gap-2.5">
+                {chars.map(c=>{
+                  const CI = c.icon; const cc = accentHex(c.accent);
+                  return (
+                    <button key={c.id} onClick={()=>onChar && onChar(c)}
+                      className="chip text-left rounded-lg px-3.5 py-3 flex items-start gap-3 focus-ring"
+                      style={{ background:'rgba(0,0,0,.35)', border:`1px solid var(--line)` }}>
+                      <span className="grid place-items-center w-10 h-10 rounded-full shrink-0 mt-.5"
+                            style={{ background:'rgba(8,10,13,.9)', color:cc, border:`1px solid ${cc}` }}>
+                        <CI size={18}/>
+                      </span>
+                      <span className="min-w-0">
+                        <span className="flex flex-wrap items-baseline gap-x-2">
+                          <span className="font-display text-[14px]" style={{ color:'var(--parchment)' }}>{c.name}</span>
+                          <span className="text-[11px] eyebrow" style={{ color:cc }}>{c.alias}</span>
+                        </span>
+                        <span className="block text-[10.5px] eyebrow mt-0.5" style={{ color:'var(--parchment-dim)' }}>
+                          {c.pathway}
+                        </span>
+                        <span className="block text-[12px] leading-snug mt-1 font-old italic" style={{ color:'#aeb6bf' }}>
+                          {c.note}
+                        </span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* if a character was opened directly, show their seat */}
+          {place.__char && (
+            <div className="mt-5 rounded-lg px-4 py-3" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
+              <div className="eyebrow text-[9.5px] mb-1" style={{ color:'var(--brass-dim)' }}>Last Seen</div>
+              <div className="font-display text-[14px]" style={{ color:'var(--parchment)' }}>
+                {placeById(place.__char.locId)?.name}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------
+   APP
+-----------------------------------------------------------------*/
+function App(){
+  const [tab, setTab] = useState('places');
+  const [query, setQuery] = useState('');
+  const [selectedId, setSelectedId] = useState(null);
+  const [modal, setModal] = useState(null);     // place object (may carry __char)
+  const [mobilePanel, setMobilePanel] = useState(false);
+
+  const q = query.trim().toLowerCase();
+  const searching = q.length>0;
+
+  // filtered locations for sidebar + match set for map dimming
+  const locations = useMemo(()=>{
+    if(!q) return ALL_PLACES;
+    return ALL_PLACES.filter(p=>{
+      const inChars = (p.chars||[]).some(id=>{
+        const c=CHARACTERS[id];
+        return c && (c.name+c.alias+c.pathway).toLowerCase().includes(q);
+      });
+      return (p.name+p.tagline+(p.region||'')).toLowerCase().includes(q) || inChars;
+    });
+  },[q]);
+
+  const chars = useMemo(()=>{
+    const arr = Object.values(CHARACTERS);
+    if(!q) return arr;
+    return arr.filter(c=>{
+      const loc = placeById(c.locId);
+      return (c.name+c.alias+c.pathway+(loc?loc.name:'')).toLowerCase().includes(q);
+    });
+  },[q]);
+
+  const matchSet = useMemo(()=> new Set(locations.map(l=>l.id)), [locations]);
+
+  // auto-switch tab if search only hits characters
+  useEffect(()=>{
+    if(searching && locations.length===0 && chars.length>0) setTab('chars');
+  },[searching, locations.length, chars.length]);
+
+  const handlePlace = (id)=>{
+    const p = placeById(id);
+    if(!p) return;
+    setSelectedId(id);
+    setModal(p);
+    setMobilePanel(false);
+  };
+  const handleChar = (c)=>{
+    const loc = placeById(c.locId);
+    if(loc){ setSelectedId(loc.id); setModal({ ...loc, __char:c }); }
+    setMobilePanel(false);
+  };
+  const resetView = ()=>{ setSelectedId(null); };
+
+  return (
+    <div className="h-full w-full flex flex-col">
+      {/* top bar (mobile shows toggle) */}
+      <header className="md:hidden glass flex items-center justify-between px-4 h-14 shrink-0 z-20">
+        <div className="flex items-center gap-2">
+          <Crest size={28}/>
+          <span className="font-deco text-[15px]" style={{ color:'var(--parchment)' }}>World Atlas</span>
+        </div>
+        <button onClick={()=>setMobilePanel(v=>!v)} className="eyebrow text-[10px] px-3 h-9 rounded-md focus-ring"
+          style={{ border:'1px solid var(--crimson)', color:'var(--parchment)' }}>
+          {mobilePanel ? 'Map' : 'Index'}
+        </button>
+      </header>
+
+      <div className="flex-1 flex min-h-0 relative">
+        {/* sidebar — slides over on mobile */}
+        <div className={`absolute md:relative z-30 h-full transition-transform duration-300
+                         ${mobilePanel ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
+          <Sidebar
+            tab={tab} setTab={setTab}
+            query={query} setQuery={setQuery}
+            locations={locations} chars={chars}
+            selectedId={selectedId}
+            onPlace={handlePlace} onChar={handleChar}/>
+        </div>
+
+        {/* map stage */}
+        <main className="flex-1 relative min-w-0 overflow-hidden"
+              style={{ background:'radial-gradient(120% 100% at 50% 30%, #0c1822, #05080c 75%)' }}>
+          <WorldMap selectedId={selectedId} matchSet={matchSet} searching={searching} onPlace={handlePlace}/>
+          <div className="vignette absolute inset-0"/>
+
+          {/* compass / title overlay (top-left) */}
+          <div className="absolute top-4 left-4 hidden md:flex items-center gap-3 glass rounded-lg px-4 py-2.5">
+            <Compass size={20} style={{ color:'var(--brass)' }}/>
+            <div className="leading-tight">
+              <div className="eyebrow text-[8.5px]" style={{ color:'var(--brass)' }}>Lord of the Mysteries</div>
+              <div className="font-deco text-[15px]" style={{ color:'var(--parchment)' }}>Cartographer&rsquo;s Table</div>
+            </div>
+          </div>
+
+          {/* legend (bottom-left) */}
+          <div className="absolute bottom-4 left-4 glass rounded-lg px-3.5 py-2.5 hidden sm:block">
+            <div className="eyebrow text-[8.5px] mb-1.5" style={{ color:'var(--brass-dim)' }}>Legend</div>
+            <div className="flex items-center gap-2 text-[11px] mb-1" style={{ color:'var(--parchment-dim)' }}>
+              <span className="w-2.5 h-2.5 rounded-full" style={{ background:'var(--crimson-glow)', boxShadow:'0 0 8px var(--crimson-glow)' }}/> Registered city
+            </div>
+            <div className="flex items-center gap-2 text-[11px]" style={{ color:'var(--parchment-dim)' }}>
+              <span className="w-2.5 h-2.5" style={{ background:'var(--abyss)', border:'1px solid rgba(200,140,150,.5)' }}/> Forsaken Land
+            </div>
+          </div>
+
+          {/* reset view */}
+          {selectedId && (
+            <button onClick={resetView}
+              className="absolute top-4 right-4 glass rounded-lg px-3.5 h-10 flex items-center gap-2 eyebrow text-[10px] focus-ring transition hover:scale-[1.03]"
+              style={{ color:'var(--parchment)' }}>
+              <Compass size={15} style={{ color:'var(--brass)' }}/> Reset View
+            </button>
+          )}
+        </main>
+      </div>
+
+      {modal && (
+        <Modal place={modal} onClose={()=>setModal(null)} onChar={handleChar}/>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+<script>
+  (function(){
+    var src = document.getElementById('appsrc').textContent;
+    var out = Babel.transform(src, { presets: [['react', { runtime: 'classic' }]] }).code;
+    (0, eval)(out);
+  })();
+</script>
+</body>
+</html>
