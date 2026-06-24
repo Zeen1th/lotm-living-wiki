@@ -4,19 +4,21 @@
   L.locations = [
     // ── Regions ──
     {
+      // NOTE: EPUB spells this name as 'فينابوتر' (ب not پ); name_ar corrected.
+      // first_appeared_chapter corrected from 9 → 4 (chapter3.html verified).
       id: 'feynapotter',
-      name_ar: 'فيناپوتر',
+      name_ar: 'فينابوتر',
       name_en: 'Feynapotter',
       kind: 'region',
       parent_id: null,
       map: { cx: 480, cy: 84, poly: '390,70 560,55 576,100 400,110' },
-      first_appeared_chapter: 9,
-      first_appeared_quote: 'مملكة لوين',
+      first_appeared_chapter: 4,
+      first_appeared_quote: 'فينابوتر',
       states: [
-        { since_chapter: 9, blurb_ar: 'شريط جليدي يتوّج القارة الشمالية، حدوده محلّ تنازع دائم.' },
+        { since_chapter: 4, blurb_ar: 'شريط جليدي يتوّج القارة الشمالية، حدوده محلّ تنازع دائم.' },
       ],
       contains_ids: [],
-      sources: [9],
+      sources: [4],
     },
     {
       id: 'intis',
@@ -66,6 +68,7 @@
       sources: [4],
     },
     {
+      // NOTE: first_appeared_quote corrected to 'القارة الجنوبية' (ch4 verified); prior quote 'مملكة لوين' was off-topic.
       id: 'southern',
       name_ar: 'القارة الجنوبية',
       name_en: 'Southern Continent',
@@ -73,7 +76,7 @@
       parent_id: null,
       map: { cx: 505, cy: 505, poly: '232,442 420,420 600,425 782,452 760,562 560,592 360,586 242,540' },
       first_appeared_chapter: 4,
-      first_appeared_quote: 'مملكة لوين',
+      first_appeared_quote: 'القارة الجنوبية',
       states: [
         { since_chapter: 4, blurb_ar: 'قارة مفصولة عن الشمال ببحر العواصف؛ أراضٍ مجهولة وآلهة مختلفة.' },
       ],
@@ -129,6 +132,7 @@
       sources: [5, 21],
     },
     {
+      // NOTE: 'بحر العواصف' not found verbatim in EPUB ≤ch250; first_appeared_quote dropped.
       id: 'berserksea',
       name_ar: 'بحر العواصف',
       name_en: 'Berserk Sea',
@@ -136,7 +140,6 @@
       parent_id: null,
       map: { cx: 500, cy: 376 },
       first_appeared_chapter: 4,
-      first_appeared_quote: 'إنتيس',
       states: [
         { since_chapter: 4, blurb_ar: 'حزام من العواصف الدائمة يفصل القارتين الشمالية والجنوبية.' },
       ],

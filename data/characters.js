@@ -16,14 +16,16 @@
         { since_chapter: 1, sequence: 'التسلسل 9: متمرس', location: 'تينغن', faction: 'لا أحد',
           notes: 'منتقل بروحٍ من عالم آخر إلى جسد كلاين.',
           quote: 'كلاين موريتي ، مواطن من مملكة لوين' },
-        // NOTE: Klein's Seq8 Clown advancement (originally listed as ch21) is DROPPED —
-        // EPUB confirms he is still Seq9 Seer at ch21 and ch152 shows him planning future
-        // advancement. No verifiable chapter ≤250 found where he consumes the Clown potion.
+        // NOTE: Klein advances to Seq8 Clown prior to ch172; confirmed verbatim ch172 (chapter171.html).
+        { since_chapter: 172, sequence: 'التسلسل 8: المهرج', location: 'تينغن', faction: 'نادي التاروت',
+          notes: 'ارتقاء كلاين إلى التسلسل 8 المهرج.',
+          quote: 'لقد تقدم إلى التسلسل 8 في اليوم السابق فقط' },
       ],
       events: [
         { chapter: 1, type: 'intro', text: 'الاستيقاظ في جسد كلاين مورتي.',
           quote: 'كلاين موريتي ، مواطن من مملكة لوين' },
-        // NOTE: ch21 "advance to Clown" event DROPPED — unsupported (see states note above).
+        { chapter: 172, type: 'advance', text: 'الارتقاء إلى التسلسل 8 المهرج.',
+          quote: 'لقد تقدم إلى التسلسل 8 في اليوم السابق فقط' },
         { chapter: 215, type: 'identity', text: 'ظهور هوية "شارلوك موريارتي".',
           quote: 'شارلوك موريارتي. يمكنك دعوتب شارلوك' },
       ],
@@ -101,13 +103,14 @@
       first_appeared_quote: 'وقف ديريك أمام مجموعة من السلالم',
       pathway: { id: 'sun', name_ar: 'مسار الشمس' },
       aliases: [
+        // NOTE: alias 'الشمس' re-anchored to ch137 quote that ties Derrick to Sun pathway
         { name: 'الشمس', since_chapter: 137,
-          quote: 'وقف ديريك أمام مجموعة من السلالم' },
+          quote: 'أريد أن أصبح الشمس' },
       ],
       states: [
         { since_chapter: 137, sequence: 'التسلسل ?: الشمس', location: 'مدينة الفضة - أرض الآلهة المهجورة',
           faction: 'مدينة الفضة', notes: 'جندي يشعّ أمله ضوءاً جديداً في الأرض المهجورة.',
-          quote: 'وقف ديريك أمام مجموعة من السلالم' },
+          quote: 'أريد أن أصبح الشمس' },
       ],
       events: [
         { chapter: 137, type: 'intro', text: 'الظهور الأول في مدينة الفضة.',
