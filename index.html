@@ -449,7 +449,8 @@ function PathwayDetail({ pathway, chapter, onClose }){
   // Build sequence ladder 9 → 0
   const ladder = [];
   for(let n = 9; n >= 0; n--){
-    const seq = (pathway.sequences || []).find(s => s.n === n);
+    // spoiler gate: a sequence is "known" only if revealed by the current chapter
+    const seq = (pathway.sequences || []).find(s => s.n === n && s.known_chapter <= chapter);
     ladder.push({ n, seq });
   }
 
