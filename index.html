@@ -59,6 +59,7 @@
   /* Arabic typography helpers */
   .font-deco{ font-family:'Aref Ruqaa','Cinzel Decorative', serif; }
   .font-display{ font-family:'Aref Ruqaa','Cinzel', serif; }
+  .font-old{ font-family:'Amiri', Georgia, serif; }
   .eyebrow{ font-family:'Cinzel', serif; letter-spacing:.18em; }
 
   /* ---- glass ---- */
@@ -216,6 +217,11 @@ function CharacterCard({ r, onOpen }){
 }
 
 function CharacterDetail({ r, onClose }){
+  useEffect(()=>{
+    const h = (e)=>{ if(e.key==='Escape') onClose(); };
+    window.addEventListener('keydown', h);
+    return ()=> window.removeEventListener('keydown', h);
+  }, [onClose]);
   if(!r) return null;
   const s = r.state;
   return (

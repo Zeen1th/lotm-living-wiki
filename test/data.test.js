@@ -22,6 +22,7 @@ test('no fact is stamped beyond the encoded cutoff (spoiler-safety)', () => {
     for (const s of c.states) assert.ok(s.since_chapter <= cap, `${c.id} state after cap`);
     for (const a of c.aliases) assert.ok(a.since_chapter <= cap, `${c.id} alias after cap`);
     for (const e of c.events) assert.ok(e.chapter <= cap, `${c.id} event after cap`);
+    for (const rel of (c.relationships || [])) assert.ok(rel.since_chapter <= cap, `${c.id} relationship after cap`);
   }
 });
 
