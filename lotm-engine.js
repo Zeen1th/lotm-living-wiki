@@ -46,10 +46,85 @@
     };
   }
 
-  function visibleCharacters(list, chapter) {
+  // ── Phase-2 primitives ────────────────────────────────────────────────────
+
+  /**
+   * visibleSub(arr, chapter, key='since_chapter')
+   * Returns items in arr whose item[key] <= chapter, sorted ascending by key.
+   */
+  function visibleSub(arr, chapter, key) {
+    var k = key || 'since_chapter';
+    return (arr || [])
+      .filter(function (item) { return item[k] <= chapter; })
+      .slice()
+      .sort(function (a, b) { return a[k] - b[k]; });
+  }
+
+  /**
+   * byId(list, id)
+   * Returns the first entity in list with matching id, or null.
+   */
+  function byId(list, id) {
+    for (var i = 0; i < (list || []).length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  /**
+   * visibleOf(list, chapter, resolveFn)
+   * Filters list to visible entities at chapter, maps each through resolveFn.
+   */
+  function visibleOf(list, chapter, resolveFn) {
     return (list || [])
-      .filter(c => isVisible(c, chapter))
-      .map(c => resolveCharacter(c, chapter));
+      .filter(function (e) { return isVisible(e, chapter); })
+      .map(function (e) { return resolveFn(e, chapter); });
+  }
+
+  // ── Per-type resolvers ────────────────────────────────────────────────────
+
+  function resolvePathway(p, chapter) {
+    if (!isVisible(p, chapter)) return null;
+    return Object.assign({}, p, {
+      sequences: visibleSub(p.sequences || [], chapter, 'known_chapter'),
+    });
+  }
+
+  function resolveOrganization(o, chapter) {
+    if (!isVisible(o, chapter)) return null;
+    return Object.assign({}, o, {
+      state: currentState(o, chapter),
+      events: visibleSub(o.events || [], chapter, 'chapter'),
+      member_ids: o.member_ids || [],
+    });
+  }
+
+  function resolveEra(e, chapter) {
+    if (!isVisible(e, chapter)) return null;
+    return Object.assign({}, e, {
+      facts: visibleSub(e.facts || [], chapter, 'chapter'),
+    });
+  }
+
+  function resolveDocument(d, chapter) {
+    if (!isVisible(d, chapter)) return null;
+    return Object.assign({}, d, {
+      entries: visibleSub(d.entries || [], chapter, 'chapter'),
+    });
+  }
+
+  function resolveLocation(l, chapter) {
+    if (!isVisible(l, chapter)) return null;
+    return Object.assign({}, l, {
+      state: currentState(l, chapter),
+      contains_ids: l.contains_ids || [],
+    });
+  }
+
+  // ── Refactored visibleCharacters (via visibleOf) ──────────────────────────
+
+  function visibleCharacters(list, chapter) {
+    return visibleOf(list, chapter, resolveCharacter);
   }
 
   function encodedThrough(data) {
@@ -59,6 +134,8 @@
   const API = {
     currentState, isVisible, visibleAliases, visibleEvents,
     resolveCharacter, visibleCharacters, encodedThrough,
+    visibleSub, byId, visibleOf,
+    resolvePathway, resolveOrganization, resolveEra, resolveDocument, resolveLocation,
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
