@@ -349,8 +349,181 @@ function ChapterSlider({ chapter, setChapter }){
   );
 }
 
+/* ----------------------------------------------------------------
+   NAV BAR — RTL horizontal navigation
+-----------------------------------------------------------------*/
+const NAV_VIEWS = [
+  { id:'general',       label:'الرئيسية' },
+  { id:'characters',    label:'الشخصيات' },
+  { id:'pathways',      label:'المسارات' },
+  { id:'map',           label:'الخريطة' },
+  { id:'organizations', label:'المنظمات' },
+  { id:'roselle',       label:'مذكرات روزيل' },
+  { id:'epochs',        label:'الحقب' },
+];
+
+function NavBar({ view, setView }){
+  return (
+    <nav className="glass shrink-0 flex items-center gap-1 px-3 py-1.5 overflow-x-auto"
+         style={{ borderTop:'1px solid var(--line)', borderBottom:'1px solid var(--line)' }}
+         aria-label="التنقل بين الأقسام">
+      {NAV_VIEWS.map(v => {
+        const active = v.id === view;
+        return (
+          <button key={v.id}
+            onClick={()=>setView(v.id)}
+            className="focus-ring shrink-0 px-3 py-1.5 rounded-md font-display text-[13px] transition-colors"
+            style={{
+              background: active ? 'rgba(179,18,43,.22)' : 'transparent',
+              color:       active ? 'var(--crimson-glow)' : 'var(--parchment-dim)',
+              border:      active ? '1px solid rgba(179,18,43,.45)' : '1px solid transparent',
+            }}
+            aria-current={active ? 'page' : undefined}>
+            {v.label}
+          </button>
+        );
+      })}
+    </nav>
+  );
+}
+
+/* ----------------------------------------------------------------
+   WELCOME OVERLAY — shown only when localStorage was empty at boot
+-----------------------------------------------------------------*/
+function WelcomeOverlay({ chapter, setChapter, onDismiss }){
+  useEffect(()=>{
+    const h = (e)=>{ if(e.key==='Escape') onDismiss(); };
+    window.addEventListener('keydown', h);
+    return ()=> window.removeEventListener('keydown', h);
+  }, [onDismiss]);
+
+  return (
+    <div className="backdrop fixed inset-0 z-50 grid place-items-center p-4"
+         style={{ background:'rgba(4,5,8,.82)', backdropFilter:'blur(6px)' }}
+         role="dialog" aria-modal="true" aria-label="اختر فصلك">
+      <div className="sheet glass w-full max-w-[480px] rounded-xl overflow-hidden"
+           onClick={e=>e.stopPropagation()}>
+        <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--crimson-glow),transparent)' }}/>
+        <div className="px-6 pt-6 pb-8 text-center">
+          <div className="mb-4 flex justify-center">
+            <Crest size={52} accent="crimson"/>
+          </div>
+          <h2 className="font-deco text-[24px] mb-2" style={{ color:'var(--parchment)' }}>
+            إلى أي فصل وصلت؟
+          </h2>
+          <p className="font-old text-[14px] mb-6" style={{ color:'var(--parchment-dim)' }}>
+            اختر آخر فصل قرأته لتفادي الحرق
+          </p>
+          <div className="flex flex-col items-center gap-3 mb-6">
+            <input type="range" min="1" max={CAP} value={chapter}
+                   onChange={e=>setChapter(parseInt(e.target.value,10))}
+                   aria-label="أقصى فصل قرأته"
+                   className="w-full accent-[color:var(--crimson-glow)]"/>
+            <span className="font-display text-[18px]" style={{ color:'var(--parchment)' }}>
+              {chapter} / {CAP}
+            </span>
+          </div>
+          <button onClick={onDismiss}
+            className="focus-ring px-8 py-2.5 rounded-lg font-display text-[15px]"
+            style={{ background:'var(--crimson)', color:'#fff', border:'1px solid var(--crimson-glow)' }}>
+            ابدأ
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------
+   PLACEHOLDER PANEL — for unbuilt views
+-----------------------------------------------------------------*/
+function PlaceholderPanel({ label }){
+  return (
+    <div className="h-full flex flex-col items-center justify-center gap-4 px-4">
+      <div className="bloodmoon" style={{ position:'relative', top:'unset', left:'unset', transform:'none',
+                                          width:80, height:80 }}/>
+      <h2 className="font-deco text-[26px]" style={{ color:'var(--parchment)' }}>{label}</h2>
+      <p className="font-old text-[15px]" style={{ color:'var(--parchment-dim)' }}>
+        قيد الإنشاء — يُملأ قريبًا
+      </p>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------
+   GENERAL HUB — landing page linking to all sections
+-----------------------------------------------------------------*/
+const HUB_CARDS = [
+  { id:'characters',    label:'الشخصيات',      desc:'تصفح الشخصيات المعروفة حتى فصلك الحالي' },
+  { id:'pathways',      label:'المسارات',      desc:'مسارات التحول والتسلسلات المكتشفة' },
+  { id:'map',           label:'الخريطة',       desc:'مملكات وجزر العالم المرتبطة بالشخصيات' },
+  { id:'organizations', label:'المنظمات',      desc:'المنظمات السرية والكنائس والأندية' },
+  { id:'roselle',       label:'مذكرات روزيل',  desc:'مقتطفات من يوميات روزيل الغامضة' },
+  { id:'epochs',        label:'الحقب',          desc:'الحقب الخمس الكبرى لتاريخ العالم' },
+];
+
+function GeneralHub({ setView }){
+  return (
+    <div className="h-full overflow-y-auto scroller">
+      <div className="bloodmoon"/>
+      <div className="relative z-10 max-w-[720px] mx-auto px-4 pt-16 pb-10">
+        <div className="text-center mb-8">
+          <div className="eyebrow text-[10px] mb-1" style={{ color:'var(--brass)' }}>سيد الألغاز</div>
+          <h2 className="font-deco text-[28px]" style={{ color:'var(--parchment)' }}>الموسوعة الحية</h2>
+          <p className="font-old text-[14px] mt-2" style={{ color:'var(--parchment-dim)' }}>
+            دليلك الشامل لعالم المسارات — مقيَّد بفصلك الحالي
+          </p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {HUB_CARDS.map(c=>(
+            <button key={c.id} onClick={()=>setView(c.id)}
+              className="chip glass text-right rounded-xl px-4 py-4 focus-ring"
+              style={{ border:'1px solid var(--line)' }}>
+              <div className="font-display text-[16px] mb-1" style={{ color:'var(--parchment)' }}>{c.label}</div>
+              <div className="font-old text-[13px]" style={{ color:'var(--parchment-dim)' }}>{c.desc}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ----------------------------------------------------------------
+   APP ROOT
+-----------------------------------------------------------------*/
 function App(){
   const [chapter, setChapter] = useChapter();
+  const [view, setView] = useState('general');
+
+  // Compute ONCE at mount whether storage was empty before useChapter wrote to it.
+  // useChapter reads storage in its useState initializer and writes it in useEffect.
+  // We capture the "was-empty" flag as a state initializer so it's evaluated synchronously
+  // before any renders run the useChapter effect.
+  const [storageWasEmpty] = useState(()=> localStorage.getItem('lotm.chapter') == null);
+  const [overlayDismissed, setOverlayDismissed] = useState(false);
+  const [overlayOpen, setOverlayOpen] = useState(storageWasEmpty);
+
+  const showOverlay = overlayOpen && !overlayDismissed;
+
+  function handleDismiss(){
+    setOverlayOpen(false);
+    setOverlayDismissed(true);
+  }
+
+  function renderView(){
+    switch(view){
+      case 'characters': return <CharactersSection chapter={chapter}/>;
+      case 'general':    return <GeneralHub setView={setView}/>;
+      case 'pathways':   return <PlaceholderPanel label="المسارات"/>;
+      case 'map':        return <PlaceholderPanel label="الخريطة"/>;
+      case 'organizations': return <PlaceholderPanel label="المنظمات"/>;
+      case 'roselle':    return <PlaceholderPanel label="مذكرات روزيل"/>;
+      case 'epochs':     return <PlaceholderPanel label="الحقب"/>;
+      default:           return <GeneralHub setView={setView}/>;
+    }
+  }
+
   return (
     <div className="h-full w-full flex flex-col">
       <header className="glass flex items-center justify-between px-4 md:px-6 h-16 shrink-0 z-20">
@@ -361,13 +534,23 @@ function App(){
             <h1 className="font-deco text-[20px]" style={{ color:'var(--parchment)' }}>الموسوعة الحية</h1>
           </div>
         </div>
-        <ChapterSlider chapter={chapter} setChapter={setChapter}/>
+        <div className="flex items-center gap-2">
+          <ChapterSlider chapter={chapter} setChapter={setChapter}/>
+          <button onClick={()=>setOverlayOpen(true)}
+            className="focus-ring w-9 h-9 grid place-items-center rounded-md"
+            style={{ background:'rgba(0,0,0,.4)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}
+            title="الفصل" aria-label="إعادة فتح اختيار الفصل">
+            <Compass size={17}/>
+          </button>
+        </div>
       </header>
+      <NavBar view={view} setView={setView}/>
       <main className="flex-1 relative min-h-0 overflow-hidden">
-        <div className="bloodmoon"></div>
-        {/* Task 4 injects the Characters section here, receiving `chapter` */}
-        <CharactersSection chapter={chapter}/>
+        {renderView()}
       </main>
+      {showOverlay && (
+        <WelcomeOverlay chapter={chapter} setChapter={setChapter} onDismiss={handleDismiss}/>
+      )}
     </div>
   );
 }
