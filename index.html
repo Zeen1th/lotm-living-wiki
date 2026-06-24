@@ -565,7 +565,8 @@ function MapView({ chapter }){
     [chapter]);
 
   // Pan/zoom math ported from atlas WorldMap
-  const target = focusedId ? visLocs.find(l=>l.id===focusedId) : null;
+  const rawTarget = focusedId ? visLocs.find(l=>l.id===focusedId) : null;
+  const target = (rawTarget && rawTarget.map) ? rawTarget : null;  // guard: only pan to mappable locations
   const s = target ? 1.85 : 1;
   const tcx = target ? target.map.cx : 500;
   const tcy = target ? target.map.cy : 320;
