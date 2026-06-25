@@ -73,9 +73,46 @@
       // 'مسار الشمس' phrase appears). Character Derrick first appears at ch137.
       first_appeared_chapter: 140,
       first_appeared_quote: 'مسار الشمس',
-      sequences: [],
+      // batch-5 R2: ch140 verified rungs for Sun pathway (T9/T8/T7/T4).
+      sequences: [
+        { n: 9, name_ar: 'الشاعر الملحمي', known_chapter: 140,
+          quote: 'تركيبة جرعة الشاعر الملحمي' },
+        { n: 8, name_ar: 'متوسل الضوء', known_chapter: 140,
+          quote: 'تركيبة جرعة متوسل الضوء' },
+        { n: 7, name_ar: 'كاهن النور', known_chapter: 140,
+          quote: 'تركيبة جرعة كاهن النور' },
+        { n: 4, name_ar: 'اللامظلّل', known_chapter: 140,
+          quote: 'تركيبة جرعة اللامظلل' },
+      ],
       blurb_ar: 'مسار الشمس — مسار ديريك بيرغ؛ يمنح ضوءاً مقدّساً وإشعاعاً في الأرض المهجورة.',
       sources: [140],
+    },
+    {
+      // batch-5 R2: Giant pathway introduced ch138 in Silver City / Church of the War God (Northern Continent).
+      id: 'giant',
+      name_ar: 'مسار العملاق',
+      name_en: 'Giant Pathway',
+      family_id: null,
+      color: '#8a5a2a',
+      first_appeared_chapter: 138,
+      first_appeared_quote: 'مسار تسلسل العملاق هي التسلسل 9 المحارب المتجاوز',
+      // batch-5 R2: All 6 rungs (T9–T4) verified at ch138.
+      sequences: [
+        { n: 9, name_ar: 'المحارب المتجاوز', known_chapter: 138,
+          quote: 'التسلسل 9 المحارب المتجاوز' },
+        { n: 8, name_ar: 'المصارع', known_chapter: 138,
+          quote: 'التسلسل 8 المصارع' },
+        { n: 7, name_ar: 'سيد الأسلحة', known_chapter: 138,
+          quote: 'التسلسل 7 سيد الأسلحة' },
+        { n: 6, name_ar: 'بلادين الفجر', known_chapter: 138,
+          quote: 'التسلسل 6 بلادين الفجر' },
+        { n: 5, name_ar: 'الحارس', known_chapter: 138,
+          quote: 'التسلسل 5 الحارس' },
+        { n: 4, name_ar: 'صائد الشياطين', known_chapter: 138,
+          quote: 'التسلسل 4 صائد الشياطين' },
+      ],
+      blurb_ar: 'مسار العملاق — مسار مرتبط بكنيسة إله القتال في القارة الشمالية، وهو المسار السائد في مدينة الفضة. يمنح قوةً جسدية هائلة وبراعةً في القتال.',
+      sources: [138],
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;

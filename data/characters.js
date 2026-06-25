@@ -187,16 +187,34 @@
       ],
       states: [
         { since_chapter: 137, sequence: 'التسلسل ?: الشمس', location: 'مدينة الفضة - أرض الآلهة المهجورة',
-          faction: 'مدينة الفضة', notes: 'جندي يشعّ أمله ضوءاً جديداً في الأرض المهجورة.',
+          faction: 'مدينة الفضة', notes: 'جندي من مدينة الفضة، أُجبر على قتل والديه لوقف تحوّلهما إلى أرواح شريرة.',
           quote: 'أريد أن أصبح الشمس' },
+        { since_chapter: 139, sequence: 'التسلسل 9: الشاعر الملحمي', location: 'مدينة الفضة - أرض الآلهة المهجورة',
+          faction: 'نادي التاروت', notes: 'انضمّ إلى نادي التاروت بورقة الشمس بعد أن طلب جرعة بداية مسار الشمس.',
+          quote: 'لقد تمكنت من تجنيد عضو آخر' },
       ],
       events: [
-        { chapter: 137, type: 'intro', text: 'الظهور الأول في مدينة الفضة.',
-          quote: 'وقف ديريك أمام مجموعة من السلالم' },
+        // batch-5: Derrick introduced in Silver City (the Forsaken Land). Forced to kill his parents to stop them turning into evil spirits.
+        { chapter: 137, type: 'intro', text: 'الظهور الأول في مدينة الفضة — أُجبر على قتل والديه لوقف تحوّلهما إلى أرواح شريرة (صدمته التأسيسية).',
+          quote: 'شعب الظلام الذين نبذهم الإله' },
+        // batch-5: Derrick prays/reaches Klein above the mist and asks to become the Sun.
+        { chapter: 137, type: 'sun_pathway_request', text: 'صلّى/تواصل مع كلاين (الأحمق) فوق الضباب وطلب أن يصبح الشمس.',
+          quote: 'أريد أن أصبح الشمس' },
+        // batch-5: Formally recruited to Tarot Club as the Sun card.
+        { chapter: 139, type: 'join', text: 'جُنِّد رسمياً في نادي التاروت كورقة الشمس.',
+          quote: 'لقد تمكنت من تجنيد عضو آخر' },
+        // batch-5: Reveals a member of Silver City's Council of Six is a Shepherd.
+        { chapter: 146, type: 'major_reveal', text: 'كشف أن أحد أعضاء مجلس الستة في مدينة الفضة هو "راعٍ" — متجاوز من مسار متوسل الأسرار/المستمع.',
+          quote: 'الراعي!' },
       ],
       abilities: ['ضوء مقدّس', 'أمل لا يُكسر'],
-      relationships: [],
-      tags: ['مدينة الفضة', 'الشمس'],
+      relationships: [
+        { id: 'klein', type: 'مرشد في نادي التاروت (الأحمق)', since_chapter: 137,
+          quote: 'أريد أن أصبح الشمس' },
+      ],
+      tags: ['مدينة الفضة', 'الشمس', 'نادي التاروت'],
+      blurb_ar: 'ديريك بيرغ — شاب من مدينة الفضة (الأرض المهجورة) حيث لا شمس ولا قمر. أُجبر في صدمة مؤسِّسة على قتل والديه لإيقاف تحوّلهما إلى أرواح شريرة. طلب من كلاين أن يصبح الشمس، وانضمّ إلى نادي التاروت حاملاً ورقة الشمس.',
+      sources: [137, 139, 146],
     },
     {
       id: 'benson_moretti', name_ar: 'بينسون موريتي', name_en: 'Benson Moretti',
