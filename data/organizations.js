@@ -99,6 +99,9 @@
         // batch-3: Klein formally confirmed as full Nighthawk member (ch83).
         { chapter: 83, text: 'وافقت الكاتدرائية المقدسة على انضمام كلاين رسمياً لصقور الليل.',
           quote: 'الكاتدرائية المقدسة وافقت على الأمر. أنت الآن عضو رسمي' },
+        // batch-6: Old Neil (Nighthawk) loses control under the Hidden Sage and is killed (ch164).
+        { chapter: 164, text: 'قُتل صقر الليل العجوز نيل بعد أن سيطر عليه "الحكيم المخفي"',
+          quote: 'بانغ! بانغ! طارت رصاصتا اصيد شياطين فضيتان واخترقتا رأس العجوز نيل الواحدة تلو الآخرى' },
       ],
       sources: [1, 3],
     },
