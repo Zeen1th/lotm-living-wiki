@@ -320,6 +320,32 @@
       blurb_ar: 'متجاوز من مسار الليل الدائم؛ استغلّ نهاية قوس تينغن ليتقدّم إلى التسلسل 4 ويصبح نصف إله، و"قتل" كلاين ظاهريًا.',
       sources: [210],
     },
+    {
+      // batch-8: Mr. A — Seq-6 Rose Bishop (Secrets pathway); hired assassin who kills Ambassador Buckland at ch249.
+      id: 'mr_a', name_ar: 'السيد A', name_en: 'Mr. A',
+      first_appeared_chapter: 245, status: 'alive',
+      first_appeared_quote: 'السيد A',
+      pathway: null,
+      aliases: [],
+      states: [
+        // Rank explicitly confirmed at ch249 in the text; first hired at ch245.
+        { since_chapter: 249, sequence: 'التسلسل 6: أسقف الورود', location: 'باكلوند',
+          faction: null,
+          notes: 'وسيط ومرتزق في الأوساط السرية في باكلوند؛ قادر على الاختباء داخل أجساد الآخرين.',
+          quote: 'التسلسل 6 لمسار متوسل الأسرار، أسقف الورود' },
+      ],
+      events: [
+        { chapter: 245, type: 'intro', text: 'توظيفه من قِبل أودري/شيو لاغتيال السفير باكلاند مقابل 10,000 جنيه ذهبي أو تركيبات مسار',
+          quote: 'السيد A' },
+        { chapter: 249, type: 'major_event', text: 'اغتيال السفير باكلاند (التسلسل 6 متآمر، مسار الصياد) ورئيس استخبارات إنتيس في لوين',
+          quote: 'اختفت العزلة التي خلقها مع موته' },
+      ],
+      relationships: [],
+      abilities: ['الاختباء داخل أجساد الآخرين'],
+      tags: ['مرتزق', 'باكلوند', 'مسار متوسل الأسرار'],
+      blurb_ar: 'السيد A — متجاوز التسلسل 6 (أسقف الورود) من مسار متوسل الأسرار؛ وسيط ومرتزق في باكلوند. وُظِّف من أودري لاغتيال السفير باكلاند رئيس استخبارات إنتيس في لوين.',
+      sources: [245, 249],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.characters;
 })(typeof window !== 'undefined' ? window : globalThis);

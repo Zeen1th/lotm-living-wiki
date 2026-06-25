@@ -114,6 +114,28 @@
       blurb_ar: 'مسار العملاق — مسار مرتبط بكنيسة إله القتال في القارة الشمالية، وهو المسار السائد في مدينة الفضة. يمنح قوةً جسدية هائلة وبراعةً في القتال.',
       sources: [138],
     },
+    {
+      // batch-8: Beast pathway sequences revealed via Roselle's diary at ch237.
+      id: 'beast',
+      name_ar: 'مسار الوحش',
+      name_en: 'Beast',
+      family_id: null,
+      color: '#5a3a2a',
+      first_appeared_chapter: 237,
+      first_appeared_quote: 'مسار الوحش. التسلسل 7 المحظوظ',
+      sequences: [
+        { n: 7, name_ar: 'المحظوظ', known_chapter: 237,
+          quote: 'مسار الوحش. التسلسل 7 المحظوظ' },
+        { n: 5, name_ar: 'الرابح', known_chapter: 237,
+          quote: 'الرابح' },
+        { n: 2, name_ar: 'قارئ الطلع', known_chapter: 237,
+          quote: 'قارئ الطلع' },
+        { n: 1, name_ar: 'أفعى الزئبق', known_chapter: 237,
+          quote: 'أفعى الزئبق' },
+      ],
+      blurb_ar: 'مسار تحوّل مرتبط بالوحوش، كُشفت تسلسلاته عبر مذكرات روزيل.',
+      sources: [237],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;
 })(typeof window !== 'undefined' ? window : globalThis);
