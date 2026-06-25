@@ -10,9 +10,9 @@ Single self-contained HTML file — open it in any browser, no build step.
 
 ## TL;DR
 
-- **Files:** `index.html` (app) + `lotm-engine.js` (resolver) + `data/*.js` (content, one file per type) + `tools/grounding.js` (quote verifier); legacy `lotm-world-atlas.html` retained for reference.
-- **Stack:** React 18 + ReactDOM (UMD via CDN), Tailwind Play CDN, Babel Standalone, Google Fonts. Lucide icons are hand-inlined as SVG React components (no runtime dep).
-- **Run:** open `index.html` directly, or serve the folder (preview config `lotm-wiki`, port 3737).
+- **Files:** `index.html` (shell + styles + loader) + `app/*.js` (UI, one file per page: base/characters/pathways/map/organizations/roselle/epochs/chrome/main) + `lotm-engine.js` (resolver) + `data/*.js` (content, one file per type) + `tools/grounding.js` (quote verifier); legacy `lotm-world-atlas.html` retained for reference.
+- **Stack:** React 18 + ReactDOM (UMD via CDN), Tailwind Play CDN, Babel Standalone, Google Fonts. Lucide icons are hand-inlined as SVG React components. App code is JSX in `app/*.js`, loaded by a small XHR+Babel(classic-runtime)+eval loader in `index.html`; shared symbols are attached to `window` in `app/base.js`.
+- **Run:** **must be served (not file://)** — `app/*.js` load via XHR. Use the `lotm-wiki` preview (port 3737, `npx serve`) or any static server, then open `index.html`. After editing `data/*.js` or `app/*.js`, hard-reload (cache-bust) to pick up changes.
 - **Status:** Phases 1 & 2 (interactive wiki shell) complete and merged. Data layer now **cited + quoted** (every fact carries a verbatim chapter quote, verified by tests). Content is still a small grounded seed — Track B (full ch.1–250 extraction) is next.
 - **Data lives in `data/*.js`** (split by type: characters, pathways, families, organizations, locations, eras, documents, glossary, meta, events). **Tests:** `node --test` runs engine + data-integrity + the **grounding** suite (verifies each quote exists in its EPUB chapter). Adding content: see **[docs/INJECTION.md](docs/INJECTION.md)**. Spoiler cutoff lives in `data/meta.js` (`encodedThroughChapter`); never encode past it.
 
