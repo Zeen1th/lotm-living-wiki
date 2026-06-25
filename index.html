@@ -327,7 +327,7 @@ function CharacterDetail({ r, onClose, navigate }){
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
          style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={r.name_ar}>
-      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-hidden relative"
+      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
         <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--crimson-glow),transparent)' }}/>
         <div className="px-6 pt-5 pb-4">
@@ -594,7 +594,7 @@ function PathwayDetail({ pathway, chapter, onClose, navigate }){
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
          style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={pathway.name_ar}>
-      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-hidden relative"
+      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
         <div style={{ height:3, background:'linear-gradient(90deg,transparent,'+dotColor+',transparent)' }}/>
         <div className="px-6 pt-5 pb-4">
@@ -859,7 +859,7 @@ function OrgDetail({ org, chapter, onClose, navigate }){
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
          style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={org.name_ar}>
-      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-hidden relative"
+      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
         <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--crimson-glow),transparent)' }}/>
         <div className="px-6 pt-5 pb-4">
@@ -1049,7 +1049,7 @@ function EraDetail({ era, onClose }){
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
          style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={era.name_ar}>
-      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-hidden relative"
+      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
         <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--brass),transparent)' }}/>
         <div className="px-6 pt-5 pb-4">
