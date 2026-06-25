@@ -56,6 +56,10 @@
           quote: 'ترتبط بإمبراطورية سليمان' },
         { chapter: 28, text: 'أرسل عميلاً للبحث عن دفتر عائلة أنتيغونوس',
           quote: 'أنتيغونوس' },
+        // batch-3: A Secret Order agent (disguised Clown) claims the Order controls the Seer
+        // pathway beyond Seq-9 and offers Klein the Seer Seq-8 (Clown) formula as a bribe (ch79).
+        { chapter: 79, text: 'ادّعى عميل النظام السري (المهرج ذو البدلة) أن النظام يسيطر على مسار تسلسل المتنبئ.',
+          quote: 'ادعى ذلك المهرج ذو البدلة أن النظام السري يسيطر على مسار التسلسل المقابل للمتنبئ' },
       ],
       sources: [28],
     },
@@ -75,15 +79,20 @@
           quote: 'إلهة الليل الدائم',
         },
       ],
-      member_ids: ['don_smith'],
+      member_ids: ['don_smith', 'klein'],
       members: [
         { id: 'don_smith', since_chapter: 13, quote: 'من صقور الليل، دون سميث' },
+        // batch-3: Klein formally confirmed as Nighthawk member by the Holy Cathedral (ch83).
+        { id: 'klein', since_chapter: 83, quote: 'الكاتدرائية المقدسة وافقت على الأمر. أنت الآن عضو رسمي' },
       ],
       events: [
         { chapter: 13, text: 'كُشف أن صقور الليل ذراعها الخارقة في تينغن',
           quote: 'من صقور الليل، دون سميث' },
         { chapter: 15, text: 'انضمّ كلاين كموظف مدني',
           quote: 'صقور الليل المحليين' },
+        // batch-3: Klein formally confirmed as full Nighthawk member (ch83).
+        { chapter: 83, text: 'وافقت الكاتدرائية المقدسة على انضمام كلاين رسمياً لصقور الليل.',
+          quote: 'الكاتدرائية المقدسة وافقت على الأمر. أنت الآن عضو رسمي' },
       ],
       sources: [1, 3],
     },

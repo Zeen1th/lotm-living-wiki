@@ -12,7 +12,13 @@
       first_appeared_chapter: 20,
       first_appeared_quote: 'مذكرات روزيل غوستاف المفقودة قبل وفاته',
       blurb_ar: 'مذكرات روزيل غوستا، قنصل جمهورية إنتيس السابق ومخترع المحرك البخاري. تحتوي على معارف خفيّة عن الحقب الماضية.',
-      entries: [],
+      entries: [
+        // batch-3: ch65 — genuine diary fragment; Klein reads pages about Roselle's path choice.
+        // Zaratool reminded Roselle of something that shaped his Seer-path decision.
+        { chapter: 65, topic_ar: 'زاراتول وتأثيره على مسار روزيل',
+          text: 'مقتطف من المذكرات: يُشير روزيل إلى شخصية غامضة تُدعى زاراتول أثّرت في تمثيله وقراره باتخاذ مسار الرائي.',
+          quote: 'جاء تمثيل روزيل من تذكير من الشخصية الغامضة المعروف باسم زاراتول' },
+      ],
       sources: [4, 20],
     },
   ];

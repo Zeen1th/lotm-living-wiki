@@ -45,6 +45,15 @@
         // batch-2: officially joined the Tingen Divination Club.
         { chapter: 48, text: 'انضمّ إلى نادي العرافة في تينغن',
           quote: 'أخطط للانضمام إلى النادي' },
+        // batch-3: Nighthawk membership offer (ch77).
+        { chapter: 77, type: 'faction_join_offer', text: 'عُرض على كلاين الانضمام رسمياً إلى صقور ليل مدينة تينغن.',
+          quote: 'السيد كلاين موريتي، هل أنت على استعداد للانضمام رسمياً إلى صقور ليل مدينة تينغن كواحد من أعضائها' },
+        // batch-3: Klein kills a Secret Order Clown (Seq-8+) in ch81.
+        { chapter: 81, type: 'killing', text: 'قتل كلاين المتجاوز (المهرج ذو البدلة) من النظام السري — كان في التسلسل 8 على الأقل.',
+          quote: 'لقد قتلت ببراعة متجاوز كان على الأقل في التسلسل 8' },
+        // batch-3: Formal Nighthawk membership confirmed by the Holy Cathedral (ch83).
+        { chapter: 83, type: 'faction_join', text: 'وافقت الكاتدرائية المقدسة على انضمام كلاين رسمياً لصقور الليل.',
+          quote: 'الكاتدرائية المقدسة وافقت على الأمر. أنت الآن عضو رسمي' },
         { chapter: 172, type: 'advance', text: 'الارتقاء إلى التسلسل 8 المهرج.',
           quote: 'لقد تقدم إلى التسلسل 8 في اليوم السابق فقط' },
         { chapter: 215, type: 'identity', text: 'ظهور هوية "شارلوك موريارتي".',
