@@ -36,6 +36,7 @@ function App(){
       case 'pathways':   return <PathwaysView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
       case 'map':        return <MapView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
       case 'organizations': return <OrganizationsView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
+      case 'artifacts':     return <ArtifactsView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
       case 'roselle':    return <RoselleView chapter={chapter}/>;
       case 'epochs':     return <EpochsView chapter={chapter}/>;
       default:           return <GeneralHub setView={setView} navigate={navigate}/>;

@@ -188,6 +188,7 @@ const NAV_VIEWS = [
   { id:'pathways',      label:'المسارات' },
   { id:'map',           label:'الخريطة' },
   { id:'organizations', label:'المنظمات' },
+  { id:'artifacts',     label:'التحف' },
   { id:'roselle',       label:'مذكرات روزيل' },
   { id:'epochs',        label:'الحقب' },
 ];
@@ -203,6 +204,7 @@ const KIND_TO_VIEW = {
   pathway:      'pathways',
   location:     'map',
   organization: 'organizations',
+  artifact:     'artifacts',
   era:          'epochs',
   document:     'roselle',
 };
@@ -214,6 +216,7 @@ const HUB_CARDS = [
   { id:'pathways',      label:'المسارات',      desc:'مسارات التحول والتسلسلات المكتشفة' },
   { id:'map',           label:'الخريطة',       desc:'مملكات وجزر العالم المرتبطة بالشخصيات' },
   { id:'organizations', label:'المنظمات',      desc:'المنظمات السرية والكنائس والأندية' },
+  { id:'artifacts',     label:'التحف',          desc:'التحف الأثرية المختومة والأدوات الخارقة' },
   { id:'roselle',       label:'مذكرات روزيل',  desc:'مقتطفات من يوميات روزيل الغامضة' },
   { id:'epochs',        label:'الحقب',          desc:'الحقب الخمس الكبرى لتاريخ العالم' },
 ];
