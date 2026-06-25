@@ -210,3 +210,13 @@ test('visibleCharacters regression: output identical for small fixture', () => {
   assert.equal(out[0].state.sequence, 'التسلسل 8: مهرج');
   assert.deepEqual(out[0].aliases, ['جيرمان سبارو']);
 });
+
+test('resolveCharacter status is chapter-aware via death_chapter', () => {
+  const ch = { id:'x', name_ar:'x', name_en:'x', first_appeared_chapter:1, status:'alive', death_chapter:209, states:[], aliases:[], events:[] };
+  assert.equal(E.resolveCharacter(ch, 100).status, 'alive');   // before death
+  assert.equal(E.resolveCharacter(ch, 208).status, 'alive');   // boundary-1
+  assert.equal(E.resolveCharacter(ch, 209).status, 'dead');    // at death chapter (inclusive)
+  assert.equal(E.resolveCharacter(ch, 250).status, 'dead');    // after death
+  const noDeath = { id:'y', name_ar:'y', name_en:'y', first_appeared_chapter:1, status:'alive', states:[], aliases:[], events:[] };
+  assert.equal(E.resolveCharacter(noDeath, 250).status, 'alive');
+});

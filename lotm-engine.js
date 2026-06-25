@@ -38,7 +38,8 @@
       name_ar: char.name_ar,
       name_en: char.name_en,
       pathway: char.pathway || null,
-      status: char.status || 'unknown',
+      // status is chapter-aware: a death only shows once the reader reaches death_chapter
+      status: (char.death_chapter && char.death_chapter <= chapter) ? 'dead' : (char.status || 'unknown'),
       first_appeared_chapter: char.first_appeared_chapter,
       aliases: visibleAliases(char, chapter),
       state: currentState(char, chapter),

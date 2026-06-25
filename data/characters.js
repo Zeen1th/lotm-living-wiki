@@ -255,7 +255,7 @@
     },
     {
       id: 'don_smith', name_ar: 'دون سميث', name_en: 'Don Smith',
-      first_appeared_chapter: 12, status: 'dead',
+      first_appeared_chapter: 12, status: 'alive', death_chapter: 209,
       first_appeared_quote: 'دون سميث',
       pathway: null,
       aliases: [],
