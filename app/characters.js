@@ -99,6 +99,13 @@ function CharacterDetail({ r, onClose, navigate }){
                           style={{ background:'var(--crimson-glow)' }}/>
                     <span className="eyebrow text-[9px]" style={{ color:'var(--brass)' }}>فصل {e.chapter}</span>
                     <p className="text-[13px] mt-0.5" style={{ color:'var(--parchment)' }}>{e.text}</p>
+                    {e.doc_ref && navigate && (
+                      <button onClick={()=>navigate('document', e.doc_ref)}
+                        className="chip focus-ring inline-block mt-1 px-2 py-0.5 rounded text-[10px] font-display"
+                        style={{ border:'1px solid var(--brass)', color:'var(--brass)' }}>
+                        ↪ من المذكرات
+                      </button>
+                    )}
                   </li>
                 ))}
               </ol>

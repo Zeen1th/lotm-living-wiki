@@ -229,9 +229,9 @@
       events: [
         // batch-2: from his diary — born in Intis, offered Spectator pathway by the Church of the Crafts God.
         { chapter: 59, text: 'من مذكراته: وُلد في مملكة إنتيس؛ أعطته كنيسة إله الحرفيين خيار مسار العبقري (المتفرّج) أو باحث الغموض',
-          quote: 'أعطتني كنيسة إله الحرفيين خيارين' },
+          quote: 'أعطتني كنيسة إله الحرفيين خيارين', doc_ref: 'roselle_diary' },
         { chapter: 59, text: 'من مذكراته: اختار مسار العبقري (المتفرّج لاحقاً) لكونه مساراً كاملاً',
-          quote: 'لقد كان خياري سهلاً: العبقري' },
+          quote: 'لقد كان خياري سهلاً: العبقري', doc_ref: 'roselle_diary' },
       ],
       relationships: [],
       abilities: [],
