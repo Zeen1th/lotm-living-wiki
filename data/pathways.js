@@ -11,7 +11,9 @@
       // 'مسار الرائي' as a full phrase is not found ≤ch250 in this EPUB; anchor via كلاين at ch1.
       first_appeared_chapter: 1,
       first_appeared_quote: 'كلاين موريتي ، مواطن من مملكة لوين',
-      sequences: [],
+      sequences: [
+        { n: 9, name_ar: 'المتنبئ', name_en: 'Seer', known_chapter: 30, quote: 'المتنبئ' },
+      ],
       blurb_ar: 'مسار الرائي — مسار كلاين مورتي؛ يمنح العرافة والرؤية الخارقة والحدّة الذهنية.',
       sources: [1],
     },

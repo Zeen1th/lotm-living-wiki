@@ -124,7 +124,7 @@
       parent_id: null,
       map: { cx: 582, cy: 268 },
       first_appeared_chapter: 5,
-      first_appeared_quote: 'بحر سونيا',
+      first_appeared_quote: 'في بحر سونيا',
       states: [
         { since_chapter: 5, blurb_ar: 'مياه دافئة شرقي لوين تعجّ بالقراصنة والمهرّبين وكنيسة العاصفة.' },
       ],
@@ -154,8 +154,8 @@
       kind: 'city',
       parent_id: 'loen',
       map: { cx: 455, cy: 158 },
-      first_appeared_chapter: 3,
-      first_appeared_quote: 'باكلوند',
+      first_appeared_chapter: 5,
+      first_appeared_quote: 'في عاصمة مملكة لوين ، باكلوند',
       states: [
         { since_chapter: 3, blurb_ar: 'عاصمة مملكة لوين، مقسومة بين المدينة العليا الراقية وحي الشرق المكتظ.' },
       ],
@@ -170,9 +170,17 @@
       parent_id: 'loen',
       map: { cx: 435, cy: 185 },
       first_appeared_chapter: 1,
-      first_appeared_quote: 'تينغن',
+      first_appeared_quote: 'مدينة تينغن',
       states: [
         { since_chapter: 1, blurb_ar: 'مدينة في مملكة لوين حيث بدأت أحداث الرواية.' },
+      ],
+      events: [
+        { chapter: 17, text: 'مقر صقور الليل: شركة الشوكة السوداء للحماية',
+          quote: 'شركة الشوكة السوداء للحماية' },
+        { chapter: 17, text: 'كاتدرائية القديسة سيلينا مقر الكنيسة في تينغن',
+          quote: 'كاتدرائية القديسة سيلينا' },
+        { chapter: 19, text: 'بوابة تشانيس تحت الكاتدرائية',
+          quote: 'رئيس الأساقفة تشانيس' },
       ],
       contains_ids: [],
       sources: [1],
