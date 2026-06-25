@@ -24,10 +24,10 @@
         { since_chapter: 32, sequence: 'التسلسل 9: المتنبئ', location: 'تينغن', faction: 'صقور الليل',
           notes: 'تناوَل جرعة المتنبئ وأصبح متجاوزًا.',
           quote: 'أنا الآن متجاوز' },
-        // NOTE: Klein advances to Seq8 Clown prior to ch172; confirmed verbatim ch172 (chapter171.html).
-        { since_chapter: 172, sequence: 'التسلسل 8: المهرج', location: 'تينغن', faction: 'نادي التاروت',
-          notes: 'ارتقاء كلاين إلى التسلسل 8 المهرج.',
-          quote: 'لقد تقدم إلى التسلسل 8 في اليوم السابق فقط' },
+        // batch-6: Klein takes Clown potion at ch168 (actual act); ch172 quote was retroactive reference.
+        { since_chapter: 168, sequence: 'التسلسل 8: المهرج', location: 'تينغن', faction: 'نادي التاروت',
+          notes: 'تناوَل جرعة المهرج وأصبح متجاوز التسلسل 8.',
+          quote: 'كان يعلم أنه كان متجاوز التسلسل 8' },
       ],
       events: [
         // Milestones only (batch-1 noise trimmed per user directive).
@@ -68,8 +68,9 @@
           quote: 'لدي تركيبة لجرعة المهرج، كل ما علي فعله الآن هو هضم جرعة المتنبئ بالكامل' },
         { chapter: 118, type: 'pathway_progress', text: 'أكمل هضم جرعة المتنبئ — زالت الأصوات والرؤى غير الطبيعية.',
           quote: 'اختفت بالفعل الأصوات التي لا يجب أن يسمعها والأشياء التي لا يجب أن يراها أثناء الانخراط في الإدراك أو الرؤية الروحية' },
-        { chapter: 172, type: 'advance', text: 'الارتقاء إلى التسلسل 8 المهرج.',
-          quote: 'لقد تقدم إلى التسلسل 8 في اليوم السابق فقط' },
+        // batch-6: Actual potion consumption ch168; ch172 was a retroactive reference — replaced.
+        { chapter: 168, type: 'advance', text: 'تناوَل جرعة المهرج وأصبح متجاوز التسلسل 8 (المهرج).',
+          quote: 'كان يعلم أنه كان متجاوز التسلسل 8' },
         { chapter: 215, type: 'identity', text: 'ظهور هوية "شارلوك موريارتي".',
           quote: 'شارلوك موريارتي. يمكنك دعوتب شارلوك' },
       ],
