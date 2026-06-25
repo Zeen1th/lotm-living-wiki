@@ -50,6 +50,16 @@
       ref: { kind: 'organization', id: 'tarot_club' },
       sources: [5, 7],
     },
+    // batch-2: Blasphemy Slate — first mentioned at ch60.
+    {
+      id: 'gloss_blasphemy_slate',
+      term_ar: 'لوح الكفر',
+      def_ar: 'لوحٌ يُقال إنه يحوي أسرار مسارات التجاوز الاثنين والعشرين',
+      first_appeared_chapter: 60,
+      first_appeared_quote: 'لوح الكفر تحتوي على ألغاز عميقة للمسارات الإثنين والعشرين الإلهية',
+      ref: null,
+      sources: [60],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.glossary;
 })(typeof window !== 'undefined' ? window : globalThis);

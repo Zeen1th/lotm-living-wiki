@@ -25,11 +25,15 @@
       color: '#7a4a9c',
       // NOTE: first_appeared_chapter corrected from 16 → 219 (first chapter where
       // 'مسار المتفرج' as a phrase appears in the EPUB). Anchor quote via أودري (ch5).
+      // batch-2: Seq-9 rung المتفرّج known from ch41 (Audrey drinks it).
       first_appeared_chapter: 219,
       first_appeared_quote: 'مسار المتفرج',
-      sequences: [],
+      sequences: [
+        { n: 9, name_ar: 'المتفرّج', name_en: 'Spectator', known_chapter: 41,
+          quote: 'شربت بسرعة جرعة المتفرج' },
+      ],
       blurb_ar: 'مسار المتفرّج — مسار أودري هال؛ يمنح الحدة العقلية وقدرات الإدراك النفسي والتواصل الذهني.',
-      sources: [219],
+      sources: [41, 219],
     },
     {
       id: 'sailor',
