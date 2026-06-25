@@ -54,6 +54,20 @@
         // batch-3: Formal Nighthawk membership confirmed by the Holy Cathedral (ch83).
         { chapter: 83, type: 'faction_join', text: 'وافقت الكاتدرائية المقدسة على انضمام كلاين رسمياً لصقور الليل.',
           quote: 'الكاتدرائية المقدسة وافقت على الأمر. أنت الآن عضو رسمي' },
+        // batch-4 R1: ch91 first clear use of hypnosis ability; ch103 kills Sirius Arapis; ch105 obtains Clown formula.
+        { chapter: 91, type: 'ability_use', text: 'استخدم مهارة التنويم المغناطيسي على دييفيل لاستجواب ضحايا حرائق المصنع — أول استخدام واضح لقدرة التنويم.',
+          quote: 'التنويم المغناطيسى؟' },
+        { chapter: 103, type: 'killing', text: 'قتل سيريوس أرابيس (عضو نظام الشفق) أثناء مواجهة في الشارع.',
+          quote: 'تم تحطيم رأس سيريوس بشكل أساسي إلى مزيج' },
+        { chapter: 105, type: 'lore_acquisition', text: 'حصل على تركيبة جرعة المهرج (التسلسل 8 من مسار السيئر) عبر طقوس وساطة على جثة سيريوس.',
+          quote: 'هذه هي التركيبة الثانية ، واسمها في دفتر الملاحظات هو المهرج' },
+        // batch-4 R2: ch108 assignment; ch115 digesting Seer potion; ch118 completes digestion.
+        { chapter: 108, type: 'assignment', text: 'كُلِّف بحراسة بوابة تشانيس في كنيسة الليل الدائم.',
+          quote: 'بوابة تشانيس' },
+        { chapter: 115, type: 'pathway_progress', text: 'يواصل هضم جرعة المتنبئ بعد الحصول على تركيبة جرعة المهرج (تسلسل 8).',
+          quote: 'لدي تركيبة لجرعة المهرج، كل ما علي فعله الآن هو هضم جرعة المتنبئ بالكامل' },
+        { chapter: 118, type: 'pathway_progress', text: 'أكمل هضم جرعة المتنبئ — زالت الأصوات والرؤى غير الطبيعية.',
+          quote: 'اختفت بالفعل الأصوات التي لا يجب أن يسمعها والأشياء التي لا يجب أن يراها أثناء الانخراط في الإدراك أو الرؤية الروحية' },
         { chapter: 172, type: 'advance', text: 'الارتقاء إلى التسلسل 8 المهرج.',
           quote: 'لقد تقدم إلى التسلسل 8 في اليوم السابق فقط' },
         { chapter: 215, type: 'identity', text: 'ظهور هوية "شارلوك موريارتي".',
@@ -109,6 +123,13 @@
           quote: 'الأعضاء المؤسسين لنادي التاروت' },
         { chapter: 7, text: 'اختارت لقب العدالة واقترحت تسمية نادي التاروت',
           quote: 'لقد قررت. تسميتي ستكون' },
+        // batch-4 R2: ch94 paid 1000 pounds for secret-org intel; ch113 received new diary page from Forsel; ch118 near digestion complete.
+        { chapter: 94, type: 'intel_purchase', text: 'دفعت 1000 جنيه لتلقي معلومات عن المنظمات السرية من الرجل المعلق في نادي التاروت.',
+          quote: 'أحتاج إلى المال- ألف جنيه' },
+        { chapter: 113, type: 'lore_acquisition', text: 'تلقّت صفحة جديدة من مذكرات الإمبراطور روزيل (من فورس وال) وشاركتها في تجمع التاروت.',
+          quote: 'وجدت صفحة أخرى من مذكرات الإمبراطور روزيل', doc_ref: 'roselle_diary' },
+        { chapter: 118, type: 'pathway_progress', text: 'قريبة من إكمال هضم جرعة المتفرّج (3-4 أسابيع متبقية).',
+          quote: 'قد تحتاج إلى ثلاثة إلى أربعة أسابيع أخرى حتى تكمل' },
         { chapter: 235, type: 'advance', text: 'الارتقاء إلى التسلسل 8 الوسيط.',
           quote: 'تقدمت بنجاح إلى التسلسل 8' },
       ],
@@ -145,6 +166,9 @@
         // batch-2: Alger reveals he drowned a Psychoanalysts member to cut the info chain.
         { chapter: 60, text: 'قتل أحد أعضاء علماء النفس وكشف للنادي معلومات عن التسلسلات',
           quote: 'لقد أغرقته بيدي' },
+        // batch-4 R2: ch114 asked about land of the banished gods as the sacred seat of the Twilight Order's deity.
+        { chapter: 114, type: 'lore_question', text: 'سأل عن أرض الآلهة المنبوذة بوصفها المقر المقدس لمعبود نظام الشفق.',
+          quote: 'أرض الآلهة المنبوذة' },
       ],
       abilities: ['القتال المائي الخارق', 'التحكم بطاقة البرق الطفيفة', 'التلاعب بالرياح والملاحة'],
       relationships: [],
@@ -241,6 +265,9 @@
           quote: 'أعطتني كنيسة إله الحرفيين خيارين', doc_ref: 'roselle_diary' },
         { chapter: 59, text: 'من مذكراته: اختار مسار العبقري (المتفرّج لاحقاً) لكونه مساراً كاملاً',
           quote: 'لقد كان خياري سهلاً: العبقري', doc_ref: 'roselle_diary' },
+        // batch-4 R1: ch104 — fate-web/Antigonos reveal: Roselle steered toward Seer path by Zaratool; links Klein's notebook to Antigonos lineage.
+        { chapter: 104, type: 'fate_web', text: 'كُشف أن مسار روزيل نحو تسلسل المتنبئ كان بتأثير زاراتول قائد النظام السري — شبكة قدر تجمع روزيل وكلاين عبر مسار أنتيغونوس.',
+          quote: 'انحاز الإمبراطور روزيل نحو تسلسل المتنبئ بسبب السيد الغامض زاراتول', doc_ref: 'roselle_diary' },
       ],
       relationships: [],
       abilities: [],
