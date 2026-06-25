@@ -13,7 +13,7 @@ test('meta is well-formed and cutoff is 250', () => {
 
 test('every collection exists as an array', () => {
   for (const k of ['characters', 'pathways', 'locations', 'organizations', 'events',
-                   'families', 'eras', 'documents', 'glossary']) {
+                   'families', 'eras', 'documents', 'glossary', 'artifacts']) {
     assert.ok(Array.isArray(LOTM[k]), `${k} must be an array`);
   }
 });
@@ -93,6 +93,12 @@ test('chapter stamps ≤ cap across all new collections', () => {
     for (const s of (l.states || [])) assert.ok(s.since_chapter <= cap, `location ${l.id} state after cap`);
     for (const ev of (l.events || [])) assert.ok(ev.chapter <= cap, `location ${l.id} event after cap`);
   }
+
+  // artifacts
+  for (const a of LOTM.artifacts) {
+    assert.ok(a.first_appeared_chapter <= cap, `artifact ${a.id} first_appeared_chapter after cap`);
+    for (const ev of (a.events || [])) assert.ok(ev.chapter <= cap, `artifact ${a.id} event after cap`);
+  }
 });
 
 // ── Unique IDs per collection ─────────────────────────────────────────────────
@@ -107,6 +113,7 @@ test('ids are unique within each collection', () => {
     documents: LOTM.documents,
     locations: LOTM.locations,
     glossary: LOTM.glossary,
+    artifacts: LOTM.artifacts,
   };
   for (const [name, list] of Object.entries(collections)) {
     const ids = new Set();
@@ -305,6 +312,10 @@ test('resolvers run cleanly over new collections at cap', () => {
   const visibleOrgs = E.visibleOf(LOTM.organizations, cap, E.resolveOrganization);
   assert.ok(visibleOrgs.length >= 1, 'at least one org visible at cap');
 
+  // artifacts
+  const visibleArtifacts = E.visibleOf(LOTM.artifacts, cap, E.resolveArtifact);
+  assert.ok(visibleArtifacts.length >= 1, 'at least one artifact visible at cap');
+
   // eras
   const visibleEras = E.visibleOf(LOTM.eras, cap, E.resolveEra);
   assert.ok(visibleEras.length >= 1, 'at least one era visible at cap');
@@ -316,6 +327,17 @@ test('resolvers run cleanly over new collections at cap', () => {
   // locations
   const visibleLocs = E.visibleOf(LOTM.locations, cap, E.resolveLocation);
   assert.ok(visibleLocs.length >= 1, 'at least one location visible at cap');
+});
+
+test('referential integrity — artifact.owner_id references a real character or organization', () => {
+  const charIds = new Set(LOTM.characters.map(c => c.id));
+  const orgIds = new Set(LOTM.organizations.map(o => o.id));
+  for (const a of LOTM.artifacts) {
+    if (a.owner_id !== null && a.owner_id !== undefined) {
+      assert.ok(charIds.has(a.owner_id) || orgIds.has(a.owner_id),
+        `artifact ${a.id}: owner_id '${a.owner_id}' not found in characters or organizations`);
+    }
+  }
 });
 
 test('org HQ is not introduced after the org itself (temporal invariant)', () => {

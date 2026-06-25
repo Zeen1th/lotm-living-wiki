@@ -122,6 +122,13 @@
     });
   }
 
+  function resolveArtifact(a, chapter) {
+    if (!isVisible(a, chapter)) return null;
+    return Object.assign({}, a, {
+      events: visibleSub(a.events || [], chapter, 'chapter'),
+    });
+  }
+
   // ── Refactored visibleCharacters (via visibleOf) ──────────────────────────
 
   function visibleCharacters(list, chapter) {
@@ -136,7 +143,7 @@
     currentState, isVisible, visibleAliases, visibleEvents,
     resolveCharacter, visibleCharacters, encodedThrough,
     visibleSub, byId, visibleOf,
-    resolvePathway, resolveOrganization, resolveEra, resolveDocument, resolveLocation,
+    resolvePathway, resolveOrganization, resolveEra, resolveDocument, resolveLocation, resolveArtifact,
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

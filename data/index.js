@@ -10,4 +10,5 @@ require('./eras.js');
 require('./documents.js');
 require('./events.js');
 require('./glossary.js');
+require('./artifacts.js');
 module.exports = globalThis.LOTM;
