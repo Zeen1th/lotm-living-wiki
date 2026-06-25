@@ -71,6 +71,8 @@
         // batch-6: Actual potion consumption ch168; ch172 was a retroactive reference — replaced.
         { chapter: 168, type: 'advance', text: 'تناوَل جرعة المهرج وأصبح متجاوز التسلسل 8 (المهرج).',
           quote: 'كان يعلم أنه كان متجاوز التسلسل 8' },
+        { chapter: 210, type: 'turning_point', text: 'استغلّ إنس زانغويل فوضى نهاية قوس تينغن و"قتل" كلاين ظاهريًا وأخذ رماد القديسة سيلينا؛ نجا كلاين عبر عالم الضباب الرمادي. تنتهي قصة تينغن هنا.',
+          quote: 'تنتهي قصة تينغن هنا' },
         { chapter: 215, type: 'identity', text: 'ظهور هوية "شارلوك موريارتي".',
           quote: 'شارلوك موريارتي. يمكنك دعوتب شارلوك' },
       ],
@@ -253,7 +255,7 @@
     },
     {
       id: 'don_smith', name_ar: 'دون سميث', name_en: 'Don Smith',
-      first_appeared_chapter: 12, status: 'alive',
+      first_appeared_chapter: 12, status: 'dead',
       first_appeared_quote: 'دون سميث',
       pathway: null,
       aliases: [],
@@ -261,12 +263,15 @@
         { since_chapter: 12, location: 'تينغن', faction: 'صقور الليل',
           quote: 'دون سميث' },
       ],
-      events: [],
+      events: [
+        { chapter: 209, type: 'death', text: 'ضحّى بقلبه لإيقاف طفلٍ إلهٍ شرير وتُوفّي — ذروة قوس تينغن',
+          quote: 'سحب يده اليمنى بسرعة' },
+      ],
       relationships: [],
       abilities: [],
       tags: [],
       blurb_ar: 'قائد فريق صقور الليل في تينغن، يتحكم في الأحلام.',
-      sources: [12],
+      sources: [12, 209],
     },
     {
       id: 'emperor_roselle', name_ar: 'الإمبراطور روزيل', name_en: 'Emperor Roselle',
@@ -293,6 +298,27 @@
       tags: [],
       blurb_ar: 'إمبراطور سابق من أصل أرضي، وُلد في إنتيس؛ اختار مسار المتفرّج/العبقري من كنيسة إله الصُنّاع. يومياته مصدر نادر عن نظام الجرعات.',
       sources: [21, 59],
+    },
+    {
+      id: 'ence_zangwill', name_ar: 'إنس زانغويل', name_en: 'Ince Zangwill',
+      first_appeared_chapter: 210, status: 'alive',
+      first_appeared_quote: 'على الرغم من أن الأمور تجاوزت بالفعل وصف إنس زانغويل',
+      pathway: null,
+      aliases: [],
+      states: [
+        { since_chapter: 210, sequence: 'التسلسل 4: مراقب الليل', location: 'تينغن',
+          faction: 'مسار الليل الدائم',
+          quote: 'مراقب الليل' },
+      ],
+      events: [
+        { chapter: 210, type: 'advance', text: 'تقدّم من التسلسل 5 (حارس البوابة) إلى التسلسل 4 (مراقب الليل) وأصبح نصف إله بعد أخذ رماد القديسة سيلينا',
+          quote: 'أخذ رماد القديسة سيلينا' },
+      ],
+      relationships: [],
+      abilities: [],
+      tags: ['عدو', 'نصف إله', 'مسار الليل الدائم'],
+      blurb_ar: 'متجاوز من مسار الليل الدائم؛ استغلّ نهاية قوس تينغن ليتقدّم إلى التسلسل 4 ويصبح نصف إله، و"قتل" كلاين ظاهريًا.',
+      sources: [210],
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.characters;
