@@ -52,3 +52,6 @@ Add facts to the right `data/<type>.js` file. Universal fields: `id`, `first_app
 The quote test proves a quote is *real and in its chapter*, not that it *supports the claim*. That
 semantic judgment is the writer's job — pick on-topic spans, read context, prefer the passage that
 names the entity/event. When unsure, drop.
+
+## Deaths (spoiler-safe)
+A character death is recorded with a top-level `death_chapter: N` field (NOT `status:'dead'`, which would leak before the slider reaches it). The engine derives `status:'dead'` only once `chapter >= death_chapter`. Keep `status:'alive'` and add `death_chapter`, plus a chapter-stamped death `event` with a verbatim quote.
