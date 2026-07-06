@@ -34,8 +34,14 @@
         // batch-8: ch249 — Tarot Club first op under full Fool leadership: Buckland assassination.
         { chapter: 249, text: 'أول مهمة رسمية لنادي التاروت بقيادة "الأحمق": اغتيال السفير باكلاند (رئيس استخبارات إنتيس في لوين) على يد السيد A',
           quote: 'اختفت العزلة التي خلقها مع موته' },
+        // batch-X: ch254 — Buckland op confirmed successful
+        { chapter: 254, text: 'تأكيد نجاح اغتيال باكلاند — يعلن نظام الشفق مسؤوليته; تدفع أودري 8000 جنيه متبقية.',
+          quote: 'نجح السيد A' },
+        // batch-X: ch264 — Klein creates "العالم" (The World) Tarot Club persona as intermediary
+        { chapter: 264, text: 'كلاين يبتكر هوية "العالم" لينوب عنه ويتواصل عبر البطاقات مع أعضاء النادي دون كشف شخصيته.',
+          quote: 'العالم' },
       ],
-      sources: [7, 192, 249],
+      sources: [7, 192, 249, 254, 264],
     },
     {
       id: 'secret_order',
@@ -135,6 +141,34 @@
     },
     // NOTE: 'church_almighty' (كنيسة الإله القدير) DELETED — 'الإله القدير' has ZERO
     // occurrences in chapter0.html–chapter249.html. Fabricated data; removed per grounding rule.
+
+    // ── نظام الشفق (Twilight Order) ── ظهر أولاً في ch249 (اغتيال باكلاند) لكن تأكيد العضوية في ch254
+    {
+      id: 'twilight_order',
+      name_ar: 'نظام الشفق',
+      name_en: 'Twilight Order',
+      kind: 'sect',
+      first_appeared_chapter: 249,
+      first_appeared_quote: 'نظام الشفق',
+      states: [
+        {
+          since_chapter: 249,
+          blurb_ar: 'منظمة إرهابية من المتجاوزين تخطط لإحداث فوضى في القارة الشمالية استعداداً لعودة "الرب".',
+          leader_id: null,
+          hq_location_id: null,
+          quote: 'نظام الشفق',
+        },
+      ],
+      member_ids: ['mr_a'],
+      members: [
+        { id: 'mr_a', since_chapter: 254, quote: 'السيد A' },
+      ],
+      events: [
+        { chapter: 249, text: 'اغتيال السفير باكلاند (رئيس استخبارات إنتيس في لوين) — أول ظهور علني.', quote: 'نظام الشفق' },
+        { chapter: 254, text: 'السيد A يكشف خطتهم: إشعال فوضى في القارة لتمهيد عودة "الرب".', quote: 'سنسبب الفوضى في جميع أنحاء القارة' },
+      ],
+      sources: [249, 254],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.organizations;
 })(typeof window !== 'undefined' ? window : globalThis);

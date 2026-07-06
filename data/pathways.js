@@ -17,8 +17,15 @@
         { n: 8, name_ar: 'المهرج', name_en: 'Clown', known_chapter: 75,
           quote: 'التسلسل المقابل للمتنبئ هي المهرج' },
         // batch-3: Seer Seq-7 = المشعوذ. Klein reads internal Night Owl docs ch65; Seq-8 name was blank at that point.
-        { n: 7, name_ar: 'المشعوذ', name_en: 'Magician', known_chapter: 65,
-          quote: 'كان هناك اسم للتسلسل 7 من هذا المسار: المشعوذ' },
+        // ch251 reveals the alternative/updated name: لاعب الخفة (Juggler)
+        { n: 7, name_ar: 'لاعب الخفة', name_en: 'Juggler/Magician', known_chapter: 251,
+          quote: 'التسلسل 7، لاعب الخفة' },
+        // batch-X: ch251 — Seer Seq-6 = عديم الوجه (Bane/Faceless)
+        { n: 6, name_ar: 'عديم الوجه', name_en: 'Bane', known_chapter: 251,
+          quote: 'عديم الوجه' },
+        // batch-X: ch251 — Seer Seq-5 = المتحكم في الدمى (Puppeteer)
+        { n: 5, name_ar: 'المتحكم في الدمى', name_en: 'Puppeteer', known_chapter: 251,
+          quote: 'التسلسل 5، المتحكم في الدمى' },
       ],
       blurb_ar: 'مسار الرائي — مسار كلاين مورتي؛ يمنح العرافة والرؤية الخارقة والحدّة الذهنية.',
       sources: [1],

@@ -12,8 +12,17 @@
       blurb_ar: 'إلهة ذات ارتباط بالليل الدائم؛ تعمل كنيستها في مملكة لوين.',
       sources: [1, 3],
     },
-    // NOTE: 'god_almighty' family DELETED — 'الإله القدير' has ZERO occurrences in
-    // chapter0.html–chapter249.html. It was fabricated data; removed per grounding rule.
+    // batch-X: ch265 — عائلة ساورون المذكورة في سياق بطاقات الكفر
+    {
+      id: 'sauron',
+      name_ar: 'عائلة ساورون',
+      name_en: 'Sauron Family',
+      color: '#4a1a1a',
+      first_appeared_chapter: 265,
+      first_appeared_quote: 'عائلة ساورون',
+      blurb_ar: 'عائلة أرستقراطية عريقة تتجاوز أصولها ألفي عام — أقدم من كنيسة إله الحرف. نجت من الحقبة الرابعة حتى اليوم.',
+      sources: [265],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.families;
 })(typeof window !== 'undefined' ? window : globalThis);

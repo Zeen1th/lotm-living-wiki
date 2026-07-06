@@ -60,6 +60,26 @@
       ref: null,
       sources: [60],
     },
+    // batch-X: طائفة تقديس الدم — عبادة الشيطان — ch258
+    {
+      id: 'gloss_blood_worship',
+      term_ar: 'طائفة تقديس الدم',
+      def_ar: 'تحالف متراخٍ من عشائر عبدة الشياطين (نويس، أنداريك، بيريا) ظهر في الحقبة الرابعة. يرتكبون جرائم قتل طقسية لعبادة الشياطين. يتبعون مسار المجرم (الشيطان).',
+      first_appeared_chapter: 258,
+      first_appeared_quote: 'طائفة تقديس الدم',
+      ref: null,
+      sources: [258],
+    },
+    // batch-X: التسلسل 0 — الإله الحقيقي — ch266
+    {
+      id: 'gloss_seq0',
+      term_ar: 'التسلسل 0',
+      def_ar: 'أعلى تسلسل في كل مسار، يعادل مرتبة الإله الحقيقي. يمكن أن يوجد تسلسل 0 واحد فقط لكل مسار.',
+      first_appeared_chapter: 266,
+      first_appeared_quote: 'التسلسل 0',
+      ref: null,
+      sources: [266],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.glossary;
 })(typeof window !== 'undefined' ? window : globalThis);
