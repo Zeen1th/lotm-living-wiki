@@ -366,6 +366,90 @@
       blurb_ar: 'السيد A — متجاوز التسلسل 6 (أسقف الورود) من مسار متوسل الأسرار؛ وسيط ومرتزق في باكلوند. وُظِّف من أودري لاغتيال السفير باكلاند رئيس استخبارات إنتيس في لوين.',
       sources: [245, 249],
     },
+    {
+      // gap-batch: Azik — high-Sequence mystery figure; amnesiac professor at Khoy University,
+      // best friend of Klein's mentor Cohen Quentin. No explicit pathway/sequence named through
+      // ch279 (text gives only relative descriptors: suspected mid-Seq ch100 → confirmed high-Seq ch194),
+      // so pathway=null and sequences remain 'غير معروف'.
+      id: 'azik', name_ar: 'أزيك', name_en: 'Azik',
+      first_appeared_chapter: 9, status: 'alive',
+      first_appeared_quote: 'ناقش البروفيسور المساعد الأول كوهين والسيد أزيك حتمية عصر البخار',
+      pathway: null,
+      aliases: [
+        { name: 'السيد أزيك', since_chapter: 9,
+          quote: 'ناقش البروفيسور المساعد الأول كوهين والسيد أزيك حتمية عصر البخار' },
+        { name: 'الأكاديمي أزيك', since_chapter: 98,
+          quote: 'هو الأكاديمي، أزيك' },
+      ],
+      states: [
+        { since_chapter: 25, sequence: 'غير معروف', location: 'جامعة خوي (قسم التاريخ)',
+          faction: 'قسم التاريخ بجامعة خوي',
+          quote: 'إنه لا يزال مكتب قسم تاريخ جامعة خوي' },
+        { since_chapter: 100, sequence: 'غير معروف (يُشتبه أنه متجاوز تسلسل متوسط)', location: 'جامعة خوي',
+          faction: 'قسم التاريخ بجامعة خوي',
+          quote: 'قد يكون متجاوز تسلسل متوسط من مدرسة الحياة للفكر' },
+        { since_chapter: 194, sequence: 'غير معروف (مؤكَّد أنه متجاوز تسلسلات عليا)',
+          location: 'متجه إلى باكلوند بحثًا عن ذكرياته المفقودة', faction: 'قسم التاريخ بجامعة خوي',
+          quote: 'هذا المعلم الذي يعاني من فقدان الذاكرة والذي عاش حياة طويلة كان متجاوز تسلسلات عليا' },
+      ],
+      events: [
+        { chapter: 25, type: 'intro', text: 'أول ظهور حيّ لأزيك في مكتب قسم التاريخ بجامعة خوي إلى جانب المعلّم كوهين كوينتين.',
+          quote: 'إنه لا يزال مكتب قسم تاريخ جامعة خوي' },
+        { chapter: 98, text: 'يُعرَّف أزيك بأنه أفضل صديق للمعلّم كوهين كوينتين، معلّم كلاين.',
+          quote: 'ابتسم أزيك، الذي كان أفضل صديق لكوهين كوينتين' },
+        { chapter: 112, type: 'reveal', text: 'أزيك يكشف لكلاين أنه فقد معظم ذاكرته قبل دخوله قسم التاريخ بجامعة باكلوند، ويشتبه كلاين بانتمائه لمنظمة سرية (مدرسة الحياة للفكر).',
+          quote: 'قبل أن أدخل قسم التاريخ بجامعة باكلوند، فقدت معظم ذاكرتي' },
+        { chapter: 149, text: 'كلاين يجد دليلًا عن ماضي أزيك المنسي مرتبطًا ببلدة لامود وقلعة مهجورة.',
+          quote: 'لقد وجدت دليلاً عن ماضيك' },
+        { chapter: 172, text: 'الصافرة النحاسية التي أعطاها أزيك لكلاين، أداة طقسية تتكرر في فصول لاحقة.',
+          quote: 'الصافرة النحاسية من أزيك' },
+        { chapter: 194, type: 'reveal', text: 'كلاين يؤكّد أن أزيك متجاوز من تسلسلات عليا وأنه قتل شخصًا يُدعى كيلانغوس.',
+          quote: 'وقد أكد كلاين أخيرًا أن السيد أزيك هو الذي قتل كيلانغوس' },
+        { chapter: 210, type: 'backstory', text: 'خلفية (عبر رواية إنس زانغويل): أزيك يقرر الذهاب إلى باكلوند بحثًا عن ذكرياته المفقودة.',
+          quote: 'قرر أزيك الذهاب إلى باكلوند بحثًا عن ذكرياته المفقودة' },
+      ],
+      abilities: [],
+      relationships: [],
+      tags: ['غامض', 'متجاوز رفيع'],
+      blurb_ar: 'أستاذ تاريخ في جامعة خوي وصديق كوهين كوينتين (معلّم كلاين)؛ فاقد للذاكرة، متجاوز رفيع التسلسل يبحث عن ماضيه المنسي.',
+      sources: [9, 25, 98, 100, 112, 149, 172, 194, 210],
+    },
+    {
+      // gap-batch: Leonard Mitchell — Seq-8 Midnight Poet (Sleepless pathway), senior Nighthawk in
+      // Tingen under Don Smith; works cases with Klein. pathway=null intentionally: the Sleepless
+      // pathway ('مسار اللانائم') is not present in data/pathways.js, and a {id:'sleepless'} ref would
+      // break the "character pathway.id references a real pathway" test — same convention as mr_a.
+      // Pathway/sequence info is preserved in the state sequence text, events, tags and blurb.
+      id: 'leonard', name_ar: 'ليونارد ميتشل', name_en: 'Leonard Mitchell',
+      first_appeared_chapter: 17, status: 'alive',
+      first_appeared_quote: 'لقد فعل ليونارد مثل هذه الحماقة',
+      pathway: null,
+      aliases: [],
+      states: [
+        { since_chapter: 21, sequence: 'التسلسل 8: شاعر منتصف الليل', location: 'تينغن',
+          faction: 'صقور الليل',
+          quote: 'ليونارد ميتشل. ذو التسلسل 8 شاعر منتصف الليل' },
+      ],
+      events: [
+        { chapter: 21, type: 'intro', text: 'تعريف رسمي بالاسم الكامل والتسلسل: ليونارد ميتشل، التسلسل 8 شاعر منتصف الليل، ضابط في صقور الليل بتينغن.',
+          quote: 'ليونارد ميتشل. ذو التسلسل 8 شاعر منتصف الليل' },
+        { chapter: 44, text: 'يبرهن على كفاءته القتالية في عملية إنقاذ خطف، إذ يُخضع الخاطفين.',
+          quote: 'انزلق ليونارد إلى الأمام وضرب الخاطف الصاحي وأفقده الوعي' },
+        { chapter: 127, type: 'reveal', text: 'تُربط قدرته على الإنشاد المُنوِّم صراحةً بشاعر منتصف الليل من مسار اللانائم.',
+          quote: 'كانت هذه القدرات مشابهة لقدرات شاعر منتصف الليل من مسار اللانائم' },
+        { chapter: 208, text: 'يُصاب إصابة بالغة في المعركة ضد الوحش ميغوس/نسل الإله الشرير.',
+          quote: 'تصدعت عظام ليونارد، وكان هناك تدفق للدماء من فمه باستمرار' },
+        { chapter: 211, text: 'يبلّغ عائلة كلاين (بينسون وميليسا) بقصة الغطاء أن كلاين مات بطلًا، ويحضر كحامل نعش.',
+          quote: 'لقد مات أخوك كلاين على يد مجرم شرير بينما كان يحاول إنقاذ الآخرين. إنه بطل، بطل حقيقي' },
+        { chapter: 211, text: 'يقسم على الانتقام من إنس زانغويل ويصرّح بأنه على وشك التقدم قريبًا.',
+          quote: 'إنس زانغويل، يجب أن تعيش حتى اليوم الذي أصبح فيه قوي بما فيه الكفاية' },
+      ],
+      abilities: [],
+      relationships: [],
+      tags: ['صقور الليل', 'مسار اللانائم', 'شاعر منتصف الليل'],
+      blurb_ar: 'متجاوز التسلسل 8 (شاعر منتصف الليل) من مسار اللانائم وضابط أقدم في صقور ليل تينغن تحت قيادة دون سميث، يعمل مع كلاين على القضايا الخارقة؛ نجا من معركة شبه قاتلة وأقسم على الانتقام من إنس زانغويل.',
+      sources: [17, 21, 44, 127, 208, 211],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.characters;
 })(typeof window !== 'undefined' ? window : globalThis);
