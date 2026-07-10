@@ -243,7 +243,7 @@ test('pathways have required fields and sequences array', () => {
 });
 
 test('organizations have required fields', () => {
-  const validKinds = new Set(['sect', 'club', 'church', 'state']);
+  const validKinds = new Set(['sect', 'club', 'church', 'state', 'family']);
   for (const o of LOTM.organizations) {
     for (const field of ['id', 'name_ar', 'name_en', 'kind', 'first_appeared_chapter']) {
       assert.ok(o[field] !== undefined, `org ${o.id || '?'} missing ${field}`);

@@ -49,7 +49,7 @@ function App(){
         <div className="flex items-center gap-3">
           <Crest size={34}/>
           <div className="leading-tight">
-            <div className="eyebrow text-[9px]" style={{ color:'var(--brass)' }}>سيد الألغاز</div>
+            <div className="eyebrow text-[9px]" style={{ color:'var(--brass)' }}>سيد الغوامض</div>
             <h1 className="font-deco text-[20px]" style={{ color:'var(--parchment)' }}>الموسوعة الحية</h1>
           </div>
         </div>

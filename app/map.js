@@ -155,7 +155,7 @@ function MapView({ chapter, focus, clearFocus, navigate }){
       {/* main SVG */}
       <svg viewBox="0 0 1000 640" className="w-full h-full block absolute inset-0"
            preserveAspectRatio="xMidYMid meet"
-           role="img" aria-label="خريطة عالم سيد الألغاز">
+           role="img" aria-label="خريطة عالم سيد الغوامض">
         <defs>
           <radialGradient id="mvSeaGrad" cx="50%" cy="38%" r="80%">
             <stop offset="0%" stopColor="#11212c"/>

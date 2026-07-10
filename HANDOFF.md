@@ -8,7 +8,7 @@ built, how to run/deploy it, the data rules, how to add more chapters, and what'
 ## 1. What this is
 
 An interactive, **spoiler-aware, Arabic (RTL)** wiki for the novel *Lord of the Mysteries*
-(سيد الألغاز), themed dark-Victorian + red-moon. It's filled **incrementally as the reader reads** —
+(سيد الغوامض / لورد الغوامض), themed dark-Victorian + red-moon. It's filled **incrementally as the reader reads** —
 you give me the EPUB + a chapter cutoff, I extract chapter-cited data. The defining feature: a
 **reading-progress slider** — pick any chapter you've reached and the whole wiki shows the world
 **exactly as it was known at that point** (nothing past your chapter leaks).

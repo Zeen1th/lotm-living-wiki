@@ -209,7 +209,7 @@ const KIND_TO_VIEW = {
   document:     'roselle',
 };
 
-const ORG_KIND_AR = { club:'نادٍ', sect:'طائفة', church:'كنيسة', state:'دولة' };
+const ORG_KIND_AR = { club:'نادٍ', sect:'طائفة', church:'كنيسة', state:'دولة', family:'عائلة' };
 
 const HUB_CARDS = [
   { id:'characters',    label:'الشخصيات',      desc:'تصفح الشخصيات المعروفة حتى فصلك الحالي' },

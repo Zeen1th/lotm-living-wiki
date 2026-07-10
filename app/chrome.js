@@ -113,7 +113,7 @@ function GeneralHub({ setView, navigate }){
       <div className="bloodmoon"/>
       <div className="relative z-10 max-w-[720px] mx-auto px-4 pt-16 pb-10">
         <div className="text-center mb-8">
-          <div className="eyebrow text-[10px] mb-1" style={{ color:'var(--brass)' }}>سيد الألغاز</div>
+          <div className="eyebrow text-[10px] mb-1" style={{ color:'var(--brass)' }}>سيد الغوامض</div>
           <h2 className="font-deco text-[28px]" style={{ color:'var(--parchment)' }}>الموسوعة الحية</h2>
           <p className="font-old text-[14px] mt-2" style={{ color:'var(--parchment-dim)' }}>
             دليلك الشامل لعالم المسارات — مقيَّد بفصلك الحالي

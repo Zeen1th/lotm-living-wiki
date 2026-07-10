@@ -2,7 +2,7 @@
 (function (g) {
   const L = (g.LOTM = g.LOTM || {});
   L.meta = {
-    title_ar: 'سيد الألغاز — موسوعة حية',
+    title_ar: 'سيد الغوامض — موسوعة حية',
     encodedThroughChapter: 279,
     volumes: [
       { id: 'v1', name_ar: 'المجلد الأول: المتنبئ القرمزي', start_chapter: 1,   end_chapter: 206 },
