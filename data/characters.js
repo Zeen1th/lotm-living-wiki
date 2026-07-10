@@ -312,7 +312,7 @@
       id: 'ence_zangwill', name_ar: 'إنس زانغويل', name_en: 'Ince Zangwill',
       first_appeared_chapter: 210, status: 'alive',
       first_appeared_quote: 'على الرغم من أن الأمور تجاوزت بالفعل وصف إنس زانغويل',
-      pathway: null,
+      pathway: { id: 'sleepless', name_ar: 'مسار الليل الدائم' },
       aliases: [],
       states: [
         { since_chapter: 210, sequence: 'التسلسل 4: مراقب الليل', location: 'تينغن',
@@ -423,7 +423,7 @@
       id: 'leonard', name_ar: 'ليونارد ميتشل', name_en: 'Leonard Mitchell',
       first_appeared_chapter: 17, status: 'alive',
       first_appeared_quote: 'لقد فعل ليونارد مثل هذه الحماقة',
-      pathway: null,
+      pathway: { id: 'sleepless', name_ar: 'مسار الليل الدائم' },
       aliases: [],
       states: [
         { since_chapter: 21, sequence: 'التسلسل 8: شاعر منتصف الليل', location: 'تينغن',
