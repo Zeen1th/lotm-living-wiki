@@ -4,11 +4,11 @@
   L.pathways = [
     {
       id: 'seer',
-      name_ar: 'مسار الرائي',
+      name_ar: 'مسار المتنبئ',
       name_en: 'Seer Pathway',
       family_id: null,
       color: '#2e6b8c',
-      // 'مسار الرائي' as a full phrase is not found ≤ch250 in this EPUB; anchor via كلاين at ch1.
+      // Display name is 'مسار المتنبئ' (the EPUB's term); the bare pathway label isn't a full phrase ≤ch250, anchor via كلاين at ch1.
       first_appeared_chapter: 1,
       first_appeared_quote: 'كلاين موريتي ، مواطن من مملكة لوين',
       sequences: [
@@ -27,7 +27,7 @@
         { n: 5, name_ar: 'المتحكم في الدمى', name_en: 'Puppeteer', known_chapter: 251,
           quote: 'التسلسل 5، المتحكم في الدمى' },
       ],
-      blurb_ar: 'مسار الرائي — مسار كلاين مورتي؛ يمنح العرافة والرؤية الخارقة والحدّة الذهنية.',
+      blurb_ar: 'مسار المتنبئ — مسار كلاين مورتي؛ يمنح العرافة والرؤية الخارقة والحدّة الذهنية.',
       sources: [1],
     },
     {

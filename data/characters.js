@@ -6,7 +6,7 @@
       id: 'klein', name_ar: 'كلاين مورتي', name_en: 'Klein Moretti',
       first_appeared_chapter: 1, status: 'alive',
       first_appeared_quote: 'كلاين موريتي ، مواطن من مملكة لوين',
-      pathway: { id: 'seer', name_ar: 'مسار الرائي' },
+      pathway: { id: 'seer', name_ar: 'مسار المتنبئ' },
       aliases: [
         // NOTE: alias الأحمق chosen at ch6 (verified); used since_chapter:6 per JSON.
         { name: 'الأحمق', since_chapter: 6,
@@ -76,9 +76,9 @@
         { chapter: 215, type: 'identity', text: 'ظهور هوية "شارلوك موريارتي".',
           quote: 'شارلوك موريارتي. يمكنك دعوتب شارلوك' },
         // batch-X: ch251 — Klein kills Rosago (Seq-5 Puppeteer) with Miss Bodyguard + Language of Malice talisman; obtains Seer Seq7/6/5 formulas
-        { chapter: 251, type: 'killing', text: 'قتل روزاغوا (المتحكم في الدمى، التسلسل 5 من مسار الرائي) عبر تميمة لغة السوء ومساعدة "الأنسة حارس شخصي" — أول لقاء مع متجاوز تسلسل 5.',
+        { chapter: 251, type: 'killing', text: 'قتل روزاغوا (المتحكم في الدمى، التسلسل 5 من مسار المتنبئ) عبر تميمة لغة السوء ومساعدة "الأنسة حارس شخصي" — أول لقاء مع متجاوز تسلسل 5.',
           quote: 'التسلسل 5، المتحكم في الدمى' },
-        { chapter: 251, type: 'lore_acquisition', text: 'حصل على تركيبات جرعات التسلسل 7 (لاعب الخفة) والتسلسل 6 (عديم الوجه) والتسلسل 5 (المتحكم في الدمى) من مسار الرائي عبر عرافة الحلم على جثة روزاغوا.',
+        { chapter: 251, type: 'lore_acquisition', text: 'حصل على تركيبات جرعات التسلسل 7 (لاعب الخفة) والتسلسل 6 (عديم الوجه) والتسلسل 5 (المتحكم في الدمى) من مسار المتنبئ عبر عرافة الحلم على جثة روزاغوا.',
           quote: 'التسلسل 7، لاعب الخفة' },
       ],
       abilities: ['العرافة الدقيقة', 'خفة حركة خارقة', 'قراءة حركات الخصم', 'التحكم بتعابير الوجه'],
