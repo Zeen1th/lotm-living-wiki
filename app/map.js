@@ -114,9 +114,9 @@ const CONTINENTS = {
 // (transparent), shown + editable in edit mode (drag body to move, drag the
 // corner handle to resize). Edits persist in localStorage and can be exported.
 const CONTINENT_FOCUS_BASE = {
-  north:    { x: 8,   y: 10,  w: 78, h: 40, label: 'القارة الشمالية' },
-  south:    { x: 24,  y: 66,  w: 56, h: 30, label: 'القارة الجنوبية' },
-  forsaken: { x: 84,  y: 20,  w: 14, h: 50, label: 'أرض الآلهة المهجورة' },
+  north:    { x: 20.43, y: 0,     w: 15.76, h: 43.65, label: 'القارة الشمالية' },
+  south:    { x: 25.37, y: 62.62, w: 21.22, h: 30.09, label: 'القارة الجنوبية' },
+  forsaken: { x: 59.96, y: 12.23, w: 19.1,  h: 60.51, label: 'أرض الآلهة المهجورة' },
 };
 
 /* ----------------------------------------------------------------
