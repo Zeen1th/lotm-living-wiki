@@ -110,7 +110,11 @@ const CONTINENTS = {
 };
 // fallback focus rectangles on the WORLD image for continents that have no
 // dedicated zoom image yet. { x, y, w, h } are percentages of the world image.
-const CONTINENT_FOCUS = {
+// These double as click-hotspots in world view. Hidden from regular users
+// (transparent), shown + editable in edit mode (drag body to move, drag the
+// corner handle to resize). Edits persist in localStorage and can be exported.
+const CONTINENT_FOCUS_BASE = {
+  north:    { x: 8,   y: 10,  w: 78, h: 40, label: 'القارة الشمالية' },
   south:    { x: 24,  y: 66,  w: 56, h: 30, label: 'القارة الجنوبية' },
   forsaken: { x: 84,  y: 20,  w: 14, h: 50, label: 'أرض الآلهة المهجورة' },
 };
@@ -176,8 +180,26 @@ function MapView({ chapter, focus, clearFocus, navigate }){
     try { return JSON.parse(localStorage.getItem('lotm.mapEdits') || '{}'); }
     catch { return {}; }
   });
-  const [drag, setDrag] = useState(null); // { locId, space } while dragging
+  const [drag, setDrag] = useState(null); // { locId, space } while dragging a pin
   const containerRef = useRef(null);     // the overlay box (image-sized) for % math
+
+  // ── continent hotspot edits (move/resize the click regions) ──
+  // shape: { [key]: { x, y, w, h } } merged over CONTINENT_FOCUS_BASE
+  const [hotEdits, setHotEdits] = useState(()=> {
+    try { return JSON.parse(localStorage.getItem('lotm.mapHotspots') || '{}'); }
+    catch { return {}; }
+  });
+  const [hotDrag, setHotDrag] = useState(null); // { key, mode:'move'|'resize', sx, sy, box0 }
+  useEffect(()=>{ localStorage.setItem('lotm.mapHotspots', JSON.stringify(hotEdits)); }, [hotEdits]);
+
+  // live continent focus rectangles = base merged with user edits
+  const CONTINENT_FOCUS = useMemo(()=>{
+    const out = {};
+    for(const k of Object.keys(CONTINENT_FOCUS_BASE)){
+      out[k] = { ...CONTINENT_FOCUS_BASE[k], ...(hotEdits[k]||{}) };
+    }
+    return out;
+  }, [hotEdits]);
 
   useEffect(()=>{ localStorage.setItem('lotm.mapEdits', JSON.stringify(edits)); }, [edits]);
 
@@ -220,10 +242,6 @@ function MapView({ chapter, focus, clearFocus, navigate }){
     if(hasZoomImage) return visLocs.filter(l => l.continent === activeContinent);
     return visLocs; // fallback draws on the world image
   }, [visLocs, activeContinent, hasZoomImage]);
-
-  // Continents clickable in world view = those with a focus rect OR a zoom image.
-  const clickableContinents = Object.keys(CONTINENTS).filter(k =>
-    CONTINENTS[k].img || CONTINENT_FOCUS[k]);
 
   function posOf(loc){
     const m = loc.map || {};
@@ -271,6 +289,72 @@ function MapView({ chapter, focus, clearFocus, navigate }){
     };
   }, [drag, coordSpace]);
 
+  // ── hotspot drag: move body or resize corner ──
+  function startHotDrag(key, mode, e){
+    if(!editMode) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const cur = CONTINENT_FOCUS[key];
+    setHotDrag({ key, mode, sx: e.clientX, sy: e.clientY, box0: { ...cur } });
+  }
+  useEffect(()=>{
+    if(!hotDrag) return;
+    const key = hotDrag.key, mode = hotDrag.mode, b0 = hotDrag.box0;
+    function onMove(ev){
+      const el = containerRef.current;
+      if(!el) return;
+      const r = el.getBoundingClientRect();
+      const dxPct = ((ev.clientX - hotDrag.sx) / r.width) * 100;
+      const dyPct = ((ev.clientY - hotDrag.sy) / r.height) * 100;
+      const clamp = (v, lo, hi)=> Math.max(lo, Math.min(hi, Math.round(v*100)/100));
+      setHotEdits(prev=>{
+        const next = { ...prev };
+        if(mode === 'move'){
+          const nx = clamp(b0.x + dxPct, 0, 100 - b0.w);
+          const ny = clamp(b0.y + dyPct, 0, 100 - b0.h);
+          next[key] = { ...(prev[key]||{}), x: nx, y: ny, w: b0.w, h: b0.h };
+        } else { // resize (bottom-right corner)
+          const nw = clamp(b0.w + dxPct, 4, 100 - b0.x);
+          const nh = clamp(b0.h + dyPct, 4, 100 - b0.y);
+          next[key] = { ...(prev[key]||{}), x: b0.x, y: b0.y, w: nw, h: nh };
+        }
+        return next;
+      });
+    }
+    function onUp(){ setHotDrag(null); }
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+    return ()=>{
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+    };
+  }, [hotDrag, editMode, CONTINENT_FOCUS]);
+
+  // export the current hotspot rects as a JS snippet for app/map.js
+  function handleExportHotspots(){
+    const keys = Object.keys(CONTINENT_FOCUS);
+    const lines = keys.map(k=>{
+      const f = CONTINENT_FOCUS[k];
+      return `  ${k.padEnd(9)}: { x: ${f.x}, y: ${f.y}, w: ${f.w}, h: ${f.h}, label: '${f.label}' },`;
+    });
+    const snippet =
+      "const CONTINENT_FOCUS_BASE = {\n" + lines.join("\n") + "\n};\n" +
+      "// paste into app/map.js (replace CONTINENT_FOCUS_BASE)";
+    navigator.clipboard.writeText(snippet).then(
+      ()=> alert("✓ نُسخت مناطق القارة إلى الحافظة.\nالصقها في app/map.js مكان CONTINENT_FOCUS_BASE"),
+      ()=> {
+        // clipboard blocked: fall back to download
+        const blob = new Blob([snippet], { type:'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'continent_focus.txt';
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+      }
+    );
+  }
+  const hotEditedCount = Object.keys(hotEdits).length;
+
   // ── save: fetch source, patch, download ──
   const editedCount = Object.keys(edits).length;
   async function handleSave(){
@@ -295,6 +379,7 @@ function MapView({ chapter, focus, clearFocus, navigate }){
   }
   function handleCancelEdit(){
     setEdits({});
+    setHotEdits({});
     setEditMode(false);
   }
 
@@ -314,29 +399,40 @@ function MapView({ chapter, focus, clearFocus, navigate }){
       <div className="absolute inset-0 flex items-center justify-center" style={{ pointerEvents:'none' }}>
         <div ref={containerRef} className="relative" style={{ aspectRatio: imgSrc === WORLD_IMG ? '2400 / 1743' : '1654 / 2000', maxWidth:'100%', maxHeight:'100%', width:'100%', height:'100%' }}>
 
-          {/* continent click hotspots (only in world view) */}
-          {!activeContinent && clickableContinents.map(key=>{
-            const focus = CONTINENT_FOCUS[key];
-            // For continents WITH a zoom image we still want a clickable area: synthesize a
-            // rough box around the northern landmass. Only 'north' here.
-            let box;
-            if(focus) box = focus;
-            else if(key === 'north') box = { x: 8, y: 10, w: 78, h: 40, label: 'القارة الشمالية' };
-            else return null;
+          {/* continent click hotspots (only in world view).
+              Hidden for regular users (transparent); shown + editable in edit mode. */}
+          {!activeContinent && Object.keys(CONTINENT_FOCUS).map(key=>{
+            const box = CONTINENT_FOCUS[key];
             return (
-              <button key={key}
-                onClick={()=> setActiveContinent(key)}
-                className="absolute focus-ring rounded-md group transition-colors"
+              <div key={key}
+                onPointerDown={editMode ? (e)=> startHotDrag(key, 'move', e) : undefined}
+                onClick={editMode ? undefined : ()=> setActiveContinent(key)}
+                className="absolute rounded-md group transition-colors"
                 style={{
                   left: box.x + '%', top: box.y + '%', width: box.w + '%', height: box.h + '%',
-                  background: 'rgba(200,162,74,.06)',
-                  border: '1px dashed rgba(200,162,74,.28)',
-                  pointerEvents:'auto', cursor:'pointer',
+                  background: editMode ? 'rgba(245,197,66,.08)' : 'transparent',
+                  border: editMode ? '1px dashed #f5c542' : '1px solid transparent',
+                  pointerEvents:'auto',
+                  cursor: editMode ? 'move' : 'pointer',
                 }}
-                aria-label={box.label} title={box.label}>
-                <span className="absolute top-1 right-2 eyebrow text-[9px] opacity-70 group-hover:opacity-100"
-                      style={{ color:'var(--brass)', letterSpacing:'.2em' }}>{box.label}</span>
-              </button>
+                role={editMode ? undefined : 'button'}
+                aria-label={editMode ? undefined : box.label}
+                title={editMode ? undefined : box.label}>
+                {editMode ? (
+                  <>
+                    <span className="absolute top-1 right-2 eyebrow text-[9px]"
+                          style={{ color:'#f5c542', letterSpacing:'.2em', pointerEvents:'none' }}>{box.label}</span>
+                    {/* resize handle (bottom-right corner) */}
+                    <span onPointerDown={(e)=> startHotDrag(key, 'resize', e)}
+                      className="absolute"
+                      style={{
+                        right:-7, bottom:-7, width:14, height:14, borderRadius:3,
+                        background:'#f5c542', border:'2px solid #1a1300', cursor:'nwse-resize',
+                        touchAction:'none',
+                      }}/>
+                  </>
+                ) : null}
+              </div>
             );
           })}
 
@@ -414,7 +510,8 @@ function MapView({ chapter, focus, clearFocus, navigate }){
             وضع التعديل
           </span>
           <span className="text-[12px] font-display" style={{ color:'var(--parchment)' }}>
-            {editedCount > 0 ? (editedCount + ' معدّلة') : 'اسحب النقاط'}
+            {editedCount > 0 ? (editedCount + ' نقطة') : 'اسحب النقاط'}
+            {hotEditedCount > 0 ? (' · ' + hotEditedCount + ' منطقة') : ''}
           </span>
           {!editAllowed && (
             <span className="text-[10px] font-old" style={{ color:'var(--parchment-dim)' }}>
@@ -424,8 +521,14 @@ function MapView({ chapter, focus, clearFocus, navigate }){
           <button onClick={handleSave} disabled={editedCount === 0}
             className="focus-ring rounded-md px-3 py-1 font-display text-[12px] disabled:opacity-40"
             style={{ background:'#f5c542', color:'#1a1300', border:'1px solid #d9a92a' }}
-            title="تنزيل locations.js مُحدّث">
-            💾 حفظ وتنزيل
+            title="تنزيل locations.js مُحدّث بإحداثيات النقاط">
+            💾 حفظ النقاط
+          </button>
+          <button onClick={handleExportHotspots} disabled={hotEditedCount === 0}
+            className="focus-ring rounded-md px-3 py-1 font-display text-[12px] disabled:opacity-40"
+            style={{ background:'rgba(8,10,13,.6)', border:'1px solid var(--brass)', color:'var(--brass)' }}
+            title="نسخ كود مناطق القارة إلى الحافظة (الصقه في app/map.js)">
+            ⬚ نسخ المناطق
           </button>
           <button onClick={handleCancelEdit}
             className="focus-ring rounded-md px-3 py-1 font-display text-[12px]"
