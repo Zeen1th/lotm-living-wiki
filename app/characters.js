@@ -4,10 +4,16 @@ function CharacterCard({ r, onOpen }){
     <button onClick={()=>onOpen(r.id)}
       className="listrow w-full text-right px-3 py-3 rounded-md flex items-center gap-3 mb-1.5 focus-ring"
       style={{ border:'1px solid var(--line)', background:'rgba(255,255,255,.015)' }}>
-      <span className="grid place-items-center w-10 h-10 rounded-full shrink-0"
-            style={{ background:'rgba(0,0,0,.45)', color:'var(--brass)', border:'1px solid var(--brass)' }}>
-        <Users size={18}/>
-      </span>
+      {r.image ? (
+        <img src={'assets/' + r.image} alt={r.name_ar} loading="lazy"
+             className="w-10 h-10 rounded-full shrink-0 object-cover"
+             style={{ border:'1px solid var(--brass)' }}/>
+      ) : (
+        <span className="grid place-items-center w-10 h-10 rounded-full shrink-0"
+              style={{ background:'rgba(0,0,0,.45)', color:'var(--brass)', border:'1px solid var(--brass)' }}>
+          <Users size={18}/>
+        </span>
+      )}
       <span className="min-w-0 flex-1">
         <span className="font-display block text-[15px] truncate" style={{ color:'var(--parchment)' }}>{r.name_ar}</span>
         <span className="block text-[11px] truncate" style={{ color:'var(--brass)' }}>
@@ -35,23 +41,34 @@ function CharacterDetail({ r, onClose, navigate }){
            onClick={e=>e.stopPropagation()}>
         <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--crimson-glow),transparent)' }}/>
         <div className="px-6 pt-5 pb-4">
-          <div className="flex items-center justify-between">
-            <h2 className="font-deco text-[26px]" style={{ color:'var(--parchment)' }}>{r.name_ar}</h2>
-            <button onClick={onClose} aria-label="إغلاق"
-              className="w-9 h-9 grid place-items-center rounded-md focus-ring"
-              style={{ background:'rgba(0,0,0,.4)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}>
-              <X size={17}/>
-            </button>
-          </div>
-          <p className="text-[13px] mt-1" style={{ color:'var(--parchment-dim)' }}>{r.name_en}</p>
-          {r.aliases.length>0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              {r.aliases.map(a=>(
-                <span key={a} className="eyebrow text-[10px] px-2 py-1 rounded"
-                  style={{ border:'1px solid var(--brass)', color:'var(--brass)' }}>{a}</span>
-              ))}
+          <div className="flex items-start gap-4">
+            {/* portrait */}
+            {r.image && (
+              <img src={'assets/' + r.image} alt={r.name_ar}
+                   className="rounded-lg shrink-0 object-cover"
+                   style={{ width:96, height:120, border:'1px solid var(--brass)',
+                            boxShadow:'0 0 18px rgba(0,0,0,.5)' }}/>
+            )}
+            <div className="min-w-0 flex-1">
+              <div className="flex items-start justify-between gap-2">
+                <h2 className="font-deco text-[26px] leading-tight" style={{ color:'var(--parchment)' }}>{r.name_ar}</h2>
+                <button onClick={onClose} aria-label="إغلاق"
+                  className="shrink-0 w-9 h-9 grid place-items-center rounded-md focus-ring"
+                  style={{ background:'rgba(0,0,0,.4)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}>
+                  <X size={17}/>
+                </button>
+              </div>
+              <p className="text-[13px] mt-1" style={{ color:'var(--parchment-dim)' }}>{r.name_en}</p>
+              {r.aliases.length>0 && (
+                <div className="flex flex-wrap gap-2 mt-3">
+                  {r.aliases.map(a=>(
+                    <span key={a} className="eyebrow text-[10px] px-2 py-1 rounded"
+                      style={{ border:'1px solid var(--brass)', color:'var(--brass)' }}>{a}</span>
+                  ))}
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
         <div className="px-6 pb-6">
           {s && (

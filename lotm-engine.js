@@ -37,6 +37,7 @@
       id: char.id,
       name_ar: char.name_ar,
       name_en: char.name_en,
+      image: char.image || null,
       pathway: char.pathway || null,
       // status is chapter-aware: a death only shows once the reader reaches death_chapter
       status: (char.death_chapter && char.death_chapter <= chapter) ? 'dead' : (char.status || 'unknown'),

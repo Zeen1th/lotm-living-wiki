@@ -3,7 +3,8 @@
   const L = (g.LOTM = g.LOTM || {});
   L.characters = [
     {
-      id: 'klein', name_ar: 'كلاين مورتي', name_en: 'Klein Moretti',
+      id: 'klein',
+      image: 'characters/klein.webp', name_ar: 'كلاين مورتي', name_en: 'Klein Moretti',
       first_appeared_chapter: 1, status: 'alive',
       first_appeared_quote: 'كلاين موريتي ، مواطن من مملكة لوين',
       pathway: { id: 'seer', name_ar: 'مسار المتنبئ' },
@@ -96,7 +97,8 @@
     {
       // NOTE: name_ar corrected from 'أودري هول' to 'أودري هال' (verbatim EPUB spelling).
       // first_appeared_chapter corrected from 16 → 5 (EPUB ch5/chapter4.html).
-      id: 'audrey', name_ar: 'أودري هال', name_en: 'Audrey Hall',
+      id: 'audrey',
+      image: 'characters/audrey.webp', name_ar: 'أودري هال', name_en: 'Audrey Hall',
       first_appeared_chapter: 5, status: 'alive',
       first_appeared_quote: 'جلست أودري هال أمام خزانة ملابس',
       pathway: { id: 'spectator', name_ar: 'مسار المتفرّج' },
@@ -153,7 +155,8 @@
       // NOTE: name_ar corrected from 'ألجير ويلسون' to 'ألجر ويلسون' (EPUB spelling).
       // first_appeared_chapter corrected from 21 → 5 (chapter4.html).
       // alias 'الرجل المشنوق' corrected to 'الرجل المعلق' (EPUB spelling).
-      id: 'alger', name_ar: 'ألجر ويلسون', name_en: 'Alger Wilson',
+      id: 'alger',
+      image: 'characters/alger.webp', name_ar: 'ألجر ويلسون', name_en: 'Alger Wilson',
       first_appeared_chapter: 5, status: 'alive',
       first_appeared_quote: 'ألجر ويلسون على سطح السفينة',
       pathway: { id: 'sailor', name_ar: 'مسار البحّار' },
@@ -188,7 +191,8 @@
     },
     {
       // NOTE: first_appeared_chapter corrected from 121 → 137 (chapter136.html verified).
-      id: 'derrick', name_ar: 'ديريك بيرغ', name_en: 'Derrick Berg',
+      id: 'derrick',
+      image: 'characters/derrick.webp', name_ar: 'ديريك بيرغ', name_en: 'Derrick Berg',
       first_appeared_chapter: 137, status: 'alive',
       first_appeared_quote: 'وقف ديريك أمام مجموعة من السلالم',
       pathway: { id: 'sun', name_ar: 'مسار الشمس' },
@@ -229,7 +233,8 @@
       sources: [137, 139, 146],
     },
     {
-      id: 'benson_moretti', name_ar: 'بينسون موريتي', name_en: 'Benson Moretti',
+      id: 'benson_moretti',
+      image: 'characters/benson_moretti.webp', name_ar: 'بينسون موريتي', name_en: 'Benson Moretti',
       first_appeared_chapter: 4, status: 'alive',
       first_appeared_quote: 'شقيق كلاين ، بينسون',
       pathway: null,
@@ -246,7 +251,8 @@
       sources: [4],
     },
     {
-      id: 'melissa_moretti', name_ar: 'ميليسا موريتي', name_en: 'Melissa Moretti',
+      id: 'melissa_moretti',
+      image: 'characters/melissa_moretti.webp', name_ar: 'ميليسا موريتي', name_en: 'Melissa Moretti',
       first_appeared_chapter: 3, status: 'alive',
       first_appeared_quote: 'ميليسا إستيقظت',
       pathway: null,
@@ -283,7 +289,8 @@
       sources: [12, 209],
     },
     {
-      id: 'emperor_roselle', name_ar: 'الإمبراطور روزيل', name_en: 'Emperor Roselle',
+      id: 'emperor_roselle',
+      image: 'characters/emperor_roselle.webp', name_ar: 'الإمبراطور روزيل', name_en: 'Emperor Roselle',
       first_appeared_chapter: 21, status: 'alive',
       first_appeared_quote: 'الإمبراطور روزيل',
       pathway: { id: 'spectator', name_ar: 'مسار المتفرّج' },
@@ -309,7 +316,8 @@
       sources: [21, 59],
     },
     {
-      id: 'ence_zangwill', name_ar: 'إنس زانغويل', name_en: 'Ince Zangwill',
+      id: 'ence_zangwill',
+      image: 'characters/ence_zangwill.webp', name_ar: 'إنس زانغويل', name_en: 'Ince Zangwill',
       first_appeared_chapter: 210, status: 'alive',
       first_appeared_quote: 'على الرغم من أن الأمور تجاوزت بالفعل وصف إنس زانغويل',
       pathway: { id: 'sleepless', name_ar: 'مسار الليل الدائم' },
@@ -371,7 +379,8 @@
       // best friend of Klein's mentor Cohen Quentin. No explicit pathway/sequence named through
       // ch279 (text gives only relative descriptors: suspected mid-Seq ch100 → confirmed high-Seq ch194),
       // so pathway=null and sequences remain 'غير معروف'.
-      id: 'azik', name_ar: 'أزيك', name_en: 'Azik',
+      id: 'azik',
+      image: 'characters/azik.webp', name_ar: 'أزيك', name_en: 'Azik',
       first_appeared_chapter: 9, status: 'alive',
       first_appeared_quote: 'ناقش البروفيسور المساعد الأول كوهين والسيد أزيك حتمية عصر البخار',
       pathway: null,
@@ -420,7 +429,8 @@
       // pathway ('مسار اللانائم') is not present in data/pathways.js, and a {id:'sleepless'} ref would
       // break the "character pathway.id references a real pathway" test — same convention as mr_a.
       // Pathway/sequence info is preserved in the state sequence text, events, tags and blurb.
-      id: 'leonard', name_ar: 'ليونارد ميتشل', name_en: 'Leonard Mitchell',
+      id: 'leonard',
+      image: 'characters/leonard.webp', name_ar: 'ليونارد ميتشل', name_en: 'Leonard Mitchell',
       first_appeared_chapter: 17, status: 'alive',
       first_appeared_quote: 'لقد فعل ليونارد مثل هذه الحماقة',
       pathway: { id: 'sleepless', name_ar: 'مسار الليل الدائم' },

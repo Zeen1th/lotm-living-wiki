@@ -1,0 +1,84 @@
+[
+  {
+    "id": "klein",
+    "name": "Klein Moretti",
+    "status": "OK",
+    "title": "Klein Moretti",
+    "src": "Klein_Moretti_Official.jpg"
+  },
+  {
+    "id": "audrey",
+    "name": "Audrey Hall",
+    "status": "OK",
+    "title": "Audrey Hall",
+    "src": "Audrey_Hall_Official.jpg"
+  },
+  {
+    "id": "alger",
+    "name": "Alger Wilson",
+    "status": "OK",
+    "title": "Alger Wilson",
+    "src": "Alger_Wilson_Official.jpg"
+  },
+  {
+    "id": "derrick",
+    "name": "Derrick Berg",
+    "status": "OK",
+    "title": "Derrick Berg",
+    "src": "Derrick_Berg_Official.jpg"
+  },
+  {
+    "id": "benson_moretti",
+    "name": "Benson Moretti",
+    "status": "OK",
+    "title": "Benson Moretti",
+    "src": "EP_2_-_Benson_(cropped).jpg"
+  },
+  {
+    "id": "melissa_moretti",
+    "name": "Melissa Moretti",
+    "status": "OK",
+    "title": "Melissa Moretti",
+    "src": "EP_2_-_Melissa_(cropped).jpg"
+  },
+  {
+    "id": "don_smith",
+    "name": "Don Smith",
+    "status": "NO IMAGE",
+    "title": "Don Smith"
+  },
+  {
+    "id": "emperor_roselle",
+    "name": "Emperor Roselle",
+    "status": "OK",
+    "title": "Roselle Gustav",
+    "src": "Roselle_Gustav_Official.jpg"
+  },
+  {
+    "id": "ence_zangwill",
+    "name": "Ince Zangwill",
+    "status": "OK",
+    "title": "Ince Zangwill",
+    "src": "Incezangwill.png"
+  },
+  {
+    "id": "mr_a",
+    "name": "Mr. A",
+    "status": "NO IMAGE",
+    "title": "Mr. A"
+  },
+  {
+    "id": "azik",
+    "name": "Azik",
+    "status": "OK",
+    "title": "Azik Eggers",
+    "src": "Official-Azik-crop.jpg"
+  },
+  {
+    "id": "leonard",
+    "name": "Leonard Mitchell",
+    "status": "OK",
+    "title": "Leonard Mitchell",
+    "src": "Leonard_Mitchell_Official.jpg"
+  }
+]
