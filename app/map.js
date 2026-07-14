@@ -89,18 +89,42 @@ function LocationPanel({ loc, chapter, onClose, onSelectChild, navigate }){
 }
 
 /* ----------------------------------------------------------------
-   MAP VIEW — data-driven interactive world map
------------------------------------------------------------------*/
-function MapView({ chapter, focus, clearFocus, navigate }){
-  const [focusedId, setFocusedId] = useState(null);
-  const [panelLoc, setPanelLoc] = useState(null);
+   MAP VIEW — image-backed interactive world map with per-continent zoom
 
-  // Locations visible at chapter
+   Architecture:
+   - <img> background: either the full world map (WORLD_IMG) or a continent's
+     zoom image when a continent is active and has one (CONTINENTS[active].img).
+   - Absolutely-positioned HTML markers placed via percentage coordinates
+     (map.world for the world view, map.zoom for a continent view), so the
+     layout stays correct at any rendered image size.
+   - Continents without a dedicated zoom image fall back to the world image
+     with a CSS focus rectangle framing that continent's region.
+   - Clicking a continent region (in world view) zooms into it; the "back"
+     button returns to the full world view.
+-----------------------------------------------------------------*/
+const WORLD_IMG = 'assets/map/world.webp';
+const CONTINENTS = {
+  north:    { img: 'assets/map/north.webp', label: 'القارة الشمالية' },
+  south:    { img: null,                    label: 'القارة الجنوبية' },
+  forsaken: { img: null,                    label: 'أرض الآلهة المهجورة' },
+};
+// fallback focus rectangles on the WORLD image for continents that have no
+// dedicated zoom image yet. { x, y, w, h } are percentages of the world image.
+const CONTINENT_FOCUS = {
+  south:    { x: 24,  y: 66,  w: 56, h: 30, label: 'القارة الجنوبية' },
+  forsaken: { x: 84,  y: 20,  w: 14, h: 50, label: 'أرض الآلهة المهجورة' },
+};
+
+function MapView({ chapter, focus, clearFocus, navigate }){
+  const [focusedId, setFocusedId] = useState(null);   // selected place (for pin highlight)
+  const [panelLoc, setPanelLoc]   = useState(null);   // open detail panel
+  const [activeContinent, setActiveContinent] = useState(null); // null = world view
+
   const visLocs = useMemo(()=>
     (LOTM.locations || []).filter(loc => Eng.isVisible(loc, chapter)),
     [chapter]);
 
-  // Auto-open focused location
+  // Auto-open focused location (cross-link navigation)
   useEffect(()=>{
     if(!focus || focus.kind !== 'location') return;
     const loc = (LOTM.locations || []).find(l => l.id === focus.id && Eng.isVisible(l, chapter));
@@ -108,236 +132,148 @@ function MapView({ chapter, focus, clearFocus, navigate }){
     clearFocus && clearFocus();
   }, [focus]);
 
-  // Pan/zoom math ported from atlas WorldMap
-  const rawTarget = focusedId ? visLocs.find(l=>l.id===focusedId) : null;
-  const target = (rawTarget && rawTarget.map) ? rawTarget : null;  // guard: only pan to mappable locations
-  const s = target ? 1.85 : 1;
-  const tcx = target ? target.map.cx : 500;
-  const tcy = target ? target.map.cy : 320;
-  const tx = target ? (500 - s*tcx) : 0;
-  const ty = target ? (320 - s*tcy) : 0;
-  const transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + s + ')';
-
   function handlePlace(loc){
     setFocusedId(loc.id);
     setPanelLoc(loc);
   }
-
-  function handleClose(){
-    setPanelLoc(null);
-  }
-
-  function handleSelectChild(child){
-    setFocusedId(child.id);
-    setPanelLoc(child);
-  }
-
-  function handleReset(){
+  function handleClose(){ setPanelLoc(null); }
+  function handleSelectChild(child){ setFocusedId(child.id); setPanelLoc(child); }
+  function handleBackToWorld(){
+    setActiveContinent(null);
     setFocusedId(null);
     setPanelLoc(null);
   }
 
-  // Partition locations
-  const regions = visLocs.filter(l => l.kind === 'region');
-  const seas    = visLocs.filter(l => l.kind === 'sea');
-  const cities  = visLocs.filter(l => l.kind === 'city');
+  // Which image are we showing, and which coordinate space do markers use?
+  const cont = activeContinent ? CONTINENTS[activeContinent] : null;
+  const hasZoomImage = !!(cont && cont.img);
+  const imgSrc = hasZoomImage ? cont.img : WORLD_IMG;
+  // markers use 'zoom' coords only when a real zoom image is active; otherwise 'world'
+  const coordSpace = hasZoomImage ? 'zoom' : 'world';
 
-  // Is forsaken visible?
-  const forsakenVisible = visLocs.some(l=>l.id==='forsaken');
-  const rorstedVisible  = visLocs.some(l=>l.id==='rorsted');
-  const fogseaVisible   = visLocs.some(l=>l.id==='fogsea');
+  // Places to render as markers in the current view.
+  // - World view: every visible place (positioned by map.world).
+  // - Continent zoom image: only places on that continent (positioned by map.zoom).
+  // - Continent focus-fallback (no image): world view image + focus frame; markers use 'world'.
+  const markers = useMemo(()=>{
+    if(!activeContinent) return visLocs;
+    if(hasZoomImage) return visLocs.filter(l => l.continent === activeContinent);
+    return visLocs; // fallback draws on the world image
+  }, [visLocs, activeContinent, hasZoomImage]);
+
+  // Continents clickable in world view = those with a focus rect OR a zoom image.
+  const clickableContinents = Object.keys(CONTINENTS).filter(k =>
+    CONTINENTS[k].img || CONTINENT_FOCUS[k]);
+
+  function posOf(loc){
+    const m = loc.map || {};
+    const p = m[coordSpace] || m.world;
+    return p ? { x: p.x, y: p.y } : null;
+  }
 
   return (
     <div className="h-full w-full relative overflow-hidden" style={{ background:'var(--void)' }}>
-      {/* bloodmoon stays visible behind the map */}
       <div className="bloodmoon"/>
 
-      {/* main SVG */}
-      <svg viewBox="0 0 1000 640" className="w-full h-full block absolute inset-0"
-           preserveAspectRatio="xMidYMid meet"
-           role="img" aria-label="خريطة عالم سيد الغوامض">
-        <defs>
-          <radialGradient id="mvSeaGrad" cx="50%" cy="38%" r="80%">
-            <stop offset="0%" stopColor="#11212c"/>
-            <stop offset="55%" stopColor="var(--sea)"/>
-            <stop offset="100%" stopColor="#05080c"/>
-          </radialGradient>
-          <linearGradient id="mvLandGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#2b3543"/>
-            <stop offset="100%" stopColor="#161d27"/>
-          </linearGradient>
-          <linearGradient id="mvAbyssGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#0a0c12"/>
-            <stop offset="100%" stopColor="var(--abyss)"/>
-          </linearGradient>
-          <radialGradient id="mvStormGrad" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stopColor="rgba(120,40,55,.30)"/>
-            <stop offset="100%" stopColor="rgba(120,40,55,0)"/>
-          </radialGradient>
-          <filter id="mvSoft"><feGaussianBlur stdDeviation="7"/></filter>
-          <filter id="mvGlowF" x="-60%" y="-60%" width="220%" height="220%">
-            <feGaussianBlur stdDeviation="3.4" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <pattern id="mvLatlong" width="56" height="56" patternUnits="userSpaceOnUse">
-            <path d="M56 0H0V56" fill="none" stroke="rgba(200,162,74,.05)" strokeWidth="1"/>
-          </pattern>
-        </defs>
+      {/* ── image layer ── */}
+      <img src={imgSrc} alt="خريطة عالم سيد الغوامض"
+           className="absolute inset-0 w-full h-full block select-none"
+           style={{ objectFit:'contain', pointerEvents:'none', filter:'drop-shadow(0 6px 24px rgba(0,0,0,.5))' }}
+           draggable="false"/>
 
-        {/* base sea */}
-        <rect x="0" y="0" width="1000" height="640" fill="url(#mvSeaGrad)"/>
-        <rect x="0" y="0" width="1000" height="640" fill="url(#mvLatlong)"/>
+      {/* ── overlay layer: continent hotspots + markers ──
+          Sized to the actual rendered image box via an aspect-ratio inner wrapper
+          so percentage coordinates line up with the contained image. */}
+      <div className="absolute inset-0 flex items-center justify-center" style={{ pointerEvents:'none' }}>
+        <div className="relative" style={{ aspectRatio: imgSrc === WORLD_IMG ? '2400 / 1743' : '1654 / 2000', maxWidth:'100%', maxHeight:'100%', width:'100%', height:'100%' }}>
 
-        <g className="panZoom" style={{ transform }}>
-          {/* faint current lines */}
-          <g stroke="rgba(120,160,180,.10)" strokeWidth="1" fill="none">
-            <path d="M40 130 C 200 110, 360 150, 520 120"/>
-            <path d="M60 420 C 260 400, 520 440, 760 415"/>
-            <path d="M540 280 C 640 300, 720 270, 820 300"/>
-          </g>
-
-          {/* Berserk Sea storm band — static decoration */}
-          <ellipse cx="500" cy="376" rx="470" ry="58" fill="url(#mvStormGrad)"/>
-          <g opacity="0.7">
-            <rect x="40" y="332" width="920" height="92" fill="rgba(40,60,72,.10)"/>
-            <g stroke="rgba(150,180,200,.18)" strokeWidth="1.4" fill="none">
-              <path d="M70 360q14-10 28 0t28 0 28 0 28 0"/>
-              <path d="M360 396q14-10 28 0t28 0 28 0 28 0"/>
-              <path d="M640 356q14-10 28 0t28 0 28 0 28 0"/>
-              <path d="M150 410q14-10 28 0t28 0 28 0"/>
-            </g>
-          </g>
-
-          {/* LAND regions from LOTM.locations (data-driven) */}
-          {regions.map(loc=>{
-            if(!loc.map || !loc.map.poly) return null;
-            const active = focusedId === loc.id;
-            const isAbyss = loc.id === 'forsaken';
-            const fill   = isAbyss ? 'url(#mvAbyssGrad)' : 'url(#mvLandGrad)';
-            const stroke = isAbyss ? 'rgba(120,60,75,.5)' : 'rgba(200,162,74,.30)';
-            const cls = 'region' + (active ? ' active' : '');
+          {/* continent click hotspots (only in world view) */}
+          {!activeContinent && clickableContinents.map(key=>{
+            const focus = CONTINENT_FOCUS[key];
+            // For continents WITH a zoom image we still want a clickable area: synthesize a
+            // rough box around the northern landmass. Only 'north' here.
+            let box;
+            if(focus) box = focus;
+            else if(key === 'north') box = { x: 8, y: 10, w: 78, h: 40, label: 'القارة الشمالية' };
+            else return null;
             return (
-              <polygon key={loc.id} points={loc.map.poly} className={cls}
-                       fill={fill}
-                       stroke={active ? 'var(--brass)' : stroke}
-                       strokeWidth={active ? 2 : 1.2}
-                       onClick={()=>handlePlace(loc)}/>
+              <button key={key}
+                onClick={()=> setActiveContinent(key)}
+                className="absolute focus-ring rounded-md group transition-colors"
+                style={{
+                  left: box.x + '%', top: box.y + '%', width: box.w + '%', height: box.h + '%',
+                  background: 'rgba(200,162,74,.06)',
+                  border: '1px dashed rgba(200,162,74,.28)',
+                  pointerEvents:'auto', cursor:'pointer',
+                }}
+                aria-label={box.label} title={box.label}>
+                <span className="absolute top-1 right-2 eyebrow text-[9px] opacity-70 group-hover:opacity-100"
+                      style={{ color:'var(--brass)', letterSpacing:'.2em' }}>{box.label}</span>
+              </button>
             );
           })}
 
-          {/* Forsaken Land — lightning bolts and embers (static decoration, shown when visible) */}
-          {forsakenVisible && (
-            <g opacity="0.8" pointerEvents="none">
-              <polyline className="bolt" points="905,160 898,210 916,214 902,275" fill="none"
-                        stroke="var(--brass)" strokeWidth="1.6" filter="url(#mvGlowF)"/>
-              <polyline className="bolt b" points="936,340 928,392 945,396 930,452" fill="none"
-                        stroke="var(--crimson-glow)" strokeWidth="1.4" filter="url(#mvGlowF)"/>
-              {[[875,470],[940,250],[955,420],[870,360]].map((p,i)=>(
-                <circle key={i} className="ember" cx={p[0]} cy={p[1]} r="1.6" fill="rgba(200,162,74,.7)"/>
-              ))}
-            </g>
-          )}
-
-          {/* Rorsted archipelago islets (static decoration) */}
-          {rorstedVisible && (
-            <g>
-              {[[568,256,7],[592,250,5],[582,276,6],[604,268,4]].map((p,i)=>(
-                <ellipse key={i} cx={p[0]} cy={p[1]} rx={p[2]} ry={p[2]*0.7}
-                         fill="url(#mvLandGrad)" stroke="rgba(200,162,74,.3)" strokeWidth=".8"/>
-              ))}
-            </g>
-          )}
-
-          {/* Fog wisps over Fog Sea */}
-          {fogseaVisible && (
-            <g pointerEvents="none" opacity="0.9">
-              <ellipse className="fogwisp"   cx="95"  cy="200" rx="70" ry="34" fill="rgba(180,190,200,.10)" filter="url(#mvSoft)"/>
-              <ellipse className="fogwisp b" cx="120" cy="250" rx="58" ry="26" fill="rgba(180,190,200,.08)" filter="url(#mvSoft)"/>
-            </g>
-          )}
-          {/* faint fog over Loen / Backlund (always soft) */}
-          <ellipse className="fogwisp b" cx="455" cy="165" rx="60" ry="22"
-                   fill="rgba(190,200,210,.07)" filter="url(#mvSoft)" pointerEvents="none"/>
-
-          {/* SEA labels — data-driven, Arabic names */}
-          {seas.map(loc=>{
-            const lx = loc.map ? loc.map.cx : 0;
-            const ly = loc.map ? loc.map.cy : 0;
-            const isBerserk = loc.id === 'berserksea';
+          {/* focus frame for continents without a zoom image (fallback) */}
+          {activeContinent && !hasZoomImage && (()=>{
+            const f = CONTINENT_FOCUS[activeContinent];
+            if(!f) return null;
             return (
-              <text key={loc.id} x={lx} y={ly}
-                    textAnchor="middle"
-                    className="eyebrow"
-                    style={{ fontSize: isBerserk ? 13 : 11,
-                             fill:'rgba(180,196,210,.5)',
-                             letterSpacing:'.3em',
-                             cursor:'pointer' }}
-                    onClick={()=>handlePlace(loc)}>
-                {loc.name_ar}
-              </text>
+              <div className="absolute rounded-md pointer-events-none"
+                   style={{
+                     left: f.x + '%', top: f.y + '%', width: f.w + '%', height: f.h + '%',
+                     boxShadow: '0 0 0 9999px rgba(4,5,8,.45), inset 0 0 0 1px rgba(200,162,74,.5)',
+                     transition:'box-shadow .3s',
+                   }}/>
             );
-          })}
+          })()}
 
-          {/* LAND labels — data-driven, Arabic names */}
-          {regions.map(loc=>{
-            if(!loc.map) return null;
-            const isAbyss = loc.id === 'forsaken';
-            return (
-              <text key={'lbl'+loc.id} x={loc.map.cx} y={loc.map.cy}
-                    textAnchor="middle"
-                    className="font-display"
-                    style={{ fontSize: isAbyss ? 11 : 12,
-                             fontWeight:600,
-                             fill: isAbyss ? 'rgba(200,140,150,.65)' : 'rgba(216,195,154,.78)',
-                             pointerEvents:'none',
-                             letterSpacing:'.08em' }}>
-                {loc.name_ar}
-              </text>
-            );
-          })}
-
-          {/* CITY PINS — data-driven */}
-          {cities.map(loc=>{
-            if(!loc.map) return null;
+          {/* markers */}
+          {markers.map(loc=>{
+            const pos = posOf(loc);
+            if(!pos) return null;
             const open = focusedId === loc.id;
-            // cities near Forsaken use brass, others use crimson
-            const isBrass = loc.id === 'rorsted' || loc.id === 'silver';
+            const isCity = loc.kind === 'city';
+            const isBrass = loc.id === 'rorsted' || loc.id === 'silver' || loc.kind === 'sea';
             const col = isBrass ? 'var(--brass)' : 'var(--crimson-glow)';
             return (
-              <g key={loc.id}
-                 className={'pin' + (open ? ' open' : '')}
-                 transform={'translate(' + loc.map.cx + ',' + loc.map.cy + ')'}
-                 onClick={()=>handlePlace(loc)}
-                 role="button" tabIndex="0"
-                 aria-label={loc.name_ar}
-                 onKeyDown={(e)=>{ if(e.key==='Enter') handlePlace(loc); }}>
-                <circle className="halo" r="9" fill={col} opacity="0.55"/>
-                <circle r="6.5" fill="rgba(8,10,13,.95)" stroke={col} strokeWidth="2" filter="url(#mvGlowF)"/>
-                <circle r="2.4" fill={col}/>
-                {/* label plate */}
-                <g className="label-plate" transform="translate(0,-16)">
-                  <rect x="-52" y="-15" width="104" height="19" rx="3"
-                        fill="rgba(8,10,13,.92)" stroke={col} strokeWidth=".8"/>
-                  <text x="0" y="-2" textAnchor="middle" className="font-display"
-                        style={{ fontSize:9.5, fill:'var(--parchment)', letterSpacing:'.08em', fontWeight:600 }}>
-                    {loc.name_ar}
-                  </text>
-                </g>
-              </g>
+              <button key={loc.id}
+                onClick={()=> handlePlace(loc)}
+                className={'mappin' + (open ? ' open' : '') + (isCity ? ' city' : '')}
+                style={{
+                  position:'absolute',
+                  left: pos.x + '%', top: pos.y + '%',
+                  transform:'translate(-50%,-50%)',
+                  pointerEvents:'auto', cursor:'pointer',
+                  '--pin': col,
+                  background:'none', border:'none', padding:0,
+                }}
+                role="button" tabIndex={0}
+                aria-label={loc.name_ar}
+                onKeyDown={(e)=>{ if(e.key==='Enter') handlePlace(loc); }}>
+                <span className="pin-dot" style={{ borderColor:col }}/>
+                <span className="pin-label" style={{ color:'var(--parchment)', borderColor:col }}>
+                  {loc.name_ar}
+                </span>
+              </button>
             );
           })}
-        </g>
-      </svg>
+        </div>
+      </div>
 
-      {/* reset view button — shown when a location is focused */}
-      {focusedId && (
-        <button onClick={handleReset}
-          className="absolute bottom-5 left-1/2 focus-ring px-4 py-2 rounded-lg font-display text-[13px] z-10"
-          style={{ transform:'translateX(-50%)',
-                   background:'rgba(8,10,13,.88)', border:'1px solid var(--brass)',
-                   color:'var(--brass)', backdropFilter:'blur(6px)' }}>
-          إعادة الضبط
-        </button>
+      {/* active-continent badge + back button */}
+      {activeContinent && (
+        <div className="absolute top-3 left-1/2 z-10 flex items-center gap-2"
+             style={{ transform:'translateX(-50%)' }}>
+          <span className="glass rounded-md px-3 py-1 eyebrow text-[10px]"
+                style={{ color:'var(--brass)', border:'1px solid var(--line)', letterSpacing:'.2em' }}>
+            {CONTINENTS[activeContinent].label}{!hasZoomImage ? ' — معاينة' : ''}
+          </span>
+          <button onClick={handleBackToWorld}
+            className="focus-ring rounded-md px-3 py-1 font-display text-[12px]"
+            style={{ background:'rgba(8,10,13,.88)', border:'1px solid var(--brass)', color:'var(--brass)', backdropFilter:'blur(6px)' }}>
+            ↺ الخريطة الكاملة
+          </button>
+        </div>
       )}
 
       {/* location detail panel */}
