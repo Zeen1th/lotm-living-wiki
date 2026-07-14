@@ -115,10 +115,71 @@ const CONTINENT_FOCUS = {
   forsaken: { x: 84,  y: 20,  w: 14, h: 50, label: 'أرض الآلهة المهجورة' },
 };
 
+/* ----------------------------------------------------------------
+   EDIT MODE — patch locations.js source text with dragged coordinates.
+
+   We fetch the original `data/locations.js` text and surgically replace
+   ONLY the numbers inside each edited location's `world: { x, y }` /
+   `zoom: { x, y }` blocks, scoped to that location's object literal (found
+   via `id: 'xxx'`). Every comment, quote, and line of structure is preserved.
+-----------------------------------------------------------------*/
+
+// Scope a patch to a single location's object literal: find its own `id: 'ID'`
+// (a top-level property, NOT parent_id/contains_id/etc.), then take the text up
+// to the NEXT top-level `id: '` (or end of array) as that location's block.
+// We require the `id:` to be line-leading (only whitespace before it on its line)
+// so that `parent_id:`, `contains_ids`, `leader_id`, etc. don't match.
+function blockForId(src, id){
+  const re = new RegExp("(?:^|\\n)\\s*id: '" + id + "'", "");
+  const m = re.exec(src);
+  if(!m) return null;
+  const start = m.index + m[0].length;  // position right after the matched id literal
+  const reNext = /(?:^|\n)\s*id: '/g;
+  reNext.lastIndex = start;
+  const nm = reNext.exec(src);
+  const end = nm ? nm.index + nm[0].length - "id: '".length : src.length;
+  return { start, end };
+}
+
+// Replace the numbers in a `world: { x: .., y: .. }` / `zoom:  { x: .., y: .. }`
+// block within [start,end). Keeps the `world:` / `zoom:` prefix (and its
+// indentation) intact so file alignment doesn't shift.
+function patchCoord(src, start, end, key, x, y){
+  const re = new RegExp('(' + key + ':\\s*)\\{\\s*x:\\s*[\\d.]+,\\s*y:\\s*[\\d.]+\\s*\\}');
+  const block = src.slice(start, end);
+  const patched = block.replace(re, '$1{ x: ' + (Math.round(x*100)/100) + ', y: ' + (Math.round(y*100)/100) + ' }');
+  return src.slice(0, start) + patched + src.slice(end);
+}
+
+// edits: { [locId]: { world?:{x,y}, zoom?:{x,y} } }
+function applyEditsToSource(src, edits){
+  let out = src;
+  for(const id of Object.keys(edits)){
+    const blk = blockForId(out, id);
+    if(!blk) continue;
+    const e = edits[id];
+    if(e.world){ out = patchCoord(out, blk.start, blk.end, 'world', e.world.x, e.world.y); }
+    if(e.zoom){  out = patchCoord(out, blk.start, blk.end, 'zoom',  e.zoom.x,  e.zoom.y);  }
+  }
+  return out;
+}
+
 function MapView({ chapter, focus, clearFocus, navigate }){
   const [focusedId, setFocusedId] = useState(null);   // selected place (for pin highlight)
   const [panelLoc, setPanelLoc]   = useState(null);   // open detail panel
   const [activeContinent, setActiveContinent] = useState(null); // null = world view
+
+  // ── edit mode ──
+  const [editMode, setEditMode] = useState(false);
+  // edits: { [locId]: { world?:{x,y}, zoom?:{x,y} } }  — overrides base coords
+  const [edits, setEdits] = useState(()=> {
+    try { return JSON.parse(localStorage.getItem('lotm.mapEdits') || '{}'); }
+    catch { return {}; }
+  });
+  const [drag, setDrag] = useState(null); // { locId, space } while dragging
+  const containerRef = useRef(null);     // the overlay box (image-sized) for % math
+
+  useEffect(()=>{ localStorage.setItem('lotm.mapEdits', JSON.stringify(edits)); }, [edits]);
 
   const visLocs = useMemo(()=>
     (LOTM.locations || []).filter(loc => Eng.isVisible(loc, chapter)),
@@ -150,11 +211,10 @@ function MapView({ chapter, focus, clearFocus, navigate }){
   const imgSrc = hasZoomImage ? cont.img : WORLD_IMG;
   // markers use 'zoom' coords only when a real zoom image is active; otherwise 'world'
   const coordSpace = hasZoomImage ? 'zoom' : 'world';
+  // editing is allowed on world view and on real zoom images (not fallback focus views)
+  const editAllowed = editMode && (coordSpace === 'world' || hasZoomImage);
 
   // Places to render as markers in the current view.
-  // - World view: every visible place (positioned by map.world).
-  // - Continent zoom image: only places on that continent (positioned by map.zoom).
-  // - Continent focus-fallback (no image): world view image + focus frame; markers use 'world'.
   const markers = useMemo(()=>{
     if(!activeContinent) return visLocs;
     if(hasZoomImage) return visLocs.filter(l => l.continent === activeContinent);
@@ -167,8 +227,75 @@ function MapView({ chapter, focus, clearFocus, navigate }){
 
   function posOf(loc){
     const m = loc.map || {};
-    const p = m[coordSpace] || m.world;
+    const e = edits[loc.id];
+    const p = (e && e[coordSpace]) || m[coordSpace] || m.world;
     return p ? { x: p.x, y: p.y } : null;
+  }
+
+  // ── drag handlers ──
+  function pctFromPointer(clientX, clientY){
+    const el = containerRef.current;
+    if(!el) return null;
+    const r = el.getBoundingClientRect();
+    const x = ((clientX - r.left) / r.width) * 100;
+    const y = ((clientY - r.top) / r.height) * 100;
+    return {
+      x: Math.max(0, Math.min(100, Math.round(x*100)/100)),
+      y: Math.max(0, Math.min(100, Math.round(y*100)/100)),
+    };
+  }
+  function startDrag(locId, e){
+    if(!editAllowed) return;
+    e.preventDefault();
+    e.stopPropagation();
+    setDrag({ locId, moved: false, sx: e.clientX, sy: e.clientY });
+  }
+  useEffect(()=>{
+    if(!drag) return;
+    function onMove(ev){
+      const p = pctFromPointer(ev.clientX, ev.clientY);
+      if(!p) return;
+      const movedEnough = Math.abs(ev.clientX - drag.sx) + Math.abs(ev.clientY - drag.sy) > 4;
+      setEdits(prev => ({
+        ...prev,
+        [drag.locId]: { ...(prev[drag.locId]||{}), [coordSpace]: p },
+      }));
+      if(movedEnough) setDrag(d => d ? { ...d, moved: true } : d);
+    }
+    function onUp(){ setDrag(null); }
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+    return ()=>{
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+    };
+  }, [drag, coordSpace]);
+
+  // ── save: fetch source, patch, download ──
+  const editedCount = Object.keys(edits).length;
+  async function handleSave(){
+    try{
+      const res = await fetch('data/locations.js', { cache: 'no-store' });
+      if(!res.ok) throw new Error('fetch failed: ' + res.status);
+      const src = await res.text();
+      const patched = applyEditsToSource(src, edits);
+      const blob = new Blob([patched], { type:'text/javascript;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'locations.js';
+      document.body.appendChild(a); a.click(); a.remove();
+      URL.revokeObjectURL(url);
+      // keep edits in localStorage until the user confirms the file replaced;
+      // clear the "unsaved" feeling by noting success.
+      setEdits({});   // clear in-memory + localStorage now that it's exported
+    }catch(err){
+      console.error('map save failed', err);
+      alert('تعذّر حفظ التعديلات: ' + (err.message || err));
+    }
+  }
+  function handleCancelEdit(){
+    setEdits({});
+    setEditMode(false);
   }
 
   return (
@@ -185,7 +312,7 @@ function MapView({ chapter, focus, clearFocus, navigate }){
           Sized to the actual rendered image box via an aspect-ratio inner wrapper
           so percentage coordinates line up with the contained image. */}
       <div className="absolute inset-0 flex items-center justify-center" style={{ pointerEvents:'none' }}>
-        <div className="relative" style={{ aspectRatio: imgSrc === WORLD_IMG ? '2400 / 1743' : '1654 / 2000', maxWidth:'100%', maxHeight:'100%', width:'100%', height:'100%' }}>
+        <div ref={containerRef} className="relative" style={{ aspectRatio: imgSrc === WORLD_IMG ? '2400 / 1743' : '1654 / 2000', maxWidth:'100%', maxHeight:'100%', width:'100%', height:'100%' }}>
 
           {/* continent click hotspots (only in world view) */}
           {!activeContinent && clickableContinents.map(key=>{
@@ -235,23 +362,26 @@ function MapView({ chapter, focus, clearFocus, navigate }){
             const isCity = loc.kind === 'city';
             const isBrass = loc.id === 'rorsted' || loc.id === 'silver' || loc.kind === 'sea';
             const col = isBrass ? 'var(--brass)' : 'var(--crimson-glow)';
+            const edited = !!(edits[loc.id] && edits[loc.id][coordSpace]);
             return (
               <button key={loc.id}
-                onClick={()=> handlePlace(loc)}
-                className={'mappin' + (open ? ' open' : '') + (isCity ? ' city' : '')}
+                onPointerDown={(e)=> startDrag(loc.id, e)}
+                onClick={()=> { if(!(drag && drag.moved)) handlePlace(loc); }}
+                className={'mappin' + (open ? ' open' : '') + (isCity ? ' city' : '') + (edited ? ' edited' : '') + (editAllowed ? ' editable' : '')}
                 style={{
                   position:'absolute',
                   left: pos.x + '%', top: pos.y + '%',
                   transform:'translate(-50%,-50%)',
-                  pointerEvents:'auto', cursor:'pointer',
-                  '--pin': col,
+                  pointerEvents:'auto',
+                  cursor: editAllowed ? (drag && drag.locId===loc.id ? 'grabbing' : 'grab') : 'pointer',
+                  '--pin': edited ? '#f5c542' : col,
                   background:'none', border:'none', padding:0,
                 }}
                 role="button" tabIndex={0}
                 aria-label={loc.name_ar}
                 onKeyDown={(e)=>{ if(e.key==='Enter') handlePlace(loc); }}>
-                <span className="pin-dot" style={{ borderColor:col }}/>
-                <span className="pin-label" style={{ color:'var(--parchment)', borderColor:col }}>
+                <span className="pin-dot" style={{ borderColor: edited ? '#f5c542' : col }}/>
+                <span className="pin-label" style={{ color:'var(--parchment)', borderColor: edited ? '#f5c542' : col }}>
                   {loc.name_ar}
                 </span>
               </button>
@@ -274,6 +404,42 @@ function MapView({ chapter, focus, clearFocus, navigate }){
             ↺ الخريطة الكاملة
           </button>
         </div>
+      )}
+
+      {/* ── edit mode UI ── */}
+      {editMode ? (
+        <div className="absolute bottom-4 left-1/2 z-20 flex items-center gap-2 glass rounded-lg px-3 py-2"
+             style={{ transform:'translateX(-50%)', border:'1px solid var(--brass)', backdropFilter:'blur(8px)' }}>
+          <span className="eyebrow text-[10px]" style={{ color:'#f5c542', letterSpacing:'.15em' }}>
+            وضع التعديل
+          </span>
+          <span className="text-[12px] font-display" style={{ color:'var(--parchment)' }}>
+            {editedCount > 0 ? (editedCount + ' معدّلة') : 'اسحب النقاط'}
+          </span>
+          {!editAllowed && (
+            <span className="text-[10px] font-old" style={{ color:'var(--parchment-dim)' }}>
+              (وفّر صورة القارة لتحرير مواقعها التفصيلية)
+            </span>
+          )}
+          <button onClick={handleSave} disabled={editedCount === 0}
+            className="focus-ring rounded-md px-3 py-1 font-display text-[12px] disabled:opacity-40"
+            style={{ background:'#f5c542', color:'#1a1300', border:'1px solid #d9a92a' }}
+            title="تنزيل locations.js مُحدّث">
+            💾 حفظ وتنزيل
+          </button>
+          <button onClick={handleCancelEdit}
+            className="focus-ring rounded-md px-3 py-1 font-display text-[12px]"
+            style={{ background:'rgba(8,10,13,.6)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}>
+            ✕ إلغاء
+          </button>
+        </div>
+      ) : (
+        <button onClick={()=> setEditMode(true)}
+          className="absolute bottom-4 right-4 z-20 focus-ring w-9 h-9 grid place-items-center rounded-md"
+          style={{ background:'rgba(8,10,13,.7)', border:'1px solid var(--line)', color:'var(--parchment-dim)', backdropFilter:'blur(6px)' }}
+          title="تعديل مواضع النقاط" aria-label="تعديل مواضع النقاط">
+          ✎
+        </button>
       )}
 
       {/* location detail panel */}

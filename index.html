@@ -132,6 +132,11 @@
   @media (prefers-reduced-motion: no-preference){
     .mappin.city .pin-dot{ animation:beat 2.6s ease-in-out infinite; }
   }
+  /* ---- edit mode ---- */
+  .mappin.editable .pin-label{ opacity:1; transform:none; }   /* always-on labels while editing */
+  .mappin.editable{ z-index:5; }
+  .mappin.edited .pin-dot{ box-shadow:0 0 12px 3px #f5c542; }
+  .mappin.edited .pin-label{ border-color:#f5c542 !important; color:#f5c542 !important; }
 
   @media (prefers-reduced-motion: no-preference){
     .pin .halo{ animation:beat 2.6s ease-in-out infinite; }

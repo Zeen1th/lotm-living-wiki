@@ -1,5 +1,5 @@
 /** @jsxRuntime classic */ /** @jsx React.createElement */
-const { useState, useMemo, useEffect } = React;
+const { useState, useMemo, useEffect, useRef } = React;
 const LOTM = window.LOTM;
 const Eng  = window.LOTMEngine;
 const CAP  = Eng.encodedThrough(LOTM);
@@ -235,6 +235,7 @@ const HUB_CONCEPTS = [
 window.useState      = useState;
 window.useMemo       = useMemo;
 window.useEffect     = useEffect;
+window.useRef        = useRef;
 window.LOTM          = LOTM;
 window.Eng           = Eng;
 window.CAP           = CAP;
