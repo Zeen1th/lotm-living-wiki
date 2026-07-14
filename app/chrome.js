@@ -11,20 +11,42 @@ function useChapter(){
   return [chapter, set];
 }
 
-/* ---- the spoiler slider ---- */
+/* ---- the spoiler slider ----
+   The volume-name slot uses a FIXED width (w-[112px]) instead of maxWidth, so that
+   swapping between «المجلد الأول: ...» and «المجلد الثاني: ...» across the ch206↔207
+   boundary never changes the row's layout — that reflow is what made the slider
+   "drift" mid-drag. The number field keeps a local draft so the reader can clear and
+   retype freely; it commits (clamped) on blur / Enter and re-syncs when the slider
+   moves the chapter underneath it.
+*/
 function ChapterSlider({ chapter, setChapter }){
   const vol = (LOTM.meta.volumes||[]).find(v=> chapter>=v.start_chapter && chapter<=v.end_chapter);
+  const [draft, setDraft] = useState(String(chapter));
+  useEffect(()=>{ setDraft(String(chapter)); }, [chapter]);
+  const commitDraft = ()=>{
+    const v = parseInt(draft, 10);
+    if (Number.isFinite(v)) setChapter(v);   // setChapter clamps to [1, CAP]
+    else setDraft(String(chapter));          // invalid (empty/garbage) -> revert
+  };
   return (
     <div className="glass rounded-lg px-4 py-2.5 flex items-center gap-3">
-      <span className="eyebrow text-[9px]" style={{ color:'var(--brass)' }}>أقصى فصل قرأته</span>
+      <span className="eyebrow text-[9px] shrink-0" style={{ color:'var(--brass)' }}>أقصى فصل قرأته</span>
       <input type="range" min="1" max={CAP} value={chapter}
              onChange={e=>setChapter(parseInt(e.target.value,10))}
              aria-label="أقصى فصل قرأته"
-             className="w-44 accent-[color:var(--crimson-glow)]" />
-      <span className="font-display text-[15px]" style={{ color:'var(--parchment)' }}>
-        {chapter} / {CAP}
+             className="w-32 accent-[color:var(--crimson-glow)]" />
+      <input type="number" min="1" max={CAP} value={draft}
+             onChange={e=> setDraft(e.target.value)}
+             onBlur={commitDraft}
+             onKeyDown={e=>{ if(e.key==='Enter') e.currentTarget.blur(); }}
+             aria-label="رقم الفصل"
+             className="w-12 bg-transparent text-center font-display text-[14px] rounded focus-ring"
+             style={{ color:'var(--parchment)', border:'1px solid var(--line)', outline:'none' }} />
+      <span className="font-display text-[14px] shrink-0" style={{ color:'var(--parchment-dim)' }}>
+        / {CAP}
       </span>
-      {vol && <span className="eyebrow text-[8.5px]" style={{ color:'var(--parchment-dim)' }}>{vol.name_ar}</span>}
+      <span className="eyebrow text-[8.5px] shrink-0 truncate w-[112px] text-right"
+            style={{ color:'var(--parchment-dim)' }}>{vol ? vol.name_ar : ''}</span>
     </div>
   );
 }
@@ -67,6 +89,16 @@ function WelcomeOverlay({ chapter, setChapter, onDismiss }){
     return ()=> window.removeEventListener('keydown', h);
   }, [onDismiss]);
 
+  // local draft for the number field — lets the reader clear/retype freely;
+  // commits (clamped) on blur / Enter and re-syncs when the slider moves chapter.
+  const [draft, setDraft] = useState(String(chapter));
+  useEffect(()=>{ setDraft(String(chapter)); }, [chapter]);
+  const commitDraft = ()=>{
+    const v = parseInt(draft, 10);
+    if (Number.isFinite(v)) setChapter(v);
+    else setDraft(String(chapter));
+  };
+
   return (
     <div className="backdrop fixed inset-0 z-50 grid place-items-center p-4"
          style={{ background:'rgba(4,5,8,.82)', backdropFilter:'blur(6px)' }}
@@ -89,9 +121,18 @@ function WelcomeOverlay({ chapter, setChapter, onDismiss }){
                    onChange={e=>setChapter(parseInt(e.target.value,10))}
                    aria-label="أقصى فصل قرأته"
                    className="w-full accent-[color:var(--crimson-glow)]"/>
-            <span className="font-display text-[18px]" style={{ color:'var(--parchment)' }}>
-              {chapter} / {CAP}
-            </span>
+            <div className="flex items-center gap-2">
+              <input type="number" min="1" max={CAP} value={draft}
+                     onChange={e=> setDraft(e.target.value)}
+                     onBlur={commitDraft}
+                     onKeyDown={e=>{ if(e.key==='Enter') e.currentTarget.blur(); }}
+                     aria-label="رقم الفصل"
+                     className="w-16 bg-transparent text-center font-display text-[18px] rounded focus-ring"
+                     style={{ color:'var(--parchment)', border:'1px solid var(--line)', outline:'none' }}/>
+              <span className="font-display text-[18px] shrink-0" style={{ color:'var(--parchment-dim)' }}>
+                / {CAP}
+              </span>
+            </div>
           </div>
           <button onClick={onDismiss}
             className="focus-ring px-8 py-2.5 rounded-lg font-display text-[15px]"
