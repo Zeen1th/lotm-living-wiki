@@ -1,26 +1,33 @@
 /** @jsxRuntime classic */ /** @jsx React.createElement */
 function CharacterCard({ r, onOpen }){
+  const hasImg = !!r.image;
   return (
     <button onClick={()=>onOpen(r.id)}
-      className="listrow w-full text-right px-3 py-3 rounded-md flex items-center gap-3 mb-1.5 focus-ring"
+      className="group text-right rounded-lg overflow-hidden focus-ring transition-all"
       style={{ border:'1px solid var(--line)', background:'rgba(255,255,255,.015)' }}>
-      {r.image ? (
-        <img src={'assets/' + r.image} alt={r.name_ar} loading="lazy"
-             className="w-10 h-10 rounded-full shrink-0 object-cover"
-             style={{ border:'1px solid var(--brass)' }}/>
-      ) : (
-        <span className="grid place-items-center w-10 h-10 rounded-full shrink-0"
-              style={{ background:'rgba(0,0,0,.45)', color:'var(--brass)', border:'1px solid var(--brass)' }}>
-          <Users size={18}/>
-        </span>
-      )}
-      <span className="min-w-0 flex-1">
-        <span className="font-display block text-[15px] truncate" style={{ color:'var(--parchment)' }}>{r.name_ar}</span>
-        <span className="block text-[11px] truncate" style={{ color:'var(--brass)' }}>
-          {r.aliases[0] || (r.pathway && r.pathway.name_ar) || ''}
-        </span>
-      </span>
-      {statusBadge(r.status)}
+      {/* portrait — fills the top of the card */}
+      <div className="relative w-full" style={{ aspectRatio:'3 / 4', overflow:'hidden' }}>
+        {hasImg ? (
+          <img src={'assets/' + r.image} alt={r.name_ar} loading="lazy"
+               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+        ) : (
+          <div className="w-full h-full grid place-items-center"
+               style={{ background:'rgba(0,0,0,.45)', color:'var(--brass)' }}>
+            <Users size={42}/>
+          </div>
+        )}
+        {/* gradient + status badge overlay */}
+        <div className="absolute inset-0 pointer-events-none"
+             style={{ background:'linear-gradient(to top, rgba(4,5,8,.92) 0%, rgba(4,5,8,0) 45%)' }}/>
+        <span className="absolute top-2 left-2">{statusBadge(r.status)}</span>
+      </div>
+      {/* caption: name on top, pathway below */}
+      <div className="px-2.5 py-2">
+        <div className="font-display text-[14px] truncate" style={{ color:'var(--parchment)' }}>{r.name_ar}</div>
+        <div className="eyebrow text-[9px] truncate mt-0.5" style={{ color:'var(--brass)' }}>
+          {r.pathway ? r.pathway.name_ar : '—'}
+        </div>
+      </div>
     </button>
   );
 }
@@ -154,21 +161,24 @@ function CharactersSection({ chapter, focus, clearFocus, navigate }){
   }, [focus]);
 
   return (
-    <div className="h-full flex flex-col max-w-[760px] mx-auto px-4 pt-6">
-      <div className="flex items-center gap-2 px-3 h-11 rounded-md mb-3"
+    <div className="h-full flex flex-col px-4 pt-6">
+      <div className="max-w-[920px] w-full mx-auto flex items-center gap-2 px-3 h-11 rounded-md mb-3"
            style={{ background:'rgba(0,0,0,.35)', border:'1px solid var(--line)' }}>
         <Search size={16} style={{ color:'var(--brass)' }}/>
         <input value={q} onChange={e=>setQ(e.target.value)} placeholder="ابحث عن شخصية…"
                aria-label="ابحث عن شخصية"
                className="bg-transparent outline-none w-full text-[14px] focus-ring" style={{ color:'#dfe4ea' }}/>
       </div>
-      <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>
+      <div className="max-w-[920px] w-full mx-auto eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>
         الشخصيات المعروفة حتى الفصل {chapter} — {filtered.length}
       </div>
-      <div className="scroller overflow-y-auto flex-1 pb-6">
+      <div className="scroller overflow-y-auto flex-1 pb-6 max-w-[920px] w-full mx-auto">
         {filtered.length===0
           ? <p className="font-old italic text-center mt-10" style={{ color:'var(--parchment-dim)' }}>لا شخصيات مطابقة بعد.</p>
-          : filtered.map(r => <CharacterCard key={r.id} r={r} onOpen={setOpenId}/>)}
+          : <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+              {filtered.map(r => <CharacterCard key={r.id} r={r} onOpen={setOpenId}/>)}
+            </div>
+        }
       </div>
       {open && <CharacterDetail r={open} onClose={()=>setOpenId(null)} navigate={navigate}/>}
     </div>
