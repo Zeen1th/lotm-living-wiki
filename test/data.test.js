@@ -13,7 +13,7 @@ test('meta is well-formed and cutoff is 279', () => {
 
 test('every collection exists as an array', () => {
   for (const k of ['characters', 'pathways', 'locations', 'organizations', 'events',
-                   'families', 'eras', 'documents', 'glossary', 'artifacts']) {
+                   'families', 'eras', 'documents', 'glossary', 'artifacts', 'entities']) {
     assert.ok(Array.isArray(LOTM[k]), `${k} must be an array`);
   }
 });
@@ -98,6 +98,14 @@ test('chapter stamps ≤ cap across all new collections', () => {
   for (const a of LOTM.artifacts) {
     assert.ok(a.first_appeared_chapter <= cap, `artifact ${a.id} first_appeared_chapter after cap`);
     for (const ev of (a.events || [])) assert.ok(ev.chapter <= cap, `artifact ${a.id} event after cap`);
+  }
+
+  // entities (gods / evil gods / emperors)
+  for (const en of LOTM.entities) {
+    assert.ok(en.first_appeared_chapter <= cap, `entity ${en.id} first_appeared_chapter after cap`);
+    for (const s of (en.states || [])) assert.ok(s.since_chapter <= cap, `entity ${en.id} state after cap`);
+    for (const al of (en.aliases || [])) assert.ok(al.since_chapter <= cap, `entity ${en.id} alias after cap`);
+    for (const ev of (en.events || [])) assert.ok(ev.chapter <= cap, `entity ${en.id} event after cap`);
   }
 });
 

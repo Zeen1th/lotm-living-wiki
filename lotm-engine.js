@@ -136,6 +136,21 @@
     return visibleOf(list, chapter, resolveCharacter);
   }
 
+  // ── Entities (gods / evil gods / emperors / supernatural beings) ──────────
+
+  function resolveEntity(e, chapter) {
+    if (!isVisible(e, chapter)) return null;
+    return Object.assign({}, e, {
+      state: currentState(e, chapter),
+      events: visibleSub(e.events || [], chapter, 'chapter'),
+      aliases: visibleAliases(e, chapter),
+    });
+  }
+
+  function visibleEntities(list, chapter) {
+    return visibleOf(list, chapter, resolveEntity);
+  }
+
   function encodedThrough(data) {
     return (data && data.meta && data.meta.encodedThroughChapter) || 0;
   }
@@ -145,6 +160,7 @@
     resolveCharacter, visibleCharacters, encodedThrough,
     visibleSub, byId, visibleOf,
     resolvePathway, resolveOrganization, resolveEra, resolveDocument, resolveLocation, resolveArtifact,
+    resolveEntity, visibleEntities,
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = API;

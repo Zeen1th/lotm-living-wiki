@@ -11,4 +11,5 @@ require('./documents.js');
 require('./events.js');
 require('./glossary.js');
 require('./artifacts.js');
+require('./entities.js');
 module.exports = globalThis.LOTM;
