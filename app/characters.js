@@ -6,7 +6,7 @@ function CharacterCard({ r, onOpen }){
       className="group text-right rounded-lg overflow-hidden focus-ring transition-all"
       style={{ border:'1px solid var(--line)', background:'rgba(255,255,255,.015)' }}>
       {/* portrait — fills the top of the card */}
-      <div className="relative w-full" style={{ aspectRatio:'3 / 4.6', overflow:'hidden' }}>
+      <div className="relative w-full" style={{ aspectRatio:'3 / 5.52', overflow:'hidden' }}>
         {hasImg ? (
           <img src={'assets/' + r.image} alt={r.name_ar} loading="lazy"
                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
@@ -59,15 +59,15 @@ function CharacterDetail({ r, onClose, navigate }){
           {/* status badge floats top-right */}
           <div className="absolute top-4 right-4" style={{ zIndex:2 }}>{statusBadge(r.status)}</div>
 
-          {/* large centered portrait */}
+          {/* large centered portrait — tall box + contain so the full image shows */}
           {r.image ? (
             <img src={'assets/' + r.image} alt={r.name_ar}
-                 className="mx-auto rounded-xl object-cover"
-                 style={{ width:180, height:225, border:'1px solid var(--brass)',
+                 className="mx-auto rounded-xl object-contain"
+                 style={{ width:160, height:240, border:'1px solid var(--brass)',
                           boxShadow:'0 0 28px rgba(0,0,0,.6)' }}/>
           ) : (
             <div className="mx-auto rounded-xl grid place-items-center"
-                 style={{ width:180, height:225, background:'rgba(0,0,0,.45)', color:'var(--brass)', border:'1px solid var(--brass)' }}>
+                 style={{ width:160, height:240, background:'rgba(0,0,0,.45)', color:'var(--brass)', border:'1px solid var(--brass)' }}>
               <Users size={56}/>
             </div>
           )}
