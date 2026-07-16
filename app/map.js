@@ -38,8 +38,8 @@ function LocationPanel({ loc, chapter, onClose, onSelectChild, navigate }){
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
               <h2 className="font-deco text-[22px] leading-tight" style={{ color:'var(--parchment)' }}>{loc.name_ar}</h2>
-              <p className="text-[11px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{loc.name_en}</p>
-              <span className="eyebrow text-[9px] mt-1 inline-block" style={{ color:'var(--brass)' }}>
+              <p className="text-[12px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{loc.name_en}</p>
+              <span className="eyebrow text-[11px] mt-1 inline-block" style={{ color:'var(--brass)' }}>
                 {KIND_AR[loc.kind] || loc.kind}
               </span>
             </div>
@@ -57,12 +57,12 @@ function LocationPanel({ loc, chapter, onClose, onSelectChild, navigate }){
           {/* contains */}
           {children.length > 0 && (
             <div className="mt-4">
-              <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>ما بداخلها</div>
+              <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>ما بداخلها</div>
               <div className="flex flex-wrap gap-1.5">
                 {children.map(c=>(
                   <button key={c.id}
                     onClick={()=>onSelectChild(c)}
-                    className="chip focus-ring px-2.5 py-1 rounded-md text-[12px] font-display"
+                    className="chip focus-ring px-2.5 py-1 rounded-md text-[12.5px] font-display"
                     style={{ background:'rgba(0,0,0,.35)', border:'1px solid var(--line)', color:'var(--parchment)' }}>
                     {c.name_ar}
                   </button>
@@ -74,7 +74,7 @@ function LocationPanel({ loc, chapter, onClose, onSelectChild, navigate }){
           {/* who's here */}
           {hereChars.length > 0 && (
             <div className="mt-4">
-              <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>من هنا الآن</div>
+              <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>من هنا الآن</div>
               <div className="flex flex-wrap gap-1.5">
                 {hereChars.map(c=>(
                   <LinkChip key={c.id} kind="character" id={c.id} label={c.name_ar} navigate={navigate}/>
@@ -168,7 +168,7 @@ function applyEditsToSource(src, edits){
   return out;
 }
 
-function MapView({ chapter, focus, clearFocus, navigate }){
+function MapView({ chapter, focus, clearFocus, navigate, isAdmin }){
   const [focusedId, setFocusedId] = useState(null);   // selected place (for pin highlight)
   const [panelLoc, setPanelLoc]   = useState(null);   // open detail panel
   const [activeContinent, setActiveContinent] = useState(null); // null = world view
@@ -233,8 +233,9 @@ function MapView({ chapter, focus, clearFocus, navigate }){
   const imgSrc = hasZoomImage ? cont.img : WORLD_IMG;
   // markers use 'zoom' coords only when a real zoom image is active; otherwise 'world'
   const coordSpace = hasZoomImage ? 'zoom' : 'world';
-  // editing is allowed on world view and on real zoom images (not fallback focus views)
-  const editAllowed = editMode && (coordSpace === 'world' || hasZoomImage);
+  // editing is allowed on world view and on real zoom images (not fallback focus views).
+  // Gated behind admin login — the ✎ button is hidden from regular visitors entirely.
+  const editAllowed = editMode && isAdmin && (coordSpace === 'world' || hasZoomImage);
 
   // Places to render as markers in the current view.
   const markers = useMemo(()=>{
@@ -420,7 +421,7 @@ function MapView({ chapter, focus, clearFocus, navigate }){
                 title={editMode ? undefined : box.label}>
                 {editMode ? (
                   <>
-                    <span className="absolute top-1 right-2 eyebrow text-[9px]"
+                    <span className="absolute top-1 right-2 eyebrow text-[11px]"
                           style={{ color:'#f5c542', letterSpacing:'.2em', pointerEvents:'none' }}>{box.label}</span>
                     {/* resize handle (bottom-right corner) */}
                     <span onPointerDown={(e)=> startHotDrag(key, 'resize', e)}
@@ -490,12 +491,12 @@ function MapView({ chapter, focus, clearFocus, navigate }){
       {activeContinent && (
         <div className="absolute top-3 left-1/2 z-10 flex items-center gap-2"
              style={{ transform:'translateX(-50%)' }}>
-          <span className="glass rounded-md px-3 py-1 eyebrow text-[10px]"
+          <span className="glass rounded-md px-3 py-1 eyebrow text-[11.5px]"
                 style={{ color:'var(--brass)', border:'1px solid var(--line)', letterSpacing:'.2em' }}>
             {CONTINENTS[activeContinent].label}{!hasZoomImage ? ' — معاينة' : ''}
           </span>
           <button onClick={handleBackToWorld}
-            className="focus-ring rounded-md px-3 py-1 font-display text-[12px]"
+            className="focus-ring rounded-md px-3 py-1 font-display text-[12.5px]"
             style={{ background:'rgba(8,10,13,.88)', border:'1px solid var(--brass)', color:'var(--brass)', backdropFilter:'blur(6px)' }}>
             ↺ الخريطة الكاملة
           </button>
@@ -506,44 +507,44 @@ function MapView({ chapter, focus, clearFocus, navigate }){
       {editMode ? (
         <div className="absolute bottom-4 left-1/2 z-20 flex items-center gap-2 glass rounded-lg px-3 py-2"
              style={{ transform:'translateX(-50%)', border:'1px solid var(--brass)', backdropFilter:'blur(8px)' }}>
-          <span className="eyebrow text-[10px]" style={{ color:'#f5c542', letterSpacing:'.15em' }}>
+          <span className="eyebrow text-[11.5px]" style={{ color:'#f5c542', letterSpacing:'.15em' }}>
             وضع التعديل
           </span>
-          <span className="text-[12px] font-display" style={{ color:'var(--parchment)' }}>
+          <span className="text-[12.5px] font-display" style={{ color:'var(--parchment)' }}>
             {editedCount > 0 ? (editedCount + ' نقطة') : 'اسحب النقاط'}
             {hotEditedCount > 0 ? (' · ' + hotEditedCount + ' منطقة') : ''}
           </span>
           {!editAllowed && (
-            <span className="text-[10px] font-old" style={{ color:'var(--parchment-dim)' }}>
+            <span className="text-[11.5px] font-old" style={{ color:'var(--parchment-dim)' }}>
               (وفّر صورة القارة لتحرير مواقعها التفصيلية)
             </span>
           )}
           <button onClick={handleSave} disabled={editedCount === 0}
-            className="focus-ring rounded-md px-3 py-1 font-display text-[12px] disabled:opacity-40"
+            className="focus-ring rounded-md px-3 py-1 font-display text-[12.5px] disabled:opacity-40"
             style={{ background:'#f5c542', color:'#1a1300', border:'1px solid #d9a92a' }}
             title="تنزيل locations.js مُحدّث بإحداثيات النقاط">
             💾 حفظ النقاط
           </button>
           <button onClick={handleExportHotspots} disabled={hotEditedCount === 0}
-            className="focus-ring rounded-md px-3 py-1 font-display text-[12px] disabled:opacity-40"
+            className="focus-ring rounded-md px-3 py-1 font-display text-[12.5px] disabled:opacity-40"
             style={{ background:'rgba(8,10,13,.6)', border:'1px solid var(--brass)', color:'var(--brass)' }}
             title="نسخ كود مناطق القارة إلى الحافظة (الصقه في app/map.js)">
             ⬚ نسخ المناطق
           </button>
           <button onClick={handleCancelEdit}
-            className="focus-ring rounded-md px-3 py-1 font-display text-[12px]"
+            className="focus-ring rounded-md px-3 py-1 font-display text-[12.5px]"
             style={{ background:'rgba(8,10,13,.6)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}>
             ✕ إلغاء
           </button>
         </div>
-      ) : (
+      ) : isAdmin ? (
         <button onClick={()=> setEditMode(true)}
           className="absolute bottom-4 right-4 z-20 focus-ring w-9 h-9 grid place-items-center rounded-md"
           style={{ background:'rgba(8,10,13,.7)', border:'1px solid var(--line)', color:'var(--parchment-dim)', backdropFilter:'blur(6px)' }}
           title="تعديل مواضع النقاط" aria-label="تعديل مواضع النقاط">
           ✎
         </button>
-      )}
+      ) : null}
 
       {/* location detail panel */}
       {panelLoc && (

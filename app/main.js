@@ -6,9 +6,11 @@ function App(){
   const [chapter, setChapter] = useChapter();
   const [view, setView] = useState('general');
   const [focus, setFocus] = useState(null);
+  const [isAdmin, adminLogin, adminLogout] = useAdmin();
+  const [loginOpen, setLoginOpen] = useState(false);
 
   // Compute ONCE at mount whether storage was empty before useChapter wrote to it.
-  // useChapter reads storage in its useState initializer and writes it in useEffect.
+  // useChapter reads storage in its useState initializer and writes it in its effect.
   // We capture the "was-empty" flag as a state initializer so it's evaluated synchronously
   // before any renders run the useChapter effect.
   const [storageWasEmpty] = useState(()=> localStorage.getItem('lotm.chapter') == null);
@@ -31,10 +33,10 @@ function App(){
 
   function renderView(){
     switch(view){
-      case 'characters': return <CharactersSection chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
+      case 'characters': return <CharactersSection chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate} isAdmin={isAdmin}/>;
       case 'general':    return <GeneralHub setView={setView} navigate={navigate}/>;
       case 'pathways':   return <PathwaysView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
-      case 'map':        return <MapView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
+      case 'map':        return <MapView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate} isAdmin={isAdmin}/>;
       case 'organizations': return <OrganizationsView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
       case 'artifacts':     return <ArtifactsView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
       case 'roselle':    return <RoselleView chapter={chapter}/>;
@@ -49,7 +51,7 @@ function App(){
         <div className="flex items-center gap-3">
           <Crest size={34}/>
           <div className="leading-tight">
-            <div className="eyebrow text-[9px]" style={{ color:'var(--brass)' }}>سيد الغوامض</div>
+            <div className="eyebrow text-[11px]" style={{ color:'var(--brass)' }}>سيد الغوامض</div>
             <h1 className="font-deco text-[20px]" style={{ color:'var(--parchment)' }}>الموسوعة الحية</h1>
           </div>
         </div>
@@ -61,6 +63,16 @@ function App(){
             title="الفصل" aria-label="إعادة فتح اختيار الفصل">
             <Compass size={17}/>
           </button>
+          {/* admin lock: opens login when logged out, confirms logout when logged in */}
+          <button onClick={()=> isAdmin ? (confirm('تسجيل خروج المدير؟') && adminLogout()) : setLoginOpen(true)}
+            className="focus-ring w-9 h-9 grid place-items-center rounded-md"
+            style={{ background:'rgba(0,0,0,.4)',
+                     border:'1px solid ' + (isAdmin ? 'var(--brass)' : 'var(--line)'),
+                     color: isAdmin ? 'var(--brass)' : 'var(--parchment-dim)' }}
+            title={isAdmin ? 'وضع المدير مُفعّل — اضغط لتسجيل الخروج' : 'دخول المدير'}
+            aria-label={isAdmin ? 'خروج المدير' : 'دخول المدير'}>
+            {isAdmin ? '🔓' : '🔒'}
+          </button>
         </div>
       </header>
       <NavBar view={view} setView={setView}/>
@@ -69,6 +81,9 @@ function App(){
       </main>
       {showOverlay && (
         <WelcomeOverlay chapter={chapter} setChapter={setChapter} onDismiss={handleDismiss}/>
+      )}
+      {loginOpen && (
+        <LoginModal onLogin={async (u,p)=>{ const ok = await adminLogin(u,p); if(ok) setLoginOpen(false); return ok; }} onClose={()=>setLoginOpen(false)}/>
       )}
     </div>
   );
