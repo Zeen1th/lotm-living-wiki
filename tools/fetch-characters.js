@@ -25,6 +25,7 @@ const OUT_DIR = path.join(__dirname, '..', 'assets', 'characters');
 const PAGE_OVERRIDES = {
   azik: 'Azik Eggers',
   emperor_roselle: 'Roselle Gustav',
+  don_smith: 'Dunn Smith',   // data uses "Don Smith"; wiki page is "Dunn Smith" (same person)
 };
 
 const UA = 'LordOfMysteriesWikiBot/1.0 (https://github.com/Zeen1th/lotm-living-wiki)';
