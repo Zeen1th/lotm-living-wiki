@@ -6,7 +6,7 @@ function CharacterCard({ r, onOpen }){
       className="group text-right rounded-lg overflow-hidden focus-ring transition-all"
       style={{ border:'1px solid var(--line)', background:'rgba(255,255,255,.015)' }}>
       {/* portrait — fills the top of the card */}
-      <div className="relative w-full" style={{ aspectRatio:'3 / 4', overflow:'hidden' }}>
+      <div className="relative w-full" style={{ aspectRatio:'3 / 4.6', overflow:'hidden' }}>
         {hasImg ? (
           <img src={'assets/' + r.image} alt={r.name_ar} loading="lazy"
                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
@@ -44,68 +44,77 @@ function CharacterDetail({ r, onClose, navigate }){
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
          style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={r.name_ar}>
-      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
+      <div className="sheet glass w-full max-w-[520px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
         <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--crimson-glow),transparent)' }}/>
-        <div className="px-6 pt-5 pb-4">
-          <div className="flex items-start gap-4">
-            {/* portrait */}
-            {r.image && (
-              <img src={'assets/' + r.image} alt={r.name_ar}
-                   className="rounded-lg shrink-0 object-cover"
-                   style={{ width:96, height:120, border:'1px solid var(--brass)',
-                            boxShadow:'0 0 18px rgba(0,0,0,.5)' }}/>
-            )}
-            <div className="min-w-0 flex-1">
-              <div className="flex items-start justify-between gap-2">
-                <h2 className="font-deco text-[26px] leading-tight" style={{ color:'var(--parchment)' }}>{r.name_ar}</h2>
-                <button onClick={onClose} aria-label="إغلاق"
-                  className="shrink-0 w-9 h-9 grid place-items-center rounded-md focus-ring"
-                  style={{ background:'rgba(0,0,0,.4)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}>
-                  <X size={17}/>
-                </button>
-              </div>
-              <p className="text-[13px] mt-1" style={{ color:'var(--parchment-dim)' }}>{r.name_en}</p>
-              {r.aliases.length>0 && (
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {r.aliases.map(a=>(
-                    <span key={a} className="eyebrow text-[10px] px-2 py-1 rounded"
-                      style={{ border:'1px solid var(--brass)', color:'var(--brass)' }}>{a}</span>
-                  ))}
-                </div>
-              )}
+
+        {/* ── hero: large centered portrait, name + quick facts below ── */}
+        <div className="relative pt-5 pb-4 text-center">
+          {/* close button floats top-left */}
+          <button onClick={onClose} aria-label="إغلاق"
+            className="absolute top-3 left-3 w-9 h-9 grid place-items-center rounded-md focus-ring"
+            style={{ background:'rgba(0,0,0,.5)', border:'1px solid var(--line)', color:'var(--parchment-dim)', zIndex:2 }}>
+            <X size={17}/>
+          </button>
+          {/* status badge floats top-right */}
+          <div className="absolute top-4 right-4" style={{ zIndex:2 }}>{statusBadge(r.status)}</div>
+
+          {/* large centered portrait */}
+          {r.image ? (
+            <img src={'assets/' + r.image} alt={r.name_ar}
+                 className="mx-auto rounded-xl object-cover"
+                 style={{ width:180, height:225, border:'1px solid var(--brass)',
+                          boxShadow:'0 0 28px rgba(0,0,0,.6)' }}/>
+          ) : (
+            <div className="mx-auto rounded-xl grid place-items-center"
+                 style={{ width:180, height:225, background:'rgba(0,0,0,.45)', color:'var(--brass)', border:'1px solid var(--brass)' }}>
+              <Users size={56}/>
             </div>
-          </div>
+          )}
+
+          {/* name + english + aliases */}
+          <h2 className="font-deco text-[26px] mt-3" style={{ color:'var(--parchment)' }}>{r.name_ar}</h2>
+          <p className="text-[12.5px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{r.name_en}</p>
+          {r.aliases.length>0 && (
+            <div className="flex flex-wrap justify-center gap-2 mt-2.5">
+              {r.aliases.map(a=>(
+                <span key={a} className="eyebrow text-[10px] px-2 py-0.5 rounded"
+                  style={{ border:'1px solid var(--brass)', color:'var(--brass)' }}>{a}</span>
+              ))}
+            </div>
+          )}
         </div>
+
+        {/* ── current status cards: sequence / pathway / location / faction ── */}
         <div className="px-6 pb-6">
           {s && (
-            <div className="hairline pt-4 grid sm:grid-cols-2 gap-3">
-              {/* sequence — plain text */}
-              {s.sequence && (
-                <div className="rounded-lg px-3 py-2" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
-                  <div className="eyebrow text-[9px] mb-1" style={{ color:'var(--brass-dim)' }}>التسلسل</div>
-                  <div className="font-display text-[14px]" style={{ color:'var(--parchment)' }}>{s.sequence}</div>
-                </div>
-              )}
-              {/* pathway — LinkChip if navigate available */}
+            <div className="grid grid-cols-2 gap-2.5">
+              {/* pathway first — primary */}
               {r.pathway && (
                 <div className="rounded-lg px-3 py-2" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
                   <div className="eyebrow text-[9px] mb-1" style={{ color:'var(--brass-dim)' }}>المسار</div>
                   <LinkChip kind="pathway" id={r.pathway.id} label={r.pathway.name_ar} navigate={navigate}/>
                 </div>
               )}
+              {/* sequence */}
+              {s.sequence && (
+                <div className="rounded-lg px-3 py-2" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
+                  <div className="eyebrow text-[9px] mb-1" style={{ color:'var(--brass-dim)' }}>التسلسل</div>
+                  <div className="font-display text-[13.5px]" style={{ color:'var(--parchment)' }}>{s.sequence}</div>
+                </div>
+              )}
               {/* location */}
               {s.location && (
                 <div className="rounded-lg px-3 py-2" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
                   <div className="eyebrow text-[9px] mb-1" style={{ color:'var(--brass-dim)' }}>الموقع الحالي</div>
-                  <div className="font-display text-[14px]" style={{ color:'var(--parchment)' }}>{s.location}</div>
+                  <div className="font-display text-[13.5px]" style={{ color:'var(--parchment)' }}>{s.location}</div>
                 </div>
               )}
               {/* faction */}
               {s.faction && (
                 <div className="rounded-lg px-3 py-2" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
                   <div className="eyebrow text-[9px] mb-1" style={{ color:'var(--brass-dim)' }}>الانتماء</div>
-                  <div className="font-display text-[14px]" style={{ color:'var(--parchment)' }}>{s.faction}</div>
+                  <div className="font-display text-[13.5px]" style={{ color:'var(--parchment)' }}>{s.faction}</div>
                 </div>
               )}
             </div>
@@ -113,6 +122,7 @@ function CharacterDetail({ r, onClose, navigate }){
           {s && s.notes && (
             <p className="text-[13.5px] leading-relaxed mt-4" style={{ color:'#c2c9d1' }}>{s.notes}</p>
           )}
+          {/* timeline + other details at the bottom */}
           {r.events.length>0 && (
             <div className="mt-5">
               <div className="eyebrow text-[9.5px] mb-2.5" style={{ color:'var(--brass-dim)' }}>الجدول الزمني (حتى فصلك)</div>
