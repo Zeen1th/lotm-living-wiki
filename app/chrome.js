@@ -160,15 +160,37 @@ function GeneralHub({ setView, navigate }){
             دليلك الشامل لعالم المسارات — مقيَّد بفصلك الحالي
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {HUB_CARDS.map(c=>(
-            <button key={c.id} onClick={()=>setView(c.id)}
-              className="chip glass text-right rounded-xl px-4 py-4 focus-ring"
-              style={{ border:'1px solid var(--line)' }}>
-              <div className="font-display text-[16px] mb-1" style={{ color:'var(--parchment)' }}>{c.label}</div>
-              <div className="font-old text-[13px]" style={{ color:'var(--parchment-dim)' }}>{c.desc}</div>
-            </button>
-          ))}
+        {/* rich preview cards — image where available, themed icon fallback */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          {HUB_CARDS.map(c=>{
+            const Icon = c.icon;
+            return (
+              <button key={c.id} onClick={()=>setView(c.id)}
+                className="group text-right rounded-lg overflow-hidden focus-ring transition-all"
+                style={{ border:'1px solid var(--line)', background:'rgba(255,255,255,.015)' }}>
+                <div className="relative w-full" style={{ aspectRatio:'4 / 5', overflow:'hidden' }}>
+                  {c.image ? (
+                    <img src={'assets/' + c.image} alt={c.label} loading="lazy"
+                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>
+                  ) : (
+                    <div className="w-full h-full grid place-items-center"
+                         style={{ background:'radial-gradient(circle at 50% 35%, rgba(40,30,12,.45), rgba(4,5,8,.6))' }}>
+                      <div style={{ color:'var(--brass)', filter:'drop-shadow(0 0 14px var(--brass))' }}
+                           className="transition-transform duration-500 group-hover:scale-110">
+                        {Icon ? <Icon size={52}/> : null}
+                      </div>
+                    </div>
+                  )}
+                  <div className="absolute inset-0 pointer-events-none"
+                       style={{ background:'linear-gradient(to top, rgba(4,5,8,.94) 0%, rgba(4,5,8,0) 55%)' }}/>
+                </div>
+                <div className="px-2.5 py-2">
+                  <div className="font-display text-[14px] truncate" style={{ color:'var(--parchment)' }}>{c.label}</div>
+                  <div className="eyebrow text-[11px] truncate mt-0.5" style={{ color:'var(--brass-dim)' }}>{c.desc}</div>
+                </div>
+              </button>
+            );
+          })}
         </div>
 
         {/* مفاهيم أساسية — hoverable glossary terms */}

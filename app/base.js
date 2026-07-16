@@ -191,6 +191,7 @@ const NAV_VIEWS = [
   { id:'artifacts',     label:'التحف' },
   { id:'roselle',       label:'مذكرات روزيل' },
   { id:'epochs',        label:'الحقب' },
+  { id:'entities',      label:'الحكام/الكيانات' },
 ];
 
 const KIND_AR = {
@@ -207,18 +208,20 @@ const KIND_TO_VIEW = {
   artifact:     'artifacts',
   era:          'epochs',
   document:     'roselle',
+  entity:       'entities',
 };
 
 const ORG_KIND_AR = { club:'نادٍ', sect:'طائفة', church:'كنيسة', state:'دولة', family:'عائلة' };
 
 const HUB_CARDS = [
-  { id:'characters',    label:'الشخصيات',      desc:'تصفح الشخصيات المعروفة حتى فصلك الحالي' },
-  { id:'pathways',      label:'المسارات',      desc:'مسارات التحول والتسلسلات المكتشفة' },
-  { id:'map',           label:'الخريطة',       desc:'مملكات وجزر العالم المرتبطة بالشخصيات' },
-  { id:'organizations', label:'المنظمات',      desc:'المنظمات السرية والكنائس والأندية' },
-  { id:'artifacts',     label:'التحف',          desc:'التحف الأثرية المختومة والأدوات الخارقة' },
-  { id:'roselle',       label:'مذكرات روزيل',  desc:'مقتطفات من يوميات روزيل الغامضة' },
-  { id:'epochs',        label:'الحقب',          desc:'الحقب الخمس الكبرى لتاريخ العالم' },
+  { id:'characters',    label:'الشخصيات',      desc:'تصفح الشخصيات المعروفة حتى فصلك الحالي', image:'characters/klein.webp' },
+  { id:'pathways',      label:'المسارات',      desc:'مسارات التحول والتسلسلات المكتشفة',     icon:Eye },
+  { id:'map',           label:'الخريطة',       desc:'مملكات وجزر العالم المرتبطة بالشخصيات', image:'map/world.webp' },
+  { id:'organizations', label:'المنظمات',      desc:'المنظمات السرية والكنائس والأندية',     icon:Landmark },
+  { id:'artifacts',     label:'التحف',          desc:'التحف الأثرية المختومة والأدوات الخارقة', icon:Scroll },
+  { id:'roselle',       label:'مذكرات روزيل',  desc:'مقتطفات من يوميات روزيل الغامضة',        icon:Scroll },
+  { id:'epochs',        label:'الحقب',          desc:'الحقب الخمس الكبرى لتاريخ العالم',       icon:Moon },
+  { id:'entities',      label:'الحكام/الكيانات', desc:'الآلهة والكيانات فوق الطبيعية',          icon:Crown },
 ];
 
 const HUB_CONCEPTS = [

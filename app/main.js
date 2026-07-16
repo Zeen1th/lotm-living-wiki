@@ -41,6 +41,7 @@ function App(){
       case 'artifacts':     return <ArtifactsView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
       case 'roselle':    return <RoselleView chapter={chapter}/>;
       case 'epochs':     return <EpochsView chapter={chapter}/>;
+      case 'entities':   return <EntitiesView chapter={chapter} focus={focus} clearFocus={clearFocus} navigate={navigate}/>;
       default:           return <GeneralHub setView={setView} navigate={navigate}/>;
     }
   }

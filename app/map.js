@@ -398,7 +398,12 @@ function MapView({ chapter, focus, clearFocus, navigate, isAdmin }){
           Sized to the actual rendered image box via an aspect-ratio inner wrapper
           so percentage coordinates line up with the contained image. */}
       <div className="absolute inset-0 flex items-center justify-center" style={{ pointerEvents:'none' }}>
-        <div ref={containerRef} className="relative" style={{ aspectRatio: imgSrc === WORLD_IMG ? '2400 / 1743' : '1654 / 2000', maxWidth:'100%', maxHeight:'100%', width:'100%', height:'100%' }}>
+        <div ref={containerRef} className="relative"
+             style={{ aspectRatio: imgSrc === WORLD_IMG ? '2400 / 1743' : '1654 / 2000', maxWidth:'100%', maxHeight:'100%', width:'100%', height:'100%',
+                      pointerEvents: activeContinent ? 'auto' : 'none',
+                      cursor: activeContinent ? 'pointer' : 'default' }}
+             onClick={activeContinent ? handleBackToWorld : undefined}
+             title={activeContinent ? 'اضغط للعودة إلى الخريطة الكاملة' : undefined}>
 
           {/* continent click hotspots (only in world view).
               Hidden for regular users (transparent); shown + editable in edit mode. */}
@@ -463,7 +468,7 @@ function MapView({ chapter, focus, clearFocus, navigate, isAdmin }){
             return (
               <button key={loc.id}
                 onPointerDown={(e)=> startDrag(loc.id, e)}
-                onClick={()=> { if(!(drag && drag.moved)) handlePlace(loc); }}
+                onClick={(e)=> { e.stopPropagation(); if(!(drag && drag.moved)) handlePlace(loc); }}
                 className={'mappin' + (open ? ' open' : '') + (isCity ? ' city' : '') + (edited ? ' edited' : '') + (editAllowed ? ' editable' : '')}
                 style={{
                   position:'absolute',
