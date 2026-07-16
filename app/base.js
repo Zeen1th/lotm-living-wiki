@@ -36,7 +36,7 @@ function LinkChip({ kind, id, label, navigate }){
   return (
     <button
       onClick={()=> navigate(kind, id)}
-      className="chip focus-ring px-2.5 py-1 rounded-md text-[12px] font-display"
+      className="chip focus-ring px-2.5 py-1 rounded-md text-[12.5px] font-display"
       style={{ background:'rgba(0,0,0,.35)', border:'1px solid var(--line)', color:'var(--parchment)', cursor:'pointer' }}>
       {label}
     </button>
@@ -140,7 +140,7 @@ function Crest({ size=42, accent='crimson' }){
 function statusBadge(status){
   const map = { alive:'حيّ', dead:'متوفّى', unknown:'غير معروف' };
   const col = status==='dead' ? 'var(--crimson-glow)' : status==='alive' ? 'var(--brass)' : 'var(--parchment-dim)';
-  return <span className="eyebrow text-[9px]" style={{ color:col }}>{map[status]||status}</span>;
+  return <span className="eyebrow text-[11px]" style={{ color:col }}>{map[status]||status}</span>;
 }
 
 /* ----------------------------------------------------------------

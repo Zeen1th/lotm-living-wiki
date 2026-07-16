@@ -19,7 +19,7 @@ function EraDetail({ era, onClose }){
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               <h2 className="font-deco text-[24px] leading-tight" style={{ color:'var(--parchment)' }}>{era.name_ar}</h2>
-              <p className="text-[12px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{era.name_en}</p>
+              <p className="text-[12.5px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{era.name_en}</p>
             </div>
             <button onClick={onClose} aria-label="إغلاق"
               className="shrink-0 w-9 h-9 grid place-items-center rounded-md focus-ring"
@@ -32,7 +32,7 @@ function EraDetail({ era, onClose }){
           {era.blurb_ar && (
             <p className="font-old text-[13.5px] leading-relaxed mb-4" style={{ color:'#c2c9d1' }}>{era.blurb_ar}</p>
           )}
-          <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>الحقائق المسجّلة</div>
+          <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>الحقائق المسجّلة</div>
           {(era.facts||[]).length === 0
             ? <EmptyNote text="لا حقائق مسجّلة بعد"/>
             : (
@@ -41,7 +41,7 @@ function EraDetail({ era, onClose }){
                   <li key={i} className="relative pr-5 pb-3">
                     <span className="absolute right-[-5px] top-1.5 w-2.5 h-2.5 rounded-full"
                           style={{ background:'var(--brass)' }}/>
-                    <span className="eyebrow text-[9px]" style={{ color:'var(--brass)' }}>فصل {f.chapter}</span>
+                    <span className="eyebrow text-[11px]" style={{ color:'var(--brass)' }}>فصل {f.chapter}</span>
                     <p className="text-[13px] mt-0.5" style={{ color:'var(--parchment)' }}>{f.text}</p>
                   </li>
                 ))}
@@ -66,7 +66,7 @@ function EpochsView({ chapter }){
 
   return (
     <div className="h-full flex flex-col max-w-[760px] mx-auto px-4 pt-6">
-      <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>
+      <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>
         الحقب المعروفة حتى الفصل {chapter} — {list.length}
       </div>
       <SectionList
@@ -82,7 +82,7 @@ function EpochsView({ chapter }){
             </span>
             <span className="min-w-0 flex-1">
               <span className="font-display block text-[15px] truncate" style={{ color:'var(--parchment)' }}>{era.name_ar}</span>
-              <span className="block text-[11px] truncate" style={{ color:'var(--brass)' }}>{era.name_en}</span>
+              <span className="block text-[12px] truncate" style={{ color:'var(--brass)' }}>{era.name_en}</span>
             </span>
           </button>
         )}

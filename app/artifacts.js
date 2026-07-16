@@ -43,9 +43,9 @@ function ArtifactDetail({ artifact, chapter, onClose, navigate }){
             <div className="min-w-0">
               <h2 className="font-deco text-[24px] leading-tight" style={{ color:'var(--parchment)' }}>{artifact.name_ar}</h2>
               {artifact.name_en && (
-                <p className="text-[12px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{artifact.name_en}</p>
+                <p className="text-[12.5px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{artifact.name_en}</p>
               )}
-              <span className="eyebrow text-[9px] mt-1 inline-block" style={{ color:'var(--brass)' }}>
+              <span className="eyebrow text-[11px] mt-1 inline-block" style={{ color:'var(--brass)' }}>
                 {typeLabel}{artifact.grade != null ? ` — درجة ${artifact.grade}` : ''}{artifact.code ? ` — ${artifact.code}` : ''}
               </span>
             </div>
@@ -64,13 +64,13 @@ function ArtifactDetail({ artifact, chapter, onClose, navigate }){
           {/* owner */}
           {owner && (
             <div className="rounded-lg px-3 py-2 mb-4" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
-              <div className="eyebrow text-[9px] mb-1" style={{ color:'var(--brass-dim)' }}>المالك/المستخدم</div>
+              <div className="eyebrow text-[11px] mb-1" style={{ color:'var(--brass-dim)' }}>المالك/المستخدم</div>
               <LinkChip kind={owner.kind} id={owner.id} label={owner.label} navigate={navigate}/>
             </div>
           )}
 
           {/* events */}
-          <div className="eyebrow text-[9px] mb-2 mt-3" style={{ color:'var(--brass-dim)' }}>الأحداث</div>
+          <div className="eyebrow text-[11px] mb-2 mt-3" style={{ color:'var(--brass-dim)' }}>الأحداث</div>
           {events.length === 0
             ? <EmptyNote text="لا أحداث مسجّلة بعد"/>
             : (
@@ -79,7 +79,7 @@ function ArtifactDetail({ artifact, chapter, onClose, navigate }){
                   <li key={i} className="relative pr-5 pb-3">
                     <span className="absolute right-[-5px] top-1.5 w-2.5 h-2.5 rounded-full"
                           style={{ background:'var(--crimson-glow)' }}/>
-                    <span className="eyebrow text-[9px]" style={{ color:'var(--brass)' }}>فصل {ev.chapter}</span>
+                    <span className="eyebrow text-[11px]" style={{ color:'var(--brass)' }}>فصل {ev.chapter}</span>
                     <p className="text-[13px] mt-0.5" style={{ color:'var(--parchment)' }}>{ev.text}</p>
                   </li>
                 ))}
@@ -122,7 +122,7 @@ function ArtifactsView({ chapter, focus, clearFocus, navigate }){
 
   return (
     <div className="h-full flex flex-col max-w-[760px] mx-auto px-4 pt-6">
-      <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>
+      <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>
         التحف المعروفة حتى الفصل {chapter} — {list.length}
       </div>
       {/* Search */}
@@ -159,7 +159,7 @@ function ArtifactsView({ chapter, focus, clearFocus, navigate }){
             </span>
             <span className="min-w-0 flex-1">
               <span className="font-display block text-[15px] truncate" style={{ color:'var(--parchment)' }}>{a.name_ar}</span>
-              <span className="block text-[11px] truncate" style={{ color:'var(--brass)' }}>
+              <span className="block text-[12px] truncate" style={{ color:'var(--brass)' }}>
                 {ARTIFACT_TYPE_AR[a.type] || a.type}{a.grade != null ? ` — درجة ${a.grade}` : ''}
               </span>
             </span>

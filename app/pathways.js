@@ -43,7 +43,7 @@ function PathwayDetail({ pathway, chapter, onClose, navigate }){
               <X size={17}/>
             </button>
           </div>
-          <p className="text-[12px] mt-1" style={{ color:'var(--parchment-dim)' }}>{pathway.name_en}</p>
+          <p className="text-[12.5px] mt-1" style={{ color:'var(--parchment-dim)' }}>{pathway.name_en}</p>
         </div>
 
         <div className="px-6 pb-6 scroller overflow-y-auto" style={{ maxHeight:'70vh' }}>
@@ -54,7 +54,7 @@ function PathwayDetail({ pathway, chapter, onClose, navigate }){
           )}
 
           {/* Sequence ladder 9→0 */}
-          <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>سلّم التسلسلات</div>
+          <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>سلّم التسلسلات</div>
           <div className="rounded-lg overflow-hidden" style={{ border:'1px solid var(--line)' }}>
             {ladder.map(({ n, seq }, idx)=>{
               const known = seq != null;
@@ -66,14 +66,14 @@ function PathwayDetail({ pathway, chapter, onClose, navigate }){
                     background: known ? 'rgba(255,255,255,.02)' : 'transparent',
                     opacity: known ? 1 : 0.4,
                   }}>
-                  <span className="eyebrow text-[9px] shrink-0" style={{ color: known ? dotColor : 'var(--parchment-dim)', minWidth:28 }}>
+                  <span className="eyebrow text-[11px] shrink-0" style={{ color: known ? dotColor : 'var(--parchment-dim)', minWidth:28 }}>
                     {n}
                   </span>
                   {known
                     ? <span className="font-display text-[13px]" style={{ color:'var(--parchment)' }}>
                         التسلسل {n}: {seq.name_ar}
                       </span>
-                    : <span className="font-old text-[12px] italic" style={{ color:'var(--parchment-dim)' }}>
+                    : <span className="font-old text-[12.5px] italic" style={{ color:'var(--parchment-dim)' }}>
                         التسلسل {n}: ؟؟؟
                       </span>
                   }
@@ -85,7 +85,7 @@ function PathwayDetail({ pathway, chapter, onClose, navigate }){
           {/* Characters on this pathway */}
           {pathChars.length > 0 && (
             <div className="mt-4">
-              <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>يسلكه</div>
+              <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>يسلكه</div>
               <div className="flex flex-wrap gap-1.5">
                 {pathChars.map(c=>(
                   <LinkChip key={c.id} kind="character" id={c.id} label={c.name_ar} navigate={navigate}/>
@@ -154,7 +154,7 @@ function PathwaysView({ chapter, focus, clearFocus, navigate }){
         <span className="shrink-0 w-3 h-3 rounded-full" style={{ background:dotColor }}/>
         <span className="min-w-0 flex-1">
           <span className="font-display block text-[14px]" style={{ color:'var(--parchment)' }}>{p.name_ar}</span>
-          <span className="block text-[10px]" style={{ color:'var(--parchment-dim)' }}>{p.name_en}</span>
+          <span className="block text-[11.5px]" style={{ color:'var(--parchment-dim)' }}>{p.name_en}</span>
         </span>
       </button>
     );
@@ -168,7 +168,7 @@ function PathwaysView({ chapter, focus, clearFocus, navigate }){
         <p className="font-old text-[13px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>
           تظهر المسارات تباعًا كلما تقدّمت في القراءة
         </p>
-        <div className="eyebrow text-[9px] mt-2" style={{ color:'var(--brass-dim)' }}>
+        <div className="eyebrow text-[11px] mt-2" style={{ color:'var(--brass-dim)' }}>
           المسارات المكتشفة حتى الفصل {chapter} — {totalVisible}
         </div>
       </div>
@@ -189,7 +189,7 @@ function PathwaysView({ chapter, focus, clearFocus, navigate }){
                         style={{ background: col.family.color || 'var(--brass)' }}/>
                   <div className="min-w-0">
                     <div className="font-display text-[13px]" style={{ color:'var(--parchment)' }}>{col.family.name_ar}</div>
-                    <div className="eyebrow text-[8px]" style={{ color:'var(--parchment-dim)' }}>{col.family.name_en}</div>
+                    <div className="eyebrow text-[10px]" style={{ color:'var(--parchment-dim)' }}>{col.family.name_en}</div>
                   </div>
                 </div>
                 <div>
@@ -206,7 +206,7 @@ function PathwaysView({ chapter, focus, clearFocus, navigate }){
                         style={{ background:'var(--brass-dim)' }}/>
                   <div className="min-w-0">
                     <div className="font-display text-[13px]" style={{ color:'var(--parchment)' }}>مسارات معروفة</div>
-                    <div className="eyebrow text-[8px]" style={{ color:'var(--parchment-dim)' }}>Known Pathways</div>
+                    <div className="eyebrow text-[10px]" style={{ color:'var(--parchment-dim)' }}>Known Pathways</div>
                   </div>
                 </div>
                 <div>

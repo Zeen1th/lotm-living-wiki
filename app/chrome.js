@@ -30,7 +30,7 @@ function ChapterSlider({ chapter, setChapter }){
   };
   return (
     <div className="glass rounded-lg px-4 py-2.5 flex items-center gap-3">
-      <span className="eyebrow text-[9px] shrink-0" style={{ color:'var(--brass)' }}>أقصى فصل قرأته</span>
+      <span className="eyebrow text-[11px] shrink-0" style={{ color:'var(--brass)' }}>أقصى فصل قرأته</span>
       <input type="range" min="1" max={CAP} value={chapter}
              onChange={e=>setChapter(parseInt(e.target.value,10))}
              aria-label="أقصى فصل قرأته"
@@ -45,7 +45,7 @@ function ChapterSlider({ chapter, setChapter }){
       <span className="font-display text-[14px] shrink-0" style={{ color:'var(--parchment-dim)' }}>
         / {CAP}
       </span>
-      <span className="eyebrow text-[8.5px] shrink-0 truncate w-[112px] text-right"
+      <span className="eyebrow text-[10px] shrink-0 truncate w-[112px] text-right"
             style={{ color:'var(--parchment-dim)' }}>{vol ? vol.name_ar : ''}</span>
     </div>
   );
@@ -154,7 +154,7 @@ function GeneralHub({ setView, navigate }){
       <div className="bloodmoon"/>
       <div className="relative z-10 max-w-[720px] mx-auto px-4 pt-16 pb-10">
         <div className="text-center mb-8">
-          <div className="eyebrow text-[10px] mb-1" style={{ color:'var(--brass)' }}>سيد الغوامض</div>
+          <div className="eyebrow text-[11.5px] mb-1" style={{ color:'var(--brass)' }}>سيد الغوامض</div>
           <h2 className="font-deco text-[28px]" style={{ color:'var(--parchment)' }}>الموسوعة الحية</h2>
           <p className="font-old text-[14px] mt-2" style={{ color:'var(--parchment-dim)' }}>
             دليلك الشامل لعالم المسارات — مقيَّد بفصلك الحالي
@@ -173,7 +173,7 @@ function GeneralHub({ setView, navigate }){
 
         {/* مفاهيم أساسية — hoverable glossary terms */}
         <div className="mt-8 glass rounded-xl px-5 py-4" style={{ border:'1px solid var(--line)' }}>
-          <div className="eyebrow text-[9px] mb-3" style={{ color:'var(--brass)' }}>مفاهيم أساسية</div>
+          <div className="eyebrow text-[11px] mb-3" style={{ color:'var(--brass)' }}>مفاهيم أساسية</div>
           <div className="flex flex-wrap gap-3">
             {HUB_CONCEPTS.map(gid=>{
               const entry = (LOTM.glossary || []).find(g => g.id === gid);
@@ -189,7 +189,7 @@ function GeneralHub({ setView, navigate }){
               );
             })}
           </div>
-          <p className="font-old text-[11px] mt-3" style={{ color:'var(--parchment-dim)', opacity:0.7 }}>
+          <p className="font-old text-[12px] mt-3" style={{ color:'var(--parchment-dim)', opacity:0.7 }}>
             مرّر المؤشر فوق أي مصطلح للاطلاع على تعريفه
           </p>
         </div>

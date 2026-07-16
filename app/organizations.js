@@ -42,8 +42,8 @@ function OrgDetail({ org, chapter, onClose, navigate }){
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               <h2 className="font-deco text-[24px] leading-tight" style={{ color:'var(--parchment)' }}>{org.name_ar}</h2>
-              <p className="text-[12px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{org.name_en}</p>
-              <span className="eyebrow text-[9px] mt-1 inline-block" style={{ color:'var(--brass)' }}>
+              <p className="text-[12.5px] mt-0.5" style={{ color:'var(--parchment-dim)' }}>{org.name_en}</p>
+              <span className="eyebrow text-[11px] mt-1 inline-block" style={{ color:'var(--brass)' }}>
                 {ORG_KIND_AR[org.kind] || org.kind}
               </span>
             </div>
@@ -64,13 +64,13 @@ function OrgDetail({ org, chapter, onClose, navigate }){
             <div className="grid sm:grid-cols-2 gap-3 mb-4">
               {leaderChar && (
                 <div className="rounded-lg px-3 py-2" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
-                  <div className="eyebrow text-[9px] mb-1" style={{ color:'var(--brass-dim)' }}>القائد</div>
+                  <div className="eyebrow text-[11px] mb-1" style={{ color:'var(--brass-dim)' }}>القائد</div>
                   <LinkChip kind="character" id={leaderChar.id} label={leaderChar.name_ar} navigate={navigate}/>
                 </div>
               )}
               {hqLoc && (
                 <div className="rounded-lg px-3 py-2" style={{ background:'rgba(0,0,0,.3)', border:'1px solid var(--line)' }}>
-                  <div className="eyebrow text-[9px] mb-1" style={{ color:'var(--brass-dim)' }}>المقر</div>
+                  <div className="eyebrow text-[11px] mb-1" style={{ color:'var(--brass-dim)' }}>المقر</div>
                   <LinkChip kind="location" id={hqLoc.id} label={hqLoc.name_ar} navigate={navigate}/>
                 </div>
               )}
@@ -78,7 +78,7 @@ function OrgDetail({ org, chapter, onClose, navigate }){
           )}
 
           {/* members */}
-          <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>الأعضاء</div>
+          <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>الأعضاء</div>
           {members.length === 0
             ? <EmptyNote text="لا أعضاء معروفون بعد"/>
             : (
@@ -91,7 +91,7 @@ function OrgDetail({ org, chapter, onClose, navigate }){
           }
 
           {/* events */}
-          <div className="eyebrow text-[9px] mb-2 mt-3" style={{ color:'var(--brass-dim)' }}>الأحداث</div>
+          <div className="eyebrow text-[11px] mb-2 mt-3" style={{ color:'var(--brass-dim)' }}>الأحداث</div>
           {events.length === 0
             ? <EmptyNote text="لا أحداث مسجّلة بعد"/>
             : (
@@ -100,7 +100,7 @@ function OrgDetail({ org, chapter, onClose, navigate }){
                   <li key={i} className="relative pr-5 pb-3">
                     <span className="absolute right-[-5px] top-1.5 w-2.5 h-2.5 rounded-full"
                           style={{ background:'var(--crimson-glow)' }}/>
-                    <span className="eyebrow text-[9px]" style={{ color:'var(--brass)' }}>فصل {ev.chapter}</span>
+                    <span className="eyebrow text-[11px]" style={{ color:'var(--brass)' }}>فصل {ev.chapter}</span>
                     <p className="text-[13px] mt-0.5" style={{ color:'var(--parchment)' }}>{ev.text}</p>
                   </li>
                 ))}
@@ -131,7 +131,7 @@ function OrganizationsView({ chapter, focus, clearFocus, navigate }){
 
   return (
     <div className="h-full flex flex-col max-w-[760px] mx-auto px-4 pt-6">
-      <div className="eyebrow text-[9px] mb-2" style={{ color:'var(--brass-dim)' }}>
+      <div className="eyebrow text-[11px] mb-2" style={{ color:'var(--brass-dim)' }}>
         المنظمات المعروفة حتى الفصل {chapter} — {list.length}
       </div>
       <SectionList
@@ -147,7 +147,7 @@ function OrganizationsView({ chapter, focus, clearFocus, navigate }){
             </span>
             <span className="min-w-0 flex-1">
               <span className="font-display block text-[15px] truncate" style={{ color:'var(--parchment)' }}>{org.name_ar}</span>
-              <span className="block text-[11px] truncate" style={{ color:'var(--brass)' }}>
+              <span className="block text-[12px] truncate" style={{ color:'var(--brass)' }}>
                 {ORG_KIND_AR[org.kind] || org.kind}
               </span>
             </span>
