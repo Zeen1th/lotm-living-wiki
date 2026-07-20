@@ -119,6 +119,32 @@
       blurb_ar: 'تحفة مختومة من الدرجة 2 من كنيسة إله المعرفة والحكمة. تسمح لحاملها بفهم وإمساك قوى متجاوز الخصم بسرعة وتقليدها (كلما كان الخصم أقوى، زادت فرصة الفشل). تملكها "عين الحكمة" من تجمع باكلوند. عيبها: إبقاء العقل في حالة فرط نشاط، وإن تجاوز الحد الزمني يصبح الحامل متخلفاً. قيمتها 6800 جنيه.',
       sources: [257],
     },
+
+    // ── batch-ch300/323: Backlund arc artifacts ──
+    {
+      id: 'azik_whistle',
+      name_ar: 'صافرة أزيك النحاسية',
+      name_en: "Azik's Brass Whistle",
+      type: 'mystic',
+      grade: null,
+      first_appeared_chapter: 300,
+      first_appeared_quote: 'صافرة',
+      owner_id: null,
+      blurb_ar: 'صافرة نحاسية أعطاها أزيك لكلاين؛ أداة طقسية لمنعطف الأموات تتيح التحكم في الأرواح الميتة. تتكرر كأداة قتالية وتحقيق في فصول لاحقة، وترتبط بماضي أزيك المنسي.',
+      sources: [300, 301],
+    },
+    {
+      id: 'blasphemy_slate_card',
+      name_ar: 'بطاقة الكفر (لوح التجديف)',
+      name_en: 'Blasphemy Slate card',
+      type: 'mystic',
+      grade: null,
+      first_appeared_chapter: 323,
+      first_appeared_quote: 'بطاقة الكفر',
+      owner_id: null,
+      blurb_ar: 'بطاقة من لوح التجديف، مختومة داخل حامل صفحة من معرض روزيل التذكاري بالمتحف الملكي. فُكّ ختم كل بطاقة بتعويذة فريدة (هذه بـ"برناديت"، بلغة فيزاك القديمة — اسم ابنة روزيل). تحوي أسرار المسارات الإلهية الـ22. سرقها كلاين (بمساعدة أودري) في قوس المتحف.',
+      sources: [323],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.artifacts;
 })(typeof window !== 'undefined' ? window : globalThis);

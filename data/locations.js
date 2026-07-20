@@ -219,9 +219,11 @@
       first_appeared_quote: 'في عاصمة مملكة لوين ، باكلوند',
       states: [
         { since_chapter: 3, blurb_ar: 'عاصمة مملكة لوين، مقسومة بين المدينة العليا الراقية وحي الشرق المكتظ.' },
+        // batch-ch280: Backlund becomes Klein's base of operations as "Sherlock Moriarty".
+        { since_chapter: 280, blurb_ar: 'مقرّ كلاين الجديد بعد قوس تينغن؛ يعمل محققاً خاصاً بهوية "شارلوك موريارتي" من 15 شارع مينسك (قسم شاروود). معرض روزيل التذكاري بالمتحف الملكي مسرح سرقة بطاقة الكفر.' },
       ],
       contains_ids: [],
-      sources: [3, 7, 21],
+      sources: [3, 7, 21, 280, 317, 323],
     },
     {
       id: 'tingen',

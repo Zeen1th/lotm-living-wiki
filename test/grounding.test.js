@@ -28,7 +28,7 @@ function collectFacts(LOTM) {
       }
     });
   });
-  ['characters', 'families', 'pathways', 'organizations', 'locations', 'eras', 'documents', 'glossary', 'artifacts'].forEach(c => each(c, c));
+  ['characters', 'families', 'pathways', 'organizations', 'locations', 'eras', 'documents', 'glossary', 'artifacts', 'entities'].forEach(c => each(c, c));
   return out;
 }
 

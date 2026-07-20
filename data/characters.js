@@ -29,6 +29,16 @@
         { since_chapter: 168, sequence: 'التسلسل 8: المهرج', location: 'تينغن', faction: 'نادي التاروت',
           notes: 'تناوَل جرعة المهرج وأصبح متجاوز التسلسل 8.',
           quote: 'كان يعلم أنه كان متجاوز التسلسل 8' },
+        // batch-ch280: moved to Backlund as "Sherlock Moriarty", still Seq-8 Clown.
+        { since_chapter: 280, sequence: 'التسلسل 8: المهرج', location: 'باكلوند - 15 شارع مينسك (قسم شاروود)',
+          faction: 'نادي التاروت',
+          notes: 'انتقل إلى باكلوند وعمل محققاً خاصاً بهوية "شارلوك موريارتي".',
+          quote: 'شارع مينسك' },
+        // batch-ch296: consumed the Magician potion, advanced to Seq-7.
+        { since_chapter: 296, sequence: 'التسلسل 7: لاعب الخفة', location: 'باكلوند - 15 شارع مينسك (قسم شاروود)',
+          faction: 'نادي التاروت',
+          notes: 'تناوَل جرعة لاعب الخفة وأصبح متجاوز التسلسل 7.',
+          quote: 'لاعب الخفة' },
       ],
       events: [
         // Milestones only (batch-1 noise trimmed per user directive).
@@ -81,6 +91,23 @@
           quote: 'التسلسل 5، المتحكم في الدمى' },
         { chapter: 251, type: 'lore_acquisition', text: 'حصل على تركيبات جرعات التسلسل 7 (لاعب الخفة) والتسلسل 6 (عديم الوجه) والتسلسل 5 (المتحكم في الدمى) من مسار المتنبئ عبر عرافة الحلم على جثة روزاغوا.',
           quote: 'التسلسل 7، لاعب الخفة' },
+        // batch-ch280: Klein begins Backlund life as Sherlock Moriarty; opens the revenge arc vs the True Creator.
+        { chapter: 280, type: 'turning_point', text: 'الخطوة الأولى في باكلوند بهوية المحقق موريارتي — بداية قوس الانتقام ضد الخالق الحقيقي (خلف وفاة القائد دون سميث).',
+          quote: 'شارع مينسك' },
+        // batch-ch285/287: Laneves (True Creator vessel) manhunt; clown-mask sewer duel.
+        { chapter: 285, type: 'investigation', text: 'مطاردة لانيفوس (الخائن وعاء الخالق الحقيقي) في باكلوند بالاشتراك مع صقور الليل والعدالة والشمس.',
+          quote: 'لانيفوس' },
+        { chapter: 287, type: 'combat', text: 'مواجهة قاتلة في المجاري ضد لانيفوس؛ يفلت من صقور الليل لكن كلاين (بقناع المهرج) يتربص به.',
+          quote: 'لانيفوس' },
+        // batch-ch296: Magician advancement.
+        { chapter: 296, type: 'advance', text: 'تناوَل جرعة لاعب الخفة وأصبح متجاوز التسلسل 7 — نقل الأضرار، القفزة الملتهبة، رصاص الهواء، بدائل الدمى الورقية، خلق الأوهام.',
+          quote: 'لاعب الخفة' },
+        // batch-ch311: Tarot Club inducts Fors as "Magician".
+        { chapter: 311, type: 'faction_event', text: 'ضمّ "الساحر" فورس إلى نادي التاروت كعضو جديد (التسلسل 9 من مسار الباب).',
+          quote: 'الساحر' },
+        // batch-ch323: Blasphemy Slate heist at the Roselle Memorial Exhibition.
+        { chapter: 323, type: 'lore_acquisition', text: 'سرق بطاقة الكفر من معرض روزيل التذكاري بالمتحف الملكي؛ فُكّ ختمها بالتعويذة "برناديت" (بلغة فيزاك القديمة).',
+          quote: 'بطاقة الكفر' },
       ],
       abilities: ['العرافة الدقيقة', 'خفة حركة خارقة', 'قراءة حركات الخصم', 'التحكم بتعابير الوجه'],
       relationships: [
@@ -142,6 +169,9 @@
           quote: 'نجح السيد A' },
         { chapter: 254, type: 'intel', text: 'سددت الدفعة المتبقية 8000 جنيه عبر شيو وفورس بناءً على تعليمات السيد A بإيداعها في حسابات بنكية مجهولة.',
           quote: 'السيد A' },
+        // batch-ch317: Audrey aids Klein at the Roselle Memorial Exhibition (Blasphemy Slate heist setup).
+        { chapter: 317, type: 'mission', text: 'ساعدت كلاين في التحقق من حامل صفحة روزيل في معرض روزيل التذكاري بالمتحف الملكي (تمهيداً لسرقة بطاقة الكفر).',
+          quote: 'معرض روزيل' },
       ],
       abilities: ['قراءة لغة الجسد', 'استشعار الأفكار السطحية', 'التواصل الذهني'],
       relationships: [{ id: 'klein', type: 'مؤسس النادي', since_chapter: 7 }],
@@ -218,6 +248,12 @@
         // batch-5: Reveals a member of Silver City's Council of Six is a Shepherd.
         { chapter: 146, type: 'major_reveal', text: 'كشف أن أحد أعضاء مجلس الستة في مدينة الفضة هو "راعٍ" — متجاوز من مسار متوسل الأسرار/المستمع.',
           quote: 'الراعي!' },
+        // batch-ch313: Derek studies the ancient gods and their links to the current orthodox gods.
+        { chapter: 313, type: 'lore', text: 'بحث في الآلهة القديمة وصلتها بالآلهة الأرثوذكسية الحالية (دراسة من مكتبة مدينة الفضة).',
+          quote: 'الألهة القديمة' },
+        // batch-ch315: Derek grows concerned about Elder Lovia (Council of Six) being on the True Creator's pathway.
+        { chapter: 315, type: 'reveal', text: 'قلقه من أن الشيخ لوفيا (عضو مجلس الستة) على مسار الخالق الحقيقي وتهديد لمدينة الفضة.',
+          quote: 'الشيخ لوفيا' },
       ],
       abilities: ['ضوء مقدّس', 'أمل لا يُكسر'],
       relationships: [
@@ -420,6 +456,103 @@
       tags: ['صقور الليل', 'مسار اللانائم', 'شاعر منتصف الليل'],
       blurb_ar: 'متجاوز التسلسل 8 (شاعر منتصف الليل) من مسار اللانائم وضابط أقدم في صقور ليل تينغن تحت قيادة دون سميث، يعمل مع كلاين على القضايا الخارقة؛ نجا من معركة شبه قاتلة وأقسم على الانتقام من إنس زانغويل.',
       sources: [17, 21, 44, 127, 208, 211],
+    },
+
+    // ── batch-ch280-324: Backlund arc — significant new recurring characters ──
+
+    {
+      // Laneves — the Tingen traitor, now a vessel of the True Creator; the manhunt target of Klein's revenge arc.
+      id: 'laneves',
+      name_ar: 'لانيفوس', name_en: 'Laneves',
+      first_appeared_chapter: 285, status: 'alive',
+      first_appeared_quote: 'لانيفوس',
+      pathway: null,
+      aliases: [],
+      states: [
+        { since_chapter: 285, sequence: 'غير معروف (وعاء الخالق الحقيقي)', location: 'باكلوند', faction: 'نظام الشفق',
+          notes: 'خائن تينغن صار وعاءً للخالق الحقيقي؛ مطارد من صقور الليل وكلاين.',
+          quote: 'لانيفوس' },
+      ],
+      events: [
+        { chapter: 285, type: 'intro', text: 'بداية مطاردة لانيفوس في باكلوند — الخائن الذي صار وعاءً للخالق الحقيقي.',
+          quote: 'لانيفوس' },
+        { chapter: 287, type: 'combat', text: 'مواجهة قاتلة في المجاري؛ يفلت من صقور الليل لكن كلاين (بقناع المهرج) يتربص به.',
+          quote: 'لانيفوس' },
+      ],
+      relationships: [],
+      abilities: [],
+      tags: ['نظام الشفق', 'الخالق الحقيقي', 'باكلوند'],
+      blurb_ar: 'خائنٌ من أحداث تينغن صار وعاءً لقداسة الخالق الحقيقي؛ هدف قوس انتقام كلاين في باكلوند، ومطارد من صقور الليل.',
+      sources: [285, 287],
+    },
+    {
+      // Cattleya — "Admiral of Stars", a notable pirate admiral introduced via Alger's news in ch294.
+      id: 'cattleya',
+      name_ar: 'كاتليا', name_en: 'Cattleya',
+      first_appeared_chapter: 294, status: 'alive',
+      first_appeared_quote: 'أدميرال النجوم',
+      pathway: null,
+      aliases: [{ name: 'أدميرال النجوم', since_chapter: 294, quote: 'أدميرال النجوم' }],
+      states: [
+        { since_chapter: 294, sequence: 'غير معروف', location: 'البحار', faction: 'قراصنة',
+          notes: 'أدميرال نجوم قرصانة بارزة.',
+          quote: 'أدميرال النجوم' },
+      ],
+      events: [
+        { chapter: 294, type: 'intro', text: 'ذكرى أولاً كأدميرال النجوم بين أدميرالات القراصنة (إلى جانب تريسي الموت الأسود).',
+          quote: 'أدميرال النجوم' },
+      ],
+      relationships: [],
+      abilities: [],
+      tags: ['قراصنة', 'أدميرال النجوم'],
+      blurb_ar: 'أدميرال النجوم — قرصانة بارزة ظهر ذكرها أولاً في أخبار الرجل المعلق إلى جانب غيرها من الأدميرالات.',
+      sources: [294],
+    },
+    {
+      // Bishop Utravsky — hunched bishop of the Harvest Church (God of Earth) in Backlund; former pirate & former Seq-6 Dawn Paladin.
+      id: 'utravsky',
+      name_ar: 'أوترافسكي', name_en: 'Utravsky',
+      first_appeared_chapter: 302, status: 'alive',
+      first_appeared_quote: 'أوترافسكي',
+      pathway: null,
+      aliases: [{ name: 'الأسقف العملاق', since_chapter: 306, quote: 'الأسقف العملاق' }],
+      states: [
+        { since_chapter: 302, sequence: 'غير معروف (أسقف، سابقًا بالادين فجر)', location: 'باكلوند - كنيسة الحصاد', faction: 'كنيسة الحصاد',
+          notes: 'أسقف كنيسة الحصاد في باكلوند؛ ضخم الجثة وله ماضٍ كقرصان وبالادين فجر سابق.',
+          quote: 'أوترافسكي' },
+      ],
+      events: [
+        { chapter: 302, type: 'intro', text: 'ظهور الأسقف أوترافسكي في كنيسة الحصاد بباكلوند — رجل ضخم بملامح مرعبة وطفولية في آنٍ واحد.',
+          quote: 'أوترافسكي' },
+      ],
+      relationships: [],
+      abilities: [],
+      tags: ['كنيسة الحصاد', 'باكلوند', 'بالادين فجر'],
+      blurb_ar: 'أسقف كنيسة الحصاد (إله الأرض) في باكلوند؛ ضخم الجثة، له ماضٍ كقرصان، وكان بالادين فجر (التسلسل 6 من مسار المحارب/العملاق).',
+      sources: [302, 306, 307],
+    },
+    {
+      // Fors — "Magician", newest Tarot Club member (ch311); Door-pathway Seq-9 Beyonder (wall-passing). Also a writer.
+      id: 'fors',
+      name_ar: 'فورس', name_en: 'Fors Wall',
+      first_appeared_chapter: 311, status: 'alive',
+      first_appeared_quote: 'الساحر',
+      pathway: null,
+      aliases: [{ name: 'الساحر', since_chapter: 311, quote: 'الساحر' }],
+      states: [
+        { since_chapter: 311, sequence: 'التسلسل 9 (مسار الباب)', location: 'باكلوند', faction: 'نادي التاروت',
+          notes: 'كاتبة ومتجاوزة من مسار الباب، تستطيع العبور عبر الجدران؛ انضمت لنادي التاروت باسم "الساحر".',
+          quote: 'الساحر' },
+      ],
+      events: [
+        { chapter: 311, type: 'join', text: 'انضمت إلى نادي التاروت كعضوة جديدة باسم "الساحر" (التسلسل 9 من مسار الباب).',
+          quote: 'الساحر' },
+      ],
+      relationships: [{ id: 'audrey', type: 'صديقة/زميلة (معرفة سابقة)', since_chapter: 311 }],
+      abilities: ['العبور عبر الجدران'],
+      tags: ['نادي التاروت', 'الساحر', 'مسار الباب', 'باكلوند'],
+      blurb_ar: 'كاتبة ومتجاوزة من مسار الباب (التسلسل 9)، انضمت إلى نادي التاروت باسم "الساحر"؛ صديقة شيو ولسابقة معرفة بأودري.',
+      sources: [311],
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.characters;

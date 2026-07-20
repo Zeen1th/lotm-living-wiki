@@ -80,6 +80,16 @@
       ref: null,
       sources: [266],
     },
+    // batch-ch307: بالادين الفجر — Dawn Paladin, a Sequence-6 advancement of the Warrior/Giant pathway.
+    {
+      id: 'gloss_dawn_paladin',
+      term_ar: 'بالادين الفجر',
+      def_ar: 'تقدّم التسلسل 6 من مسار المحارب/العملاق؛ يتميّز بدروع الفجر وسيف الفجر وقدرات ضوئية. كان الأسقف أوترافسكي بالادين فجر سابق.',
+      first_appeared_chapter: 307,
+      first_appeared_quote: 'بالادين الفجر',
+      ref: null,
+      sources: [307],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.glossary;
 })(typeof window !== 'undefined' ? window : globalThis);

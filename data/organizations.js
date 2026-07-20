@@ -40,8 +40,11 @@
         // batch-X: ch264 — Klein creates "العالم" (The World) Tarot Club persona as intermediary
         { chapter: 264, text: 'كلاين يبتكر هوية "العالم" لينوب عنه ويتواصل عبر البطاقات مع أعضاء النادي دون كشف شخصيته.',
           quote: 'العالم' },
+        // batch-ch311: Tarot Club inducts a new member "Magician" (Fors).
+        { chapter: 311, text: 'انضمام "الساحر" (فورس) عضواً جديداً إلى نادي التاروت (التسلسل 9 من مسار الباب).',
+          quote: 'الساحر' },
       ],
-      sources: [7, 192, 249, 254, 264],
+      sources: [7, 192, 249, 254, 264, 311],
     },
     {
       id: 'secret_order',
@@ -166,8 +169,11 @@
       events: [
         { chapter: 249, text: 'اغتيال السفير باكلاند (رئيس استخبارات إنتيس في لوين) — أول ظهور علني.', quote: 'نظام الشفق' },
         { chapter: 254, text: 'السيد A يكشف خطتهم: إشعال فوضى في القارة لتمهيد عودة "الرب".', quote: 'سنسبب الفوضى في جميع أنحاء القارة' },
+        // batch-ch285/293: Laneves (True Creator vessel) + Valley Babur gathering.
+        { chapter: 285, text: 'لانيفوس — خائنٌ صار وعاءً للخالق الحقيقي — مطاردٌ في باكلوند بصلته بالنظام.', quote: 'لانيفوس' },
+        { chapter: 293, text: 'كشف من شارة لانيفوس عن تجمّع النظام في وادي بابور (4 يناير 1350، الساعة 8 مساءً).', quote: 'وادي بابور' },
       ],
-      sources: [249, 254],
+      sources: [249, 254, 285, 293],
     },
 
     // ── الكنائس السبع الكبرى (Seven Orthodox Churches) — batch: church_steam / church_knowledge / church_combat + order_iron_cross ──
@@ -587,6 +593,33 @@
       events: [],
       sources: [66],
       blurb_ar: 'إحدى المنظمات السرية القديمة في الحقبة الرابعة (إلى جانب نظام الناسك موسى والنظام السري)، وُصفت بأنها من أتباع الشيطان.',
+    },
+
+    // ── batch-ch302: Backlund — Church of the Harvest (God of Earth / Earth Mother) ──
+    {
+      id: 'church_harvest',
+      name_ar: 'كنيسة الحصاد',
+      name_en: 'Church of the Harvest (God of Earth)',
+      kind: 'church',
+      first_appeared_chapter: 302,
+      first_appeared_quote: 'كنيسة الحصاد',
+      states: [
+        {
+          since_chapter: 302,
+          blurb_ar: 'كنيسة إله الأرض (الأرض الأم) في باكلوند؛ يقودها الأسقف أوترافسكي (بالادين فجر سابق).',
+          leader_id: null,
+          hq_location_id: null,
+          quote: 'كنيسة الحصاد',
+        },
+      ],
+      member_ids: [],
+      members: [],
+      events: [
+        { chapter: 302, text: 'ظهور كنيسة الحصاد في باكلوند بقيادة الأسقف أوترافسكي.', quote: 'كنيسة الحصاد' },
+        { chapter: 306, text: 'وصف أوترافسكي بـ"الأسقف العملاق" — ضخم الجثة وله ماضٍ غامض.', quote: 'الأسقف العملاق' },
+      ],
+      sources: [302, 306, 307, 315],
+      blurb_ar: 'كنيسة إله الأرض (الأرض الأم) في باكلوند؛ يقودها الأسقف أوترافسكي، وهو بالادين فجر سابق (التسلسل 6) بماضٍ كقرصان.',
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.organizations;
