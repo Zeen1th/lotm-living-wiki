@@ -271,7 +271,7 @@
       kind: 'mystery',          // not a god/evil-god/emperor; an enigmatic pathway-bound entity
       first_appeared_chapter: 216, status: 'unknown',
       first_appeared_quote: 'السيد باب',
-      pathway: null,            // linked symbolically to مسار المبتدئ (the Apprentice pathway) via the Door motif; pathway not in data/pathways.js
+      pathway: null,            // linked symbolically to مسار المبتدئ (the Apprentice pathway) via the Door motif
       aliases: [],
       states: [
         { since_chapter: 216, role: 'كيان غامض مرتبط بمسار المبتدئ', domain: 'غير معروف',

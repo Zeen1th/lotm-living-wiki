@@ -467,7 +467,7 @@
       name_ar: 'فورس', name_en: 'Fors Wall',
       first_appeared_chapter: 311, status: 'alive',
       first_appeared_quote: 'الساحر',
-      pathway: null,
+      pathway: { id: 'apprentice', name_ar: 'مسار المبتدئ' },
       aliases: [{ name: 'الساحر', since_chapter: 311, quote: 'الساحر' }],
       states: [
         { since_chapter: 311, sequence: 'التسلسل 9: المبتدئ (مسار المبتدئ)', location: 'باكلوند', faction: 'نادي التاروت',

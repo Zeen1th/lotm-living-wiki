@@ -187,6 +187,30 @@
       blurb_ar: 'مسار الإمبراطور الأسود — مسار ساد إمبراطورية سليمان في الحقبة الرابعة وأمسكه الأباطرة الثلاثة (الظلام/الدم/الليل). التسلسل 0 (الإمبراطور الأسود) مرتبة إله حقيقي؛ والمسار "يتطور تدريجيًا إلى النظام" — أي الطريق إلى أن يصبح المتجاوز كيانًا. تكشف بطاقة الكفر مجموعة تسلسلاته العشر وقانون حفظ خصائص المتجاوزين (تسلسل 0 واحد لكل مسار).',
       sources: [200, 217, 323],
     },
+
+    // ── batch-ch65/278: مسار المبتدئ (Apprentice pathway) — Fors's pathway, tied symbolically to Mr. Door ──
+    // Only Seq-9 + Seq-8 are named in the EPUB by ch324 (Roselle's records reached only Seq-8 — ch65).
+    // ch314: "likely no Sequence 0 for مسار المبتدئ" — unusual: probably no true god.
+    // Signature ability: pass-through / traversing barriers (ch278/279).
+    {
+      id: 'apprentice',
+      name_ar: 'مسار المبتدئ',
+      name_en: 'Apprentice Pathway',
+      family_id: null,
+      color: '#5b6b8c',
+      first_appeared_chapter: 65,
+      first_appeared_quote: 'المبتدئ',
+      sequences: [
+        // ch65: Roselle's records name Seq-9 المبتدئ; abilities are "strange" (pass-through).
+        { n: 9, name_ar: 'المبتدئ', name_en: 'Apprentice', known_chapter: 65,
+          quote: 'المبتدئ' },
+        // ch65/66: Seq-8 سيد الخدع (Master of Tricks) — the second common rung of this pathway.
+        { n: 8, name_ar: 'سيد الخدع', name_en: 'Master of Tricks', known_chapter: 65,
+          quote: 'سيد الخدع' },
+      ],
+      blurb_ar: 'مسار المبتدئ — مسار تجاوز يسمح بالمرور والعبر (اختراق الحواجز والمواد الصلبة كالروح). سجلات روزيل بلغت التسلسل 8 فقط (المبتدئ ثم سيد الخدع)، وللمسار على الأرجح تسلسلان متفرّعان. على عكس معظم المسارات، يُرجَّح أنه بلا تسلسل 0 (بلا إله حقيقي) بحسب استنتاج كلاين من مذكرات روزيل. متجاوزوه (كفورس) ينزعجون من اكتمال القمر — ارتباط رمزي بالسيد باب.',
+      sources: [65, 66, 278, 279, 312, 314],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;
 })(typeof window !== 'undefined' ? window : globalThis);
