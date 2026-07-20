@@ -212,7 +212,7 @@
       kind: 'emperor',
       first_appeared_chapter: 66, status: 'dead',
       first_appeared_quote: 'إمبراطور الظلام لإمبراطورية سليمان',
-      pathway: null,
+      pathway: { id: 'black_emperor', name_ar: 'مسار الإمبراطور الأسود' },
       aliases: [{ name: 'سليمان', since_chapter: 66 }],
       states: [
         { since_chapter: 66, role: 'إمبراطور', domain: 'إمبراطورية سليمان',
@@ -231,7 +231,7 @@
       kind: 'emperor',
       first_appeared_chapter: 66, status: 'dead',
       first_appeared_quote: 'إمبراطور الظلام لإمبراطورية سليمان',
-      pathway: null,
+      pathway: { id: 'black_emperor', name_ar: 'مسار الإمبراطور الأسود' },
       aliases: [{ name: 'تيودور', since_chapter: 217 }],
       states: [
         { since_chapter: 66, role: 'إمبراطور', domain: 'أسرة تيودور',
@@ -250,7 +250,7 @@
       kind: 'emperor',
       first_appeared_chapter: 66, status: 'dead',
       first_appeared_quote: 'إمبراطور الظلام لإمبراطورية سليمان',
-      pathway: null,
+      pathway: { id: 'black_emperor', name_ar: 'مسار الإمبراطور الأسود' },
       aliases: [{ name: 'ترونسوست', since_chapter: 217 }],
       states: [
         { since_chapter: 66, role: 'إمبراطور', domain: 'إمبراطورية ترونسوست',
@@ -271,21 +271,21 @@
       kind: 'mystery',          // not a god/evil-god/emperor; an enigmatic pathway-bound entity
       first_appeared_chapter: 216, status: 'unknown',
       first_appeared_quote: 'السيد باب',
-      pathway: null,            // tied to the Door pathway (مسار الباب) but pathway not in data/pathways.js
+      pathway: null,            // linked symbolically to مسار المبتدئ (the Apprentice pathway) via the Door motif; pathway not in data/pathways.js
       aliases: [],
       states: [
-        { since_chapter: 216, role: 'كيان غامض مرتبط بمسار الباب', domain: 'غير معروف',
+        { since_chapter: 216, role: 'كيان غامض مرتبط بمسار المبتدئ', domain: 'غير معروف',
           notes: 'يُذكر في مذكرات روزيل؛ يهذي تحت القمر الكامل؛ شهد العصر الرابع، وقد يكون أكبر سنًا من السيد أزيك؛ يُشتبه أنه تسلسل 2 أو 1.' },
       ],
       events: [
         { chapter: 216, type: 'mention', text: 'أول ذكر في مذكرات روزيل — كائن يحوّطه العاصفة والظلام ويُدعى "السيد باب".',
           quote: 'السيد باب' },
-        { chapter: 298, type: 'lore', text: 'كلاين يربط رمز "الباب" بمسار الباب وبالسيد باب؛ يقدّر أنه شهد العصر الرابع وقد يكون تسلسل 1 أو 2 (أكبر من أزيك).',
+        { chapter: 298, type: 'lore', text: 'كلاين يربط رمز "الباب" بالسيد باب؛ يقدّر أنه شهد العصر الرابع وقد يكون تسلسل 1 أو 2 (أكبر من أزيك).',
           quote: 'السيد باب' },
-        { chapter: 312, type: 'lore', text: 'الارتباط الرمزي: منزعجو القمر المكتمل من متجاوزي مسار الباب (مثل فورس) يُرجَّح أنه من صلتهم بالسيد باب الذي يهذي تحت اكتمال القمر.',
+        { chapter: 312, type: 'lore', text: 'الارتباط الرمزي: منزعجو القمر المكتمل من متجاوزي مسار المبتدئ (مثل فورس) يُرجَّح أنه من صلتهم بالسيد باب الذي يهذي تحت اكتمال القمر.',
           quote: 'السيد باب' },
       ],
-      blurb_ar: 'كيان غامض مرتبط بمسار الباب؛ يُذكر لأول مرة في مذكرات روزيل بوصفه محاطًا بالعاصفة والظلام. يهذي تحت اكتمال القمر، وشهد العصر الرابع — يقدّر كلاين أنه تسلسل 2 أو ربما 1 (أكبر من السيد أزيك). يُرجَّح أن قلق متجاوزي مسار الباب من القمر المكتمل مرتبط به.',
+      blurb_ar: 'كيان غامض مرتبط رمزياً بمسار المبتدئ (الذي يحمل دلالة الباب)؛ يُذكر لأول مرة في مذكرات روزيل بوصفه محاطًا بالعاصفة والظلام. يهذي تحت اكتمال القمر، وشهد العصر الرابع — يقدّر كلاين أنه تسلسل 2 أو ربما 1 (أكبر من السيد أزيك). يُرجَّح أن قلق متجاوزي مسار المبتدئ من القمر المكتمل مرتبط به.',
       sources: [216, 297, 298, 312],
     },
   ];

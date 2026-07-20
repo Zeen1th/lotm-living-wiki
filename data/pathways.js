@@ -147,6 +147,46 @@
       blurb_ar: 'مسار تسيطر عليه كنيسة إلهة الليل الدائم؛ تسلسلاته تشمل اللانائم وشاعر منتصف الليل وحارس البوابة ومراقب الليل.',
       sources: [1, 21, 22, 210],
     },
+
+    // ── batch-ch200/323: مسار الإمبراطور الأسود (Black Emperor pathway) ──
+    // The full sequence set was revealed on the Blasphemy Slate card Klein stole (ch323).
+    // Seq-0 = a true god (الإمبراطور الأسود); the pathway "evolves gradually into Order" — the path to deity.
+    // Held by the three Fourth-Epoch empires (Solomon/Tudor/Trancewurst); likely no living Seq-0 in the current era.
+    {
+      id: 'black_emperor',
+      name_ar: 'مسار الإمبراطور الأسود',
+      name_en: 'Black Emperor Pathway',
+      family_id: null,
+      color: '#3a2a4a',
+      first_appeared_chapter: 200,
+      first_appeared_quote: 'مسار الإمبراطور الأسود',
+      sequences: [
+        // ch200: Seq-9 المحامي (Lawyer) named explicitly as the modern name.
+        { n: 9, name_ar: 'المحامي', name_en: 'Lawyer', known_chapter: 200,
+          quote: 'مسار الإمبراطور الأسود' },
+        // ch323: the Blasphemy Slate card lists the full descending set.
+        { n: 8, name_ar: 'البربري', name_en: 'Barbarian', known_chapter: 323,
+          quote: 'التسلسل 8، البربري' },
+        { n: 7, name_ar: 'الراشي', name_en: 'Briber', known_chapter: 323,
+          quote: 'التسلسل 7، الراشي' },
+        { n: 6, name_ar: 'بارون الفساد', name_en: 'Baron of Corruption', known_chapter: 323,
+          quote: 'التسلسل 6، بارون الفساد' },
+        { n: 5, name_ar: 'معلم الارتباك', name_en: 'Mentor of Confusion', known_chapter: 323,
+          quote: 'التسلسل 5، معلم الارتباك' },
+        { n: 4, name_ar: 'إيرل الساقطين', name_en: 'Earl of the Fallen', known_chapter: 323,
+          quote: 'التسلسل 4، إيرل الساقطين' },
+        { n: 3, name_ar: 'الساحر المجنون', name_en: 'Madness Magician', known_chapter: 323,
+          quote: 'التسلسل 3، الساحر المجنون' },
+        { n: 2, name_ar: 'دوق التدهور', name_en: 'Duke of Decay', known_chapter: 323,
+          quote: 'التسلسل 2، دوق التدهور' },
+        { n: 1, name_ar: 'أمير الفوضى', name_en: 'Prince of Chaos', known_chapter: 323,
+          quote: 'التسلسل 1، أمير الفوضى' },
+        { n: 0, name_ar: 'الإمبراطور الأسود', name_en: 'Black Emperor', known_chapter: 323,
+          quote: 'التسلسل 0، الإمبراطور الأسود' },
+      ],
+      blurb_ar: 'مسار الإمبراطور الأسود — مسار ساد إمبراطورية سليمان في الحقبة الرابعة وأمسكه الأباطرة الثلاثة (الظلام/الدم/الليل). التسلسل 0 (الإمبراطور الأسود) مرتبة إله حقيقي؛ والمسار "يتطور تدريجيًا إلى النظام" — أي الطريق إلى أن يصبح المتجاوز كيانًا. تكشف بطاقة الكفر مجموعة تسلسلاته العشر وقانون حفظ خصائص المتجاوزين (تسلسل 0 واحد لكل مسار).',
+      sources: [200, 217, 323],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;
 })(typeof window !== 'undefined' ? window : globalThis);
