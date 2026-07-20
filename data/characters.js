@@ -458,81 +458,11 @@
       sources: [17, 21, 44, 127, 208, 211],
     },
 
-    // ── batch-ch280-324: Backlund arc — significant new recurring characters ──
+    // ── batch-ch280-324: Backlund arc — Fors (Magician) ──
 
     {
-      // Laneves — the Tingen traitor, now a vessel of the True Creator; the manhunt target of Klein's revenge arc.
-      id: 'laneves',
-      name_ar: 'لانيفوس', name_en: 'Laneves',
-      first_appeared_chapter: 285, status: 'alive',
-      first_appeared_quote: 'لانيفوس',
-      pathway: null,
-      aliases: [],
-      states: [
-        { since_chapter: 285, sequence: 'غير معروف (وعاء الخالق الحقيقي)', location: 'باكلوند', faction: 'نظام الشفق',
-          notes: 'خائن تينغن صار وعاءً للخالق الحقيقي؛ مطارد من صقور الليل وكلاين.',
-          quote: 'لانيفوس' },
-      ],
-      events: [
-        { chapter: 285, type: 'intro', text: 'بداية مطاردة لانيفوس في باكلوند — الخائن الذي صار وعاءً للخالق الحقيقي.',
-          quote: 'لانيفوس' },
-        { chapter: 287, type: 'combat', text: 'مواجهة قاتلة في المجاري؛ يفلت من صقور الليل لكن كلاين (بقناع المهرج) يتربص به.',
-          quote: 'لانيفوس' },
-      ],
-      relationships: [],
-      abilities: [],
-      tags: ['نظام الشفق', 'الخالق الحقيقي', 'باكلوند'],
-      blurb_ar: 'خائنٌ من أحداث تينغن صار وعاءً لقداسة الخالق الحقيقي؛ هدف قوس انتقام كلاين في باكلوند، ومطارد من صقور الليل.',
-      sources: [285, 287],
-    },
-    {
-      // Cattleya — "Admiral of Stars", a notable pirate admiral introduced via Alger's news in ch294.
-      id: 'cattleya',
-      name_ar: 'كاتليا', name_en: 'Cattleya',
-      first_appeared_chapter: 294, status: 'alive',
-      first_appeared_quote: 'أدميرال النجوم',
-      pathway: null,
-      aliases: [{ name: 'أدميرال النجوم', since_chapter: 294, quote: 'أدميرال النجوم' }],
-      states: [
-        { since_chapter: 294, sequence: 'غير معروف', location: 'البحار', faction: 'قراصنة',
-          notes: 'أدميرال نجوم قرصانة بارزة.',
-          quote: 'أدميرال النجوم' },
-      ],
-      events: [
-        { chapter: 294, type: 'intro', text: 'ذكرى أولاً كأدميرال النجوم بين أدميرالات القراصنة (إلى جانب تريسي الموت الأسود).',
-          quote: 'أدميرال النجوم' },
-      ],
-      relationships: [],
-      abilities: [],
-      tags: ['قراصنة', 'أدميرال النجوم'],
-      blurb_ar: 'أدميرال النجوم — قرصانة بارزة ظهر ذكرها أولاً في أخبار الرجل المعلق إلى جانب غيرها من الأدميرالات.',
-      sources: [294],
-    },
-    {
-      // Bishop Utravsky — hunched bishop of the Harvest Church (God of Earth) in Backlund; former pirate & former Seq-6 Dawn Paladin.
-      id: 'utravsky',
-      name_ar: 'أوترافسكي', name_en: 'Utravsky',
-      first_appeared_chapter: 302, status: 'alive',
-      first_appeared_quote: 'أوترافسكي',
-      pathway: null,
-      aliases: [{ name: 'الأسقف العملاق', since_chapter: 306, quote: 'الأسقف العملاق' }],
-      states: [
-        { since_chapter: 302, sequence: 'غير معروف (أسقف، سابقًا بالادين فجر)', location: 'باكلوند - كنيسة الحصاد', faction: 'كنيسة الحصاد',
-          notes: 'أسقف كنيسة الحصاد في باكلوند؛ ضخم الجثة وله ماضٍ كقرصان وبالادين فجر سابق.',
-          quote: 'أوترافسكي' },
-      ],
-      events: [
-        { chapter: 302, type: 'intro', text: 'ظهور الأسقف أوترافسكي في كنيسة الحصاد بباكلوند — رجل ضخم بملامح مرعبة وطفولية في آنٍ واحد.',
-          quote: 'أوترافسكي' },
-      ],
-      relationships: [],
-      abilities: [],
-      tags: ['كنيسة الحصاد', 'باكلوند', 'بالادين فجر'],
-      blurb_ar: 'أسقف كنيسة الحصاد (إله الأرض) في باكلوند؛ ضخم الجثة، له ماضٍ كقرصان، وكان بالادين فجر (التسلسل 6 من مسار المحارب/العملاق).',
-      sources: [302, 306, 307],
-    },
-    {
-      // Fors — "Magician", newest Tarot Club member (ch311); Door-pathway Seq-9 Beyonder (wall-passing). Also a writer.
+      // Fors — "Magician" (الساحر), newest Tarot Club member; Door-pathway Seq-9 "المبتدئ" (Apprentice).
+      // Symbolically tied to "Mr. Door" (السيد باب) via her full-moon anxiety (ch312).
       id: 'fors',
       name_ar: 'فورس', name_en: 'Fors Wall',
       first_appeared_chapter: 311, status: 'alive',
@@ -540,19 +470,24 @@
       pathway: null,
       aliases: [{ name: 'الساحر', since_chapter: 311, quote: 'الساحر' }],
       states: [
-        { since_chapter: 311, sequence: 'التسلسل 9 (مسار الباب)', location: 'باكلوند', faction: 'نادي التاروت',
-          notes: 'كاتبة ومتجاوزة من مسار الباب، تستطيع العبور عبر الجدران؛ انضمت لنادي التاروت باسم "الساحر".',
+        { since_chapter: 311, sequence: 'التسلسل 9: المبتدئ (مسار الباب)', location: 'باكلوند', faction: 'نادي التاروت',
+          notes: 'كاتبة ومتجاوزة من مسار الباب؛ تنزعج من القمر المكتمل (ارتباط رمزي بالسيد باب). تطلب شراء تركيبة التسلسل 8 (سيد الخدع).',
           quote: 'الساحر' },
       ],
       events: [
-        { chapter: 311, type: 'join', text: 'انضمت إلى نادي التاروت كعضوة جديدة باسم "الساحر" (التسلسل 9 من مسار الباب).',
+        { chapter: 311, type: 'join', text: 'انضمت إلى نادي التاروت كعضوة جديدة باسم "الساحر".',
           quote: 'الساحر' },
+        // batch-ch312: her sequence revealed + the Mr. Door symbolism.
+        { chapter: 312, type: 'reveal', text: 'كشف أنها التسلسل 9 "المبتدئ" من مسار الباب، وتطلب شراء تركيبة التسلسل 8 "سيد الخدع"؛ ينزعجها القمر المكتمل — ارتباط رمزي بين مسار الباب والسيد باب.',
+          quote: 'المبتدئ' },
       ],
-      relationships: [{ id: 'audrey', type: 'صديقة/زميلة (معرفة سابقة)', since_chapter: 311 }],
+      relationships: [
+        { id: 'audrey', type: 'صديقة/زميلة (معرفة سابقة)', since_chapter: 311 },
+      ],
       abilities: ['العبور عبر الجدران'],
-      tags: ['نادي التاروت', 'الساحر', 'مسار الباب', 'باكلوند'],
-      blurb_ar: 'كاتبة ومتجاوزة من مسار الباب (التسلسل 9)، انضمت إلى نادي التاروت باسم "الساحر"؛ صديقة شيو ولسابقة معرفة بأودري.',
-      sources: [311],
+      tags: ['نادي التاروت', 'الساحر', 'مسار الباب', 'باكلوند', 'السيد باب'],
+      blurb_ar: 'كاتبة ومتجاوزة من مسار الباب (التسلسل 9: المبتدئ)، انضمت إلى نادي التاروت باسم "الساحر". ينزعجها اكتمال القمر — رمزية تربط مسار الباب بـ"السيد باب" الذي يهذي تحت القمر الكامل.',
+      sources: [311, 312],
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.characters;

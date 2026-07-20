@@ -263,6 +263,31 @@
       blurb_ar: 'حاكم إمبراطورية ترونسوست، إحدى الإمبراطوريات الثلاث الكبرى في الحقبة الرابعة؛ أمسك (مع تيودور) مسار الإمبراطور الأسود.',
       sources: [66, 217],
     },
+
+    // ── batch-ch216-312: السيد باب (Mr. Door) — mysterious pathway-bound being ──
+    {
+      id: 'mr_door',
+      name_ar: 'السيد باب', name_en: 'Mr. Door',
+      kind: 'mystery',          // not a god/evil-god/emperor; an enigmatic pathway-bound entity
+      first_appeared_chapter: 216, status: 'unknown',
+      first_appeared_quote: 'السيد باب',
+      pathway: null,            // tied to the Door pathway (مسار الباب) but pathway not in data/pathways.js
+      aliases: [],
+      states: [
+        { since_chapter: 216, role: 'كيان غامض مرتبط بمسار الباب', domain: 'غير معروف',
+          notes: 'يُذكر في مذكرات روزيل؛ يهذي تحت القمر الكامل؛ شهد العصر الرابع، وقد يكون أكبر سنًا من السيد أزيك؛ يُشتبه أنه تسلسل 2 أو 1.' },
+      ],
+      events: [
+        { chapter: 216, type: 'mention', text: 'أول ذكر في مذكرات روزيل — كائن يحوّطه العاصفة والظلام ويُدعى "السيد باب".',
+          quote: 'السيد باب' },
+        { chapter: 298, type: 'lore', text: 'كلاين يربط رمز "الباب" بمسار الباب وبالسيد باب؛ يقدّر أنه شهد العصر الرابع وقد يكون تسلسل 1 أو 2 (أكبر من أزيك).',
+          quote: 'السيد باب' },
+        { chapter: 312, type: 'lore', text: 'الارتباط الرمزي: منزعجو القمر المكتمل من متجاوزي مسار الباب (مثل فورس) يُرجَّح أنه من صلتهم بالسيد باب الذي يهذي تحت اكتمال القمر.',
+          quote: 'السيد باب' },
+      ],
+      blurb_ar: 'كيان غامض مرتبط بمسار الباب؛ يُذكر لأول مرة في مذكرات روزيل بوصفه محاطًا بالعاصفة والظلام. يهذي تحت اكتمال القمر، وشهد العصر الرابع — يقدّر كلاين أنه تسلسل 2 أو ربما 1 (أكبر من السيد أزيك). يُرجَّح أن قلق متجاوزي مسار الباب من القمر المكتمل مرتبط به.',
+      sources: [216, 297, 298, 312],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.entities;
 })(typeof window !== 'undefined' ? window : globalThis);

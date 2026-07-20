@@ -10,6 +10,7 @@ const ENTITY_KIND = {
   god:     { icon: Sun,   label: 'إله أرثوذكسي', color: 'var(--brass)' },
   evil_god:{ icon: Eye,   label: 'إله شرير',     color: 'var(--crimson-glow)' },
   emperor: { icon: Crown, label: 'إمبراطور',     color: 'var(--brass)' },
+  mystery: { icon: Moon,  label: 'كيان غامض',    color: 'var(--brass)' },
 };
 
 function kindOf(e){ return ENTITY_KIND[e.kind] || ENTITY_KIND.god; }
@@ -147,7 +148,7 @@ function EntitiesView({ chapter, focus, clearFocus, navigate }){
 
   // group by kind for display
   const groups = useMemo(()=>{
-    const order = ['god','evil_god','emperor'];
+    const order = ['god','evil_god','emperor','mystery'];
     const map = {};
     for(const e of list){ (map[e.kind] = map[e.kind] || []).push(e); }
     return order.filter(k=>map[k] && map[k].length).map(k=>({ kind:k, items:map[k] }));
