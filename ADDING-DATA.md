@@ -20,6 +20,17 @@ and `docs/INJECTION.md` (philosophy). **When in doubt, this file wins.**
    LotM. If the text doesn't say it, it doesn't go in.
 5. **Defer when unsure.** The grounding test proves a quote is *real*, NOT that it supports the claim.
    If a pathway-rung attribution, an owner, or a name is ambiguous — leave it out and note it.
+6. **Never use the word "إله" (god) in OUR descriptive text.** This is a project-wide editorial
+   convention: in `blurb_ar`, `notes`, `events[].text`, `def_ar`, `topic_ar` etc., write **"كيان"**
+   (entity) instead of "إله" / "إلهة" / "الإله" / "الآلهة" (singular or plural, masc or fem — adjust
+   grammar/agreement accordingly, e.g. "نصف إله"→"نصف كيان", "مسار إلهي"→"مسار كياني",
+   "الآلهة الأرثوذكسية"→"الكيانات الأرثوذكسية"). **THREE EXCEPTIONS that stay as-is:**
+   (a) **Verbatim quotes** inside any `quote:` / `first_appeared_quote:` field — the EPUB says "إله"
+   and changing it breaks the grounding test. (b) **Proper names** of deities/churches that embed the
+   word — `إلهة الليل الدائم`, `إله البخار والآلات`, `إله المعرفة والحكمة`, `إله القتال`,
+   `كنيسة إله X` — these are established names, not descriptions. (c) **Established place/era terms**
+   like `أرض الآلهة المهجورة` and `عصر الآلهة` (named era) — keep them. When in doubt: if it's a
+   *generic* "a god / true god / the gods" → "كيان"; if it's part of a *named* deity/church → keep.
 
 ---
 
