@@ -2,7 +2,7 @@
 /* ----------------------------------------------------------------
    LOCATION DETAIL PANEL — shown when a location is clicked
 -----------------------------------------------------------------*/
-function LocationPanel({ loc, chapter, onClose, onSelectChild, navigate }){
+function LocationPanel({ loc, chapter, onClose, onSelectChild, navigate, fontScale }){
   useEffect(()=>{
     const h = (e)=>{ if(e.key==='Escape') onClose(); };
     window.addEventListener('keydown', h);
@@ -28,7 +28,7 @@ function LocationPanel({ loc, chapter, onClose, onSelectChild, navigate }){
 
   return (
     <div className="backdrop fixed inset-0 z-40 flex items-start justify-end p-4 pointer-events-none"
-         style={{ background:'rgba(4,5,8,.55)', backdropFilter:'blur(3px)' }}>
+         style={{ background:'rgba(4,5,8,.55)', backdropFilter:'blur(3px)', zoom: fontScale || 1 }}>
       <div className="sheet glass w-full max-w-[360px] rounded-xl overflow-hidden pointer-events-auto"
            style={{ marginTop:'4rem' }}
            onClick={e=>e.stopPropagation()}>
@@ -168,7 +168,7 @@ function applyEditsToSource(src, edits){
   return out;
 }
 
-function MapView({ chapter, focus, clearFocus, navigate, isAdmin }){
+function MapView({ chapter, focus, clearFocus, navigate, isAdmin, fontScale }){
   const [focusedId, setFocusedId] = useState(null);   // selected place (for pin highlight)
   const [panelLoc, setPanelLoc]   = useState(null);   // open detail panel
   const [activeContinent, setActiveContinent] = useState(null); // null = world view
@@ -556,7 +556,8 @@ function MapView({ chapter, focus, clearFocus, navigate, isAdmin }){
         <LocationPanel loc={panelLoc} chapter={chapter}
                        onClose={handleClose}
                        onSelectChild={handleSelectChild}
-                       navigate={navigate}/>
+                       navigate={navigate}
+                       fontScale={fontScale}/>
       )}
     </div>
   );

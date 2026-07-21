@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */ /** @jsx React.createElement */
 /* ---- ORGANIZATIONS ---- */
-function OrgDetail({ org, chapter, onClose, navigate }){
+function OrgDetail({ org, chapter, onClose, navigate, fontScale }){
   useEffect(()=>{
     const h = (e)=>{ if(e.key==='Escape') onClose(); };
     window.addEventListener('keydown', h);
@@ -33,7 +33,7 @@ function OrgDetail({ org, chapter, onClose, navigate }){
 
   return (
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
-         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
+         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)', zoom: fontScale || 1 }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={org.name_ar}>
       <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
@@ -113,7 +113,7 @@ function OrgDetail({ org, chapter, onClose, navigate }){
   );
 }
 
-function OrganizationsView({ chapter, focus, clearFocus, navigate }){
+function OrganizationsView({ chapter, focus, clearFocus, navigate, fontScale }){
   const [openId, setOpenId] = useState(null);
   const list = useMemo(()=>
     Eng.visibleOf(LOTM.organizations, chapter, Eng.resolveOrganization).filter(Boolean),
@@ -154,7 +154,7 @@ function OrganizationsView({ chapter, focus, clearFocus, navigate }){
           </button>
         )}
       />
-      {open && <OrgDetail org={open} chapter={chapter} onClose={()=>setOpenId(null)} navigate={navigate}/>}
+      {open && <OrgDetail org={open} chapter={chapter} onClose={()=>setOpenId(null)} navigate={navigate} fontScale={fontScale}/>}
     </div>
   );
 }

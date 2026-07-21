@@ -1,6 +1,6 @@
 /** @jsxRuntime classic */ /** @jsx React.createElement */
 /* ---- EPOCHS ---- */
-function EraDetail({ era, onClose }){
+function EraDetail({ era, onClose, fontScale }){
   useEffect(()=>{
     const h = (e)=>{ if(e.key==='Escape') onClose(); };
     window.addEventListener('keydown', h);
@@ -10,7 +10,7 @@ function EraDetail({ era, onClose }){
 
   return (
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
-         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
+         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)', zoom: fontScale || 1 }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={era.name_ar}>
       <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
@@ -54,7 +54,7 @@ function EraDetail({ era, onClose }){
   );
 }
 
-function EpochsView({ chapter }){
+function EpochsView({ chapter, fontScale }){
   const [openId, setOpenId] = useState(null);
   const list = useMemo(()=>
     Eng.visibleOf(LOTM.eras, chapter, Eng.resolveEra)
@@ -87,7 +87,7 @@ function EpochsView({ chapter }){
           </button>
         )}
       />
-      {open && <EraDetail era={open} onClose={()=>setOpenId(null)}/>}
+      {open && <EraDetail era={open} onClose={()=>setOpenId(null)} fontScale={fontScale}/>}
     </div>
   );
 }

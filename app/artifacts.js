@@ -7,7 +7,7 @@ const ARTIFACT_TYPE_AR = {
   item:   'أداة',
 };
 
-function ArtifactDetail({ artifact, chapter, onClose, navigate }){
+function ArtifactDetail({ artifact, chapter, onClose, navigate, fontScale }){
   useEffect(()=>{
     const h = (e)=>{ if(e.key==='Escape') onClose(); };
     window.addEventListener('keydown', h);
@@ -33,7 +33,7 @@ function ArtifactDetail({ artifact, chapter, onClose, navigate }){
 
   return (
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
-         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
+         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)', zoom: fontScale || 1 }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={artifact.name_ar}>
       <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
@@ -92,7 +92,7 @@ function ArtifactDetail({ artifact, chapter, onClose, navigate }){
   );
 }
 
-function ArtifactsView({ chapter, focus, clearFocus, navigate }){
+function ArtifactsView({ chapter, focus, clearFocus, navigate, fontScale }){
   const [openId, setOpenId] = useState(null);
   const [query, setQuery] = useState('');
 
@@ -166,7 +166,7 @@ function ArtifactsView({ chapter, focus, clearFocus, navigate }){
           </button>
         )}
       />
-      {open && <ArtifactDetail artifact={open} chapter={chapter} onClose={()=>setOpenId(null)} navigate={navigate}/>}
+      {open && <ArtifactDetail artifact={open} chapter={chapter} onClose={()=>setOpenId(null)} navigate={navigate} fontScale={fontScale}/>}
     </div>
   );
 }

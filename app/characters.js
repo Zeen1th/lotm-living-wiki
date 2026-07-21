@@ -45,7 +45,7 @@ function CharacterCard({ r, onOpen, isAdmin, onEdit, onRemove }){
   );
 }
 
-function CharacterDetail({ r, onClose, navigate, isAdmin, onEdit }){
+function CharacterDetail({ r, onClose, navigate, isAdmin, onEdit, fontScale }){
   useEffect(()=>{
     const h = (e)=>{ if(e.key==='Escape') onClose(); };
     window.addEventListener('keydown', h);
@@ -55,7 +55,7 @@ function CharacterDetail({ r, onClose, navigate, isAdmin, onEdit }){
   const s = r.state;
   return (
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
-         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
+         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)', zoom: fontScale || 1 }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={r.name_ar}>
       <div className="sheet glass w-full max-w-[520px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
@@ -172,7 +172,7 @@ function CharacterDetail({ r, onClose, navigate, isAdmin, onEdit }){
   );
 }
 
-function CharactersSection({ chapter, focus, clearFocus, navigate, isAdmin }){
+function CharactersSection({ chapter, focus, clearFocus, navigate, isAdmin, fontScale }){
   const [q, setQ] = useState('');
   const [openId, setOpenId] = useState(null);
   const [editId, setEditId] = useState(null);     // character being edited (raw id)
@@ -231,7 +231,7 @@ function CharactersSection({ chapter, focus, clearFocus, navigate, isAdmin }){
         }
       </div>
       {open && <CharacterDetail r={open} onClose={()=>setOpenId(null)} navigate={navigate}
-                               isAdmin={isAdmin} onEdit={(id)=>{ setOpenId(null); setEditId(id); }}/>}
+                               isAdmin={isAdmin} fontScale={fontScale} onEdit={(id)=>{ setOpenId(null); setEditId(id); }}/>}
       {editId && <CharacterEditPanel id={editId} onClose={()=>setEditId(null)}/>}
       {addingNew && <CharacterEditPanel isNew={true} onClose={()=>setAddingNew(false)}/>}
     </div>

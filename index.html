@@ -186,6 +186,16 @@
   }
   @keyframes moonpulse{ 0%,100%{ box-shadow:0 0 80px 24px var(--moon-halo);} 50%{ box-shadow:0 0 120px 46px var(--moon-halo);} }
 </style>
+<script>
+  // Apply saved font-scale before first paint to avoid a flash of default size.
+  (function(){
+    try {
+      var raw = parseFloat(localStorage.getItem('lotm.fontScale'));
+      var s = (Number.isFinite(raw) ? raw : 1);
+      if(s !== 1){ document.documentElement.style.setProperty('--fs-scale', s); }
+    } catch(e){}
+  })();
+</script>
 </head>
 <body>
 <div id="root"></div>

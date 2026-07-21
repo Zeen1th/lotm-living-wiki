@@ -44,7 +44,7 @@ function EntityCard({ e, onOpen }){
   );
 }
 
-function EntityDetail({ e, onClose, navigate }){
+function EntityDetail({ e, onClose, navigate, fontScale }){
   useEffect(()=>{
     const h = (ev)=>{ if(ev.key==='Escape') onClose(); };
     window.addEventListener('keydown', h);
@@ -58,7 +58,7 @@ function EntityDetail({ e, onClose, navigate }){
   const events = e.events || [];
   return (
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
-         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
+         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)', zoom: fontScale || 1 }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={e.name_ar}>
       <div className="sheet glass w-full max-w-[520px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={ev=>ev.stopPropagation()}>
@@ -142,7 +142,7 @@ function EntityDetail({ e, onClose, navigate }){
   );
 }
 
-function EntitiesView({ chapter, focus, clearFocus, navigate }){
+function EntitiesView({ chapter, focus, clearFocus, navigate, fontScale }){
   const [openId, setOpenId] = useState(null);
   const list = useMemo(()=> Eng.visibleEntities(LOTM.entities, chapter), [chapter]);
   const open = openId ? Eng.resolveEntity(LOTM.entities.find(e=>e.id===openId), chapter) : null;
@@ -189,7 +189,7 @@ function EntitiesView({ chapter, focus, clearFocus, navigate }){
           </p>
         )}
       </div>
-      {open && <EntityDetail e={open} onClose={()=>setOpenId(null)} navigate={navigate}/>}
+      {open && <EntityDetail e={open} onClose={()=>setOpenId(null)} navigate={navigate} fontScale={fontScale}/>}
     </div>
   );
 }

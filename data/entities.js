@@ -16,7 +16,7 @@
       pathway: { id: 'sleepless', name_ar: 'مسار اللانائم' },
       aliases: [],
       states: [
-        { since_chapter: 14, role: 'إلهة أرثوذكسية', domain: 'القارة الشمالية',
+        { since_chapter: 14, role: 'كيان أرثوذكسي', domain: 'القارة الشمالية',
           notes: 'إحدى الكيانات الأرثوذكسية السبع؛ ترتبط بها كنيسة إلهة الليل الدائم ومسار اللانائم.' },
       ],
       events: [
@@ -35,7 +35,7 @@
       pathway: null,
       aliases: [],
       states: [
-        { since_chapter: 94, role: 'إله أرثوذكسي', domain: 'القارة الشمالية',
+        { since_chapter: 94, role: 'كيان أرثوذكسي', domain: 'القارة الشمالية',
           notes: 'أحد الكيانات الأرثوذكسية السبع؛ تتبعه كنيسة لورد العواصف.' },
       ],
       events: [
@@ -54,7 +54,7 @@
       pathway: null,
       aliases: [{ name: 'إله الحرف اليدوية', since_chapter: 134 }],
       states: [
-        { since_chapter: 134, role: 'إله أرثوذكسي', domain: 'القارة الشمالية',
+        { since_chapter: 134, role: 'كيان أرثوذكسي', domain: 'القارة الشمالية',
           notes: 'أحد الكيانات الأرثوذكسية السبع؛ نشأت عبادته كـ«إله الحرف اليدوية» المقموعة قبل أن يعاد اسمه.' },
       ],
       events: [
@@ -73,7 +73,7 @@
       pathway: null,
       aliases: [],
       states: [
-        { since_chapter: 94, role: 'إله أرثوذكسي', domain: 'القارة الشمالية',
+        { since_chapter: 94, role: 'كيان أرثوذكسي', domain: 'القارة الشمالية',
           notes: 'أحد الكيانات الأرثوذكسية السبع؛ من أقدم المنظمات الخفية بحسب بعض الروايات.' },
       ],
       events: [
@@ -92,7 +92,7 @@
       pathway: { id: 'giant', name_ar: 'مسار العملاق' },
       aliases: [],
       states: [
-        { since_chapter: 265, role: 'إله أرثوذكسي', domain: 'القارة الشمالية',
+        { since_chapter: 265, role: 'كيان أرثوذكسي', domain: 'القارة الشمالية',
           notes: 'أحد الكيانات الأرثوذكسية السبع؛ يرتبط بمسار العملاق.' },
       ],
       events: [
@@ -111,7 +111,7 @@
       pathway: null,
       aliases: [],
       states: [
-        { since_chapter: 94, role: 'إلهة أرثوذكسية', domain: 'القارة الشمالية',
+        { since_chapter: 94, role: 'كيان أرثوذكسي', domain: 'القارة الشمالية',
           notes: 'إحدى الكيانات الأرثوذكسية السبع.' },
       ],
       events: [
@@ -130,7 +130,7 @@
       pathway: null,
       aliases: [],
       states: [
-        { since_chapter: 134, role: 'إله أرثوذكسي', domain: 'القارة الشمالية',
+        { since_chapter: 134, role: 'كيان أرثوذكسي', domain: 'القارة الشمالية',
           notes: 'أحد الكيانات الأرثوذكسية السبع؛ الأقوى نفوذًا بين الكنائس.' },
       ],
       events: [
@@ -151,7 +151,7 @@
       pathway: null,
       aliases: [],
       states: [
-        { since_chapter: 161, role: 'إله شرير', domain: 'غير معروف',
+        { since_chapter: 161, role: 'كيان شرير', domain: 'غير معروف',
           notes: 'كيان شرير تسبب في كارثة نهاية الحقبة الرابعة (الحقبة الشاحبة).' },
       ],
       events: [
@@ -172,7 +172,7 @@
       pathway: null,
       aliases: [],
       states: [
-        { since_chapter: 265, role: 'إلهة شريرة', domain: 'غير معروف',
+        { since_chapter: 265, role: 'كيان شرير', domain: 'غير معروف',
           notes: 'كيان شرير نشط في الحقبة الرابعة؛ تعبده طائفة الشيطانة وتسيطر على مسار القاتل.' },
       ],
       events: [
@@ -191,7 +191,7 @@
       pathway: null,
       aliases: [{ name: 'الرب', since_chapter: 156 }],
       states: [
-        { since_chapter: 88, role: 'إله شرير', domain: 'غير معروف',
+        { since_chapter: 88, role: 'كيان شرير', domain: 'غير معروف',
           notes: 'كائنة يؤمن بها بعض النظم السرية الحديثة (نظام الشفق، صليب الحديد والدم).' },
       ],
       events: [

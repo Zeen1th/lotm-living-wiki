@@ -1,5 +1,5 @@
 /** @jsxRuntime classic */ /** @jsx React.createElement */
-function PathwayDetail({ pathway, chapter, onClose, navigate }){
+function PathwayDetail({ pathway, chapter, onClose, navigate, fontScale }){
   useEffect(()=>{
     const h = (e)=>{ if(e.key==='Escape') onClose(); };
     window.addEventListener('keydown', h);
@@ -26,7 +26,7 @@ function PathwayDetail({ pathway, chapter, onClose, navigate }){
 
   return (
     <div className="backdrop fixed inset-0 z-40 grid place-items-center p-4"
-         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)' }}
+         style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)', zoom: fontScale || 1 }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label={pathway.name_ar}>
       <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-y-auto scroller relative max-h-[88vh]"
            onClick={e=>e.stopPropagation()}>
@@ -99,7 +99,7 @@ function PathwayDetail({ pathway, chapter, onClose, navigate }){
   );
 }
 
-function PathwaysView({ chapter, focus, clearFocus, navigate }){
+function PathwaysView({ chapter, focus, clearFocus, navigate, fontScale }){
   const [openPathway, setOpenPathway] = useState(null);
 
   // Auto-open focused pathway
@@ -225,6 +225,7 @@ function PathwaysView({ chapter, focus, clearFocus, navigate }){
           chapter={chapter}
           onClose={()=>setOpenPathway(null)}
           navigate={navigate}
+          fontScale={fontScale}
         />
       )}
     </div>

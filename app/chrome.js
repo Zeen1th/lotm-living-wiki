@@ -11,6 +11,20 @@ function useChapter(){
   return [chapter, set];
 }
 
+/* ---- font-zoom state, persisted (site-wide text scale) ---- */
+const FS_MIN = 0.8, FS_MAX = 1.4, FS_KEY = 'lotm.fontScale';
+function useFontScale(){
+  const [scale, setScale] = useState(()=>{
+    const raw = parseFloat(localStorage.getItem(FS_KEY));
+    return Number.isFinite(raw) ? Math.min(FS_MAX, Math.max(FS_MIN, raw)) : 1;
+  });
+  useEffect(()=>{ localStorage.setItem(FS_KEY, String(scale)); }, [scale]);
+  const bump = (delta)=> setScale(s=> Math.min(FS_MAX, Math.max(FS_MIN, Math.round((s+delta)*10)/10)));
+  const reset = ()=> setScale(1);
+  return [scale, bump, reset];
+}
+
+
 /* ---- the spoiler slider ----
    The volume-name slot uses a FIXED width (w-[112px]) instead of maxWidth, so that
    swapping between «المجلد الأول: ...» and «المجلد الثاني: ...» across the ch206↔207
@@ -221,6 +235,7 @@ function GeneralHub({ setView, navigate }){
 }
 
 window.useChapter      = useChapter;
+window.useFontScale    = useFontScale;
 window.ChapterSlider   = ChapterSlider;
 window.NavBar          = NavBar;
 window.WelcomeOverlay  = WelcomeOverlay;
