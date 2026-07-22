@@ -492,30 +492,34 @@
 
     // ─ـ batch-ch173/200: السيدة شارون — Demoness Sect member in Tingen ──
     {
-      id: 'mrs_sharon',
-      name_ar: 'السيدة شارون', name_en: 'Mrs. Sharon',
-      first_appeared_chapter: 173, status: 'alive',
-      first_appeared_quote: 'السيدة شارون',
-      pathway: { id: 'demoness', name_ar: 'مسار الشيطانة' },
-      aliases: [],
+      id: 'sharron',
+      name_ar: 'شارون', name_en: 'Sharron',
+      first_appeared_chapter: 248, status: 'alive',
+      first_appeared_quote: 'الأنسة حارس شخصي',
+      pathway: null,            // Seq-5; pathway not clearly named within ch324 cutoff
+      aliases: [
+        { name: 'الأنسة حارس شخصي', since_chapter: 248, quote: 'الأنسة حارس شخصي' },
+      ],
       states: [
-        { since_chapter: 173, sequence: 'غير معروف (مسار الشيطانة)', location: 'تينغن', faction: 'طائفة الشيطانة',
-          notes: 'أرملة بارون خوي، مشهورة في تينغن؛ متجاوزة من مسار الشيطانة وعضوة في الطائفة، تحوّل إلى شيطانة.',
-          quote: 'السيدة شارون' },
+        { since_chapter: 248, sequence: 'التسلسل 5', location: 'باكلوند', faction: 'مرتزقة',
+          notes: 'متجاوزة التسلسل 5؛ تستأجرها كحارس شخصي (ألف جنيه لثلاثة أيام). ترتبط بشعار النبالة للعائلة المالكة ثيودور من الحقبة الرابعة.',
+          quote: 'الأنسة حارس شخصي' },
       ],
       events: [
-        { chapter: 173, type: 'intro', text: 'الظهور الأول للسيدة شارون في تينغن — أرملة بارون خوي.',
-          quote: 'السيدة شارون' },
-        { chapter: 196, type: 'reveal', text: 'كلاين يكتشف أنها عضوة في طائفة الشيطانة.',
-          quote: 'عضوة في طائفة الشيطانة' },
-        { chapter: 200, type: 'reveal', text: 'عرافة تكشف امرأة في رداء أبيض حوّلت السيدة شارون إلى شيطانة — تأكيد انتمائها لمسار الشيطانة.',
-          quote: 'حولت السيدة شارون إلى شيطانة' },
+        { chapter: 248, type: 'intro', text: 'أول ظهور بصفة "الأنسة حارس شخصي" — يوظفها كلاين لحمايته.',
+          quote: 'الأنسة حارس شخصي' },
+        { chapter: 251, type: 'combat', text: 'تساعد كلاين في قتل روزاغوا (المتحكم في الدمى، التسلسل 5 من مسار المتنبئ).',
+          quote: 'الأنسة حارس شخصي' },
+        { chapter: 277, type: 'lore', text: 'مقدمتها تقوده إلى شعار الحديد الأسود بنبالة العائلة المالكة ثيودور من الحقبة الرابعة.',
+          quote: 'الأنسة حارس شخصي' },
+        { chapter: 302, type: 'reveal', text: 'كشف اسمها الحقيقي "شارون" وتأكيد أنها متجاوزة التسلسل 5.',
+          quote: 'الآنسة شارون' },
       ],
       relationships: [],
       abilities: [],
-      tags: ['طائفة الشيطانة', 'مسار الشيطانة', 'تينغن'],
-      blurb_ar: 'أرملة بارون خوي المشهورة في تينغن؛ متجاوزة من مسار الشيطانة وعضوة في طائفة الشيطانة، تحوّل إلى شيطانة.',
-      sources: [173, 194, 196, 200],
+      tags: ['حارس شخصي', 'التسلسل 5', 'باكلوند'],
+      blurb_ar: 'شارون — متجاوزة التسلسل 5 تُعرف بلقب "الأنسة حارس شخصي"؛ استأجرها كلاين لحمايته وساعدته في قتل روزاغوا. ترتبط بشعار النبالة للعائلة المالكة ثيودور من الحقبة الرابعة.',
+      sources: [248, 251, 277, 278, 302],
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.characters;

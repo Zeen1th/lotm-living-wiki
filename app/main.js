@@ -9,14 +9,14 @@ function App(){
   const [isAdmin, adminLogin, adminLogout] = useAdmin();
   const [loginOpen, setLoginOpen] = useState(false);
   const [fontScale, bumpFont, resetFont] = useFontScale();
-  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchFocusSignal, setSearchFocusSignal] = useState(0);
 
-  // global keyboard shortcut: "/" or Ctrl+K opens search
+  // global keyboard shortcut: "/" or Ctrl+K focuses the header search
   useEffect(()=>{
     const h = (e)=>{
       if((e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA')
          || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')){
-        e.preventDefault(); setSearchOpen(true);
+        e.preventDefault(); setSearchFocusSignal(s => s + 1);
       }
     };
     window.addEventListener('keydown', h);
@@ -99,13 +99,8 @@ function App(){
               <span style={{ fontSize:15, fontWeight:700 }}>A+</span>
             </button>
           </div>
-          {/* global search — opens a search modal; shortcut / or Ctrl+K */}
-          <button onClick={()=>setSearchOpen(true)}
-            className="focus-ring w-9 h-9 grid place-items-center rounded-md"
-            style={{ background:'rgba(0,0,0,.4)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}
-            title="بحث (أو /)" aria-label="بحث في الموسوعة">
-            <Search size={17}/>
-          </button>
+          {/* global search — inline header field with dropdown results; shortcut / or Ctrl+K */}
+          <HeaderSearch chapter={chapter} onNavigate={navigate} focusSignal={searchFocusSignal}/>
           {/* admin lock: opens login when logged out, confirms logout when logged in */}
           <button onClick={()=> isAdmin ? (confirm('تسجيل خروج المدير؟') && adminLogout()) : setLoginOpen(true)}
             className="focus-ring w-9 h-9 grid place-items-center rounded-md"
@@ -127,9 +122,6 @@ function App(){
       )}
       {loginOpen && (
         <LoginModal onLogin={async (u,p)=>{ const ok = await adminLogin(u,p); if(ok) setLoginOpen(false); return ok; }} onClose={()=>setLoginOpen(false)}/>
-      )}
-      {searchOpen && (
-        <SearchModal chapter={chapter} fontScale={fontScale} onClose={()=>setSearchOpen(false)} onNavigate={navigate}/>
       )}
     </div>
   );

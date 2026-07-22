@@ -213,7 +213,113 @@ function SearchModal({ chapter, fontScale, onClose, onNavigate }){
   );
 }
 
+/* ----------------------------------------------------------------
+   HeaderSearch — inline search field that lives in the header,
+   with a floating dropdown of results below it (replaces the icon).
+-----------------------------------------------------------------*/
+function HeaderSearch({ chapter, onNavigate, focusSignal }){
+  const [q, setQ]         = useState('');
+  const [open, setOpen]   = useState(false);
+  const [highlight, setH] = useState(0);
+  const inputRef = useRef(null);
+  const wrapRef  = useRef(null);
+
+  const index   = useMemo(()=> buildSearchIndex(LOTM, chapter), [chapter]);
+  const results = useMemo(()=> runSearch(q, index), [q, index]);
+
+  // focus the field when the keyboard-shortcut signal changes
+  useEffect(()=>{ if(focusSignal){ inputRef.current && inputRef.current.focus(); setOpen(true); } }, [focusSignal]);
+
+  useEffect(()=>{ setH(0); }, [q]);
+
+  // close dropdown when clicking outside
+  useEffect(()=>{
+    if(!open) return;
+    const h = (e)=>{ if(wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', h);
+    return ()=> document.removeEventListener('mousedown', h);
+  }, [open]);
+
+  // keyboard nav (only when open + focused)
+  useEffect(()=>{
+    if(!open) return;
+    const h = (e)=>{
+      if(e.key==='Escape'){ setOpen(false); inputRef.current && inputRef.current.blur(); }
+      else if(e.key==='ArrowDown'){ e.preventDefault(); setH(h => Math.min(h+1, results.length-1)); }
+      else if(e.key==='ArrowUp'){ e.preventDefault(); setH(h => Math.max(h-1, 0)); }
+      else if(e.key==='Enter' && results[highlight]){ choose(results[highlight]); }
+    };
+    window.addEventListener('keydown', h);
+    return ()=> window.removeEventListener('keydown', h);
+  }, [open, results, highlight]);
+
+  function choose(r){
+    if(r.kind === 'glossary'){ setOpen(false); setQ(''); return; }
+    onNavigate(r.kind, r.id);
+    setOpen(false); setQ('');
+    inputRef.current && inputRef.current.blur();
+  }
+
+  const showDropdown = open && q.trim() !== '';
+
+  return (
+    <div ref={wrapRef} className="relative" style={{ minWidth:160 }}>
+      {/* inline input — the prominent search field */}
+      <div className="flex items-center gap-2 px-2.5 h-9 rounded-md"
+           style={{ background:'rgba(0,0,0,.4)', border:'1px solid ' + (open ? 'var(--brass)' : 'var(--line)') }}>
+        <Search size={15} style={{ color:'var(--brass)', flexShrink:0 }}/>
+        <input ref={inputRef} value={q}
+               onChange={e=>{ setQ(e.target.value); setOpen(true); }}
+               onFocus={()=>setOpen(true)}
+               placeholder="ابحث…"
+               aria-label="ابحث في الموسوعة"
+               className="bg-transparent outline-none w-full text-[13px] font-old"
+               style={{ color:'#dfe4ea' }}/>
+      </div>
+
+      {/* floating dropdown of results */}
+      {showDropdown && (
+        <div className="absolute z-50 mt-1 w-full max-h-[60vh] overflow-y-auto scroller glass rounded-md"
+             style={{ border:'1px solid var(--brass)', minWidth:280, right:0 }}>
+          {results.length === 0
+            ? <p className="font-old text-center py-6 text-[12.5px]" style={{ color:'var(--parchment-dim)' }}>
+                لا نتائج مطابقة.
+              </p>
+            : results.map((r, i)=>(
+                <button key={r.kind+'/'+r.id} onClick={()=>choose(r)}
+                  onMouseEnter={()=>setH(i)}
+                  className="w-full text-right px-3 py-2 flex items-center gap-2 focus-ring transition-colors"
+                  style={{ borderBottom:'1px solid var(--line)',
+                           background: i===highlight ? 'rgba(245,197,66,.08)' : 'transparent' }}>
+                  <span className="shrink-0 eyebrow text-[10px] px-1.5 py-0.5 rounded"
+                        style={{ border:'1px solid ' + r.typeLabel.color, color:r.typeLabel.color, minWidth:44, textAlign:'center' }}>
+                    {r.typeLabel.label}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block">
+                      <span className="font-display text-[13px]" style={{ color:'var(--parchment)' }}>{r.name_ar}</span>
+                      {r.name_en && <span className="eyebrow text-[10px] mr-1.5" style={{ color:'var(--parchment-dim)' }}>{r.name_en}</span>}
+                    </span>
+                    {r.blurb && (
+                      <span className="block text-[11px] truncate mt-0.5 font-old" style={{ color:'var(--parchment-dim)' }}>{r.blurb}</span>
+                    )}
+                  </span>
+                </button>
+              ))
+          }
+          <div className="px-3 py-1.5" style={{ borderTop:'1px solid var(--line)', background:'rgba(0,0,0,.2)' }}>
+            <span className="eyebrow text-[10px]" style={{ color:'var(--parchment-dim)', opacity:.6 }}>
+              {results.length} نتيجة · ↑↓ تنقّل · Esc إغلاق
+            </span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 window.buildSearchIndex = buildSearchIndex;
 window.runSearch        = runSearch;
 window.SearchModal      = SearchModal;
+window.HeaderSearch     = HeaderSearch;
 window.TYPE_LABEL       = TYPE_LABEL;
