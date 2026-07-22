@@ -138,32 +138,32 @@ function SearchModal({ chapter, fontScale, onClose, onNavigate }){
   }
 
   return (
-    <div className="backdrop fixed inset-0 z-50 grid place-items-start justify-center pt-[12vh] p-4"
+    <div className="backdrop fixed inset-0 z-50 grid place-items-center p-4"
          style={{ background:'rgba(4,5,8,.74)', backdropFilter:'blur(4px)', zoom: fontScale || 1 }}
          onClick={onClose} role="dialog" aria-modal="true" aria-label="بحث">
-      <div className="sheet glass w-full max-w-[560px] rounded-xl overflow-hidden relative"
+      <div className="sheet glass w-full max-w-[600px] rounded-xl overflow-hidden relative"
            style={{ border:'1px solid var(--brass)' }}
            onClick={e=>e.stopPropagation()}>
         <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--crimson-glow),transparent)' }}/>
 
-        {/* search input row */}
-        <div className="flex items-center gap-2 px-4 h-14"
+        {/* prominent search box */}
+        <div className="flex items-center gap-3 px-5 py-4"
              style={{ borderBottom:'1px solid var(--line)' }}>
-          <Search size={18} style={{ color:'var(--brass)', flexShrink:0 }}/>
+          <Search size={24} style={{ color:'var(--brass)', flexShrink:0 }}/>
           <input ref={inputRef} value={q} onChange={e=>setQ(e.target.value)}
                  placeholder="ابحث في كل الموسوعة…"
                  aria-label="ابحث في كل الموسوعة"
-                 className="bg-transparent outline-none w-full text-[15px] font-old"
+                 className="bg-transparent outline-none w-full text-[18px] font-old"
                  style={{ color:'#dfe4ea' }}/>
           <button onClick={onClose} aria-label="إغلاق"
-            className="shrink-0 w-8 h-8 grid place-items-center rounded-md focus-ring"
+            className="shrink-0 w-9 h-9 grid place-items-center rounded-md focus-ring"
             style={{ background:'rgba(0,0,0,.4)', border:'1px solid var(--line)', color:'var(--parchment-dim)' }}>
-            <X size={16}/>
+            <X size={18}/>
           </button>
         </div>
 
         {/* results */}
-        <div className="scroller overflow-y-auto" style={{ maxHeight:'54vh' }}>
+        <div className="scroller overflow-y-auto" style={{ maxHeight:'50vh' }}>
           {q.trim() === ''
             ? <p className="font-old text-center py-8 text-[13px]" style={{ color:'var(--parchment-dim)' }}>
                 اكتب اسم شخصية أو كيان أو منظمة أو مسار…

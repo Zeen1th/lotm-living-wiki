@@ -489,6 +489,34 @@
       blurb_ar: 'كاتبة ومتجاوزة من مسار المبتدئ (التسلسل 9: المبتدئ)، انضمت إلى نادي التاروت باسم "الساحر". ينزعجها اكتمال القمر — رمزية تربط مسار المبتدئ بـ"السيد باب" الذي يهذي تحت القمر الكامل.',
       sources: [311, 312],
     },
+
+    // ─ـ batch-ch173/200: السيدة شارون — Demoness Sect member in Tingen ──
+    {
+      id: 'mrs_sharon',
+      name_ar: 'السيدة شارون', name_en: 'Mrs. Sharon',
+      first_appeared_chapter: 173, status: 'alive',
+      first_appeared_quote: 'السيدة شارون',
+      pathway: { id: 'demoness', name_ar: 'مسار الشيطانة' },
+      aliases: [],
+      states: [
+        { since_chapter: 173, sequence: 'غير معروف (مسار الشيطانة)', location: 'تينغن', faction: 'طائفة الشيطانة',
+          notes: 'أرملة بارون خوي، مشهورة في تينغن؛ متجاوزة من مسار الشيطانة وعضوة في الطائفة، تحوّل إلى شيطانة.',
+          quote: 'السيدة شارون' },
+      ],
+      events: [
+        { chapter: 173, type: 'intro', text: 'الظهور الأول للسيدة شارون في تينغن — أرملة بارون خوي.',
+          quote: 'السيدة شارون' },
+        { chapter: 196, type: 'reveal', text: 'كلاين يكتشف أنها عضوة في طائفة الشيطانة.',
+          quote: 'عضوة في طائفة الشيطانة' },
+        { chapter: 200, type: 'reveal', text: 'عرافة تكشف امرأة في رداء أبيض حوّلت السيدة شارون إلى شيطانة — تأكيد انتمائها لمسار الشيطانة.',
+          quote: 'حولت السيدة شارون إلى شيطانة' },
+      ],
+      relationships: [],
+      abilities: [],
+      tags: ['طائفة الشيطانة', 'مسار الشيطانة', 'تينغن'],
+      blurb_ar: 'أرملة بارون خوي المشهورة في تينغن؛ متجاوزة من مسار الشيطانة وعضوة في طائفة الشيطانة، تحوّل إلى شيطانة.',
+      sources: [173, 194, 196, 200],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.characters;
 })(typeof window !== 'undefined' ? window : globalThis);
