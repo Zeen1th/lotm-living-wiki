@@ -211,6 +211,36 @@
       blurb_ar: 'مسار المبتدئ — مسار تجاوز يسمح بالمرور والعبر (اختراق الحواجز والمواد الصلبة كالروح). سجلات روزيل بلغت التسلسل 8 فقط (المبتدئ ثم سيد الخدع)، وللمسار على الأرجح تسلسلان متفرّعان. على عكس معظم المسارات، يُرجَّح أنه بلا تسلسل 0 (بلا كيان حقيقي) بحسب استنتاج كلاين من مذكرات روزيل. متجاوزوه (كفورس) ينزعجون من اكتمال القمر — ارتباط رمزي بالسيد باب.',
       sources: [65, 66, 278, 279, 312, 314],
     },
+
+    // ── batch-ch258/266: مسار الشيطانة / مسار المجرم (Demoness pathway) ──
+    // Seq-0 = الشيطانة البدائية (Primordial Demoness), a true entity.
+    // After Seq-7 the Beyonder gradually turns into a demoness — body grows feminine/beautiful,
+    // gains demon magic, loses conscience. seq-8 has an old name (القاتل بارد الدم) + modern name.
+    {
+      id: 'demoness',
+      name_ar: 'مسار الشيطانة',
+      name_en: 'Demoness Pathway',
+      family_id: null,
+      color: '#7a2a5a',
+      first_appeared_chapter: 200,
+      first_appeared_quote: 'مسار الشيطانة',
+      sequences: [
+        // ch258: Seq-9 المجرم (Criminal) — strong body, sharp instincts, not yet conscience-lost.
+        { n: 9, name_ar: 'المجرم', name_en: 'Criminal', known_chapter: 258,
+          quote: 'التسلسل 9 المجرم' },
+        // ch258: Seq-8 modern name الملاك منزوع الجناح; old name القاتل بارد الدم — conscience vanishes, evil desires, demon magic begins.
+        { n: 8, name_ar: 'الملاك منزوع الجناح', name_en: 'Winged Angel (modern) / Cold-blooded Killer (old)', known_chapter: 258,
+          quote: 'الملاك منزوع الجناح' },
+        // ch258: Seq-7 القاتل المتسلسل (Serial Killer) — absorbs ritual/demon-worship knowledge.
+        { n: 7, name_ar: 'القاتل المتسلسل', name_en: 'Serial Killer', known_chapter: 258,
+          quote: 'التسلسل 7 القاتل المتسلسل' },
+        // ch266: Seq-0 الشيطانة البدائية (Primordial Demoness) — true entity, object of the Sect's worship.
+        { n: 0, name_ar: 'الشيطانة البدائية', name_en: 'Primordial Demoness', known_chapter: 266,
+          quote: 'الشيطانة البدائية' },
+      ],
+      blurb_ar: 'مسار الشيطانة (المعروف أيضاً بمسار المجرم) — مسار تسيطر عليه طائفة الشيطانة. تسلسلاته المعروفة: 9 المجرم، 8 الملاك منزوع الجناح (الاسم القديم: القاتل بارد الدم)، 7 القاتل المتسلسل، 0 الشيطانة البدائية (كيان حقيقي تعبده الطائفة). بعد التسلسل 7 يتحوّل المتجاوز تدريجياً إلى شيطانة: يصير جسده أنثوياً جميلاً ويكتسب قوى شيطانية ويفقد ضميره.',
+      sources: [200, 258, 266],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;
 })(typeof window !== 'undefined' ? window : globalThis);

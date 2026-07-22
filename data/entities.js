@@ -169,7 +169,7 @@
       kind: 'evil_god',
       first_appeared_chapter: 265, status: 'unknown',
       first_appeared_quote: 'الموت، الشيطانة البدائية',
-      pathway: null,
+      pathway: { id: 'demoness', name_ar: 'مسار الشيطانة' },
       aliases: [],
       states: [
         { since_chapter: 265, role: 'كيان شرير', domain: 'غير معروف',
