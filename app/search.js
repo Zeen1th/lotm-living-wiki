@@ -263,7 +263,7 @@ function HeaderSearch({ chapter, onNavigate, focusSignal }){
   const showDropdown = open && q.trim() !== '';
 
   return (
-    <div ref={wrapRef} className="relative" style={{ minWidth:160 }}>
+    <div ref={wrapRef} className="relative w-full" style={{ minWidth:160 }}>
       {/* inline input — the prominent search field */}
       <div className="flex items-center gap-2 px-2.5 h-9 rounded-md"
            style={{ background:'rgba(0,0,0,.4)', border:'1px solid ' + (open ? 'var(--brass)' : 'var(--line)') }}>
