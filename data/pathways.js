@@ -244,6 +244,25 @@
       blurb_ar: 'مسار الشيطانة (المعروف أيضاً بمسار المجرم) — مسار تسيطر عليه طائفة الشيطانة. تسلسلاته المعروفة: 9 المجرم، 8 الملاك منزوع الجناح (الاسم القديم: القاتل بارد الدم)، 7 القاتل المتسلسل، 6 شيطانة الشهوة، 0 الشيطانة البدائية (كيان حقيقي تعبده الطائفة). بعد التسلسل 7 يتحوّل المتجاوز تدريجياً إلى شيطانة: يصير جسده أنثوياً جميلاً ويكتسب قوى شيطانية ويفقد ضميره.',
       sources: [200, 258, 266, 335],
     },
+
+    // ── batch-ch314: مسار العنقاء (Phoenix pathway) — Sharron's pathway; ancient = Phoenix progenitor Gregris ──
+    // Derek identifies it (ch314); Beyonders can be eliminated via this pathway. Seq-5 = Sharron (Miss Bodyguard).
+    {
+      id: 'phoenix',
+      name_ar: 'مسار العنقاء',
+      name_en: 'Phoenix Pathway',
+      family_id: null,
+      color: '#a85a2a',
+      first_appeared_chapter: 314,
+      first_appeared_quote: 'مسار العنقاء',
+      sequences: [
+        // ch302 + ch314: Seq-5 — Sharron is a Seq-5 Phoenix-pathway Beyonder.
+        { n: 5, name_ar: 'التسلسل 5 (مسار العنقاء)', name_en: 'Seq-5 (Phoenix)', known_chapter: 314,
+          quote: 'مسار العنقاء' },
+      ],
+      blurb_ar: 'مسار العنقاء — مسار مرتبط بالعنقاء القديمة (سلفها غريغريس من الآلهة القديمة للحقبة الثانية). يُذكر أولاً حين يستنتج ديريك (ch314) أن شارون متجاوزة منه (تتجاوز يبدو جنسها غامضاً). التسلسل ٥ معروف فقط؛ باقي التسلسلات لم تُكشف بعد.',
+      sources: [314],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;
 })(typeof window !== 'undefined' ? window : globalThis);

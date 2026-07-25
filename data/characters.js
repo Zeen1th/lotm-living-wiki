@@ -467,7 +467,7 @@
       // Fors — "Magician" (الساحر), newest Tarot Club member; Door-pathway Seq-9 "المبتدئ" (Apprentice).
       // Symbolically tied to "Mr. Door" (السيد باب) via her full-moon anxiety (ch312).
       id: 'fors',
-      name_ar: 'فورس', name_en: 'Fors Wall',
+      image: 'characters/fors.webp', name_ar: 'فورس', name_en: 'Fors Wall',
       first_appeared_chapter: 311, status: 'alive',
       first_appeared_quote: 'الساحر',
       pathway: { id: 'apprentice', name_ar: 'مسار المبتدئ' },
@@ -499,13 +499,13 @@
       image: 'characters/sharron.webp', name_ar: 'شارون', name_en: 'Sharron',
       first_appeared_chapter: 248, status: 'alive',
       first_appeared_quote: 'الأنسة حارس شخصي',
-      pathway: null,            // Seq-5; pathway not clearly named within ch324 cutoff
+      pathway: { id: 'phoenix', name_ar: 'مسار العنقاء' },
       aliases: [
         { name: 'الأنسة حارس شخصي', since_chapter: 248, quote: 'الأنسة حارس شخصي' },
       ],
       states: [
-        { since_chapter: 248, sequence: 'التسلسل 5', location: 'باكلوند', faction: 'مرتزقة',
-          notes: 'متجاوزة التسلسل 5؛ تستأجرها كحارس شخصي (ألف جنيه لثلاثة أيام). ترتبط بشعار النبالة للعائلة المالكة ثيودور من الحقبة الرابعة.',
+        { since_chapter: 248, sequence: 'التسلسل 5 (مسار العنقاء)', location: 'باكلوند', faction: 'مرتزقة',
+          notes: 'متجاوزة التسلسل 5 من مسار العنقاء؛ تستأجرها كحارس شخصي (ألف جنيه لثلاثة أيام). جنسها الغامض (كلاين يغيّر الضمير من "هي" إلى "هو") من سمات متجاوزي مسار العنقاء. ترتبط بشعار النبالة للعائلة المالكة ثيودور من الحقبة الرابعة.',
           quote: 'الأنسة حارس شخصي' },
       ],
       events: [
@@ -517,12 +517,14 @@
           quote: 'الأنسة حارس شخصي' },
         { chapter: 302, type: 'reveal', text: 'كشف اسمها الحقيقي "شارون" وتأكيد أنها متجاوزة التسلسل 5.',
           quote: 'الآنسة شارون' },
+        { chapter: 314, type: 'reveal', text: 'ديريك يستنتج أن شارون متجاوزة من مسار العنقاء — يغيّر كلاين ضمير الإشارة إليها من "هي" إلى "هو" (سمة مسار العنقاء).',
+          quote: 'مسار العنقاء' },
       ],
       relationships: [],
       abilities: [],
-      tags: ['حارس شخصي', 'التسلسل 5', 'باكلوند'],
-      blurb_ar: 'شارون — متجاوزة التسلسل 5 تُعرف بلقب "الأنسة حارس شخصي"؛ استأجرها كلاين لحمايته وساعدته في قتل روزاغوا. ترتبط بشعار النبالة للعائلة المالكة ثيودور من الحقبة الرابعة.',
-      sources: [248, 251, 277, 278, 302],
+      tags: ['حارس شخصي', 'التسلسل 5', 'مسار العنقاء', 'باكلوند'],
+      blurb_ar: 'شارون — متجاوزة التسلسل 5 من مسار العنقاء، تُعرف بلقب "الأنسة حارس شخصي"؛ استأجرها كلاين لحمايته وساعدته في قتل روزاغوا. جنسها الغامض (يغيّر كلاين ضمير الإشارة من "هي" إلى "هو") من سمات مسار العنقاء. ترتبط بشعار النبالة للعائلة المالكة ثيودور من الحقبة الرابعة.',
+      sources: [248, 251, 277, 278, 302, 314],
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.characters;
