@@ -63,18 +63,18 @@ function App(){
   return (
     <div className="h-full w-full flex flex-col">
       <header className="glass flex items-center px-4 md:px-6 h-16 shrink-0 z-20 gap-4">
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-3 shrink-0 flex-1">
           <Crest size={34}/>
           <div className="leading-tight">
             <div className="eyebrow text-[11px]" style={{ color:'var(--brass)' }}>سيد الغوامض</div>
             <h1 className="font-deco text-[20px]" style={{ color:'var(--parchment)' }}>الموسوعة الحية</h1>
           </div>
         </div>
-        {/* global search — centered in the header (flex-1), dropdown results below */}
-        <div className="flex-1 flex justify-center max-w-[440px] mx-auto">
+        {/* global search — true center (both side blocks are flex-1, equal width) */}
+        <div className="shrink-0 w-[300px]">
           <HeaderSearch chapter={chapter} onNavigate={navigate} focusSignal={searchFocusSignal}/>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0 flex-1 justify-end">
           <ChapterSlider chapter={chapter} setChapter={setChapter}/>
           <button onClick={()=>setOverlayOpen(true)}
             className="focus-ring w-9 h-9 grid place-items-center rounded-md"

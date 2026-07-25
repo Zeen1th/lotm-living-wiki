@@ -70,7 +70,7 @@ function ChapterSlider({ chapter, setChapter }){
 -----------------------------------------------------------------*/
 function NavBar({ view, setView }){
   return (
-    <nav className="glass shrink-0 flex items-center gap-1 px-3 py-1.5 overflow-x-auto"
+    <nav className="glass shrink-0 flex items-center gap-1 px-4 md:px-6 py-1.5 overflow-x-auto"
          style={{ borderTop:'1px solid var(--line)', borderBottom:'1px solid var(--line)' }}
          aria-label="التنقل بين الأقسام">
       {NAV_VIEWS.map(v => {
