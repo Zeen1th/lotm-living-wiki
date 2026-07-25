@@ -3,11 +3,12 @@
   const L = (g.LOTM = g.LOTM || {});
   L.meta = {
     title_ar: 'سيد الغوامض — موسوعة حية',
-    encodedThroughChapter: 324,
+    encodedThroughChapter: 356,
     volumes: [
       { id: 'v1', name_ar: 'المجلد الأول: المتنبئ القرمزي', start_chapter: 1,   end_chapter: 206 },
       { id: 'v2', name_ar: 'المجلد الثاني: وجه مشوه', start_chapter: 207, end_chapter: 279 },
-      { id: 'v3', name_ar: 'المجلد الثالث: المحقق موريارتي (باكلوند)', start_chapter: 280, end_chapter: 324 },
+      { id: 'v3', name_ar: 'المجلد الثالث: المحقق موريارتي (باكلاند)', start_chapter: 280, end_chapter: 324 },
+      { id: 'v4', name_ar: 'المجلد الرابع: لا يُسمع صوت في الظلام', start_chapter: 325, end_chapter: 356 },
     ],
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = L.meta;

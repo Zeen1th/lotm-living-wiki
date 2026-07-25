@@ -6,8 +6,8 @@ const LOTM = require('../data/index.js');
 
 // ── Existing Phase-1 tests (unchanged) ──────────────────────────────────────
 
-test('meta is well-formed and cutoff is 324', () => {
-  assert.equal(LOTM.meta.encodedThroughChapter, 324);
+test('meta is well-formed and cutoff is 356', () => {
+  assert.equal(LOTM.meta.encodedThroughChapter, 356);
   assert.ok(Array.isArray(LOTM.meta.volumes) && LOTM.meta.volumes.length >= 1);
 });
 

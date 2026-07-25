@@ -322,6 +322,30 @@
       blurb_ar: 'تنين الخيال أنكويلت — ملك التنانين وأقواها رعباً، من كبار الآلهة القديمة في الحقبة الثانية. كل ما يتخيله يظهر، والمستقبل الذي يعلنه يصير حقيقة. مسار المتفرّج (مسار التنين) ينبع من عرق تنين العقل وكان ممثلهم. سقط حين استيقظ الخالق. ابنه تنين الكوابيس ألزهود. لاحظ كلاين أن قدرته "تتقاسم نفس الخصائص" مع التحفة 0-08 (الريشة).',
       sources: [238, 313, 315],
     },
+
+    // ── batch-ch66/355: آمون (Amon) — a Fourth-Epoch family scion, appears as a stranger at Silver City ──
+    {
+      id: 'amon',
+      name_ar: 'آمون', name_en: 'Amon',
+      kind: 'mystery',
+      first_appeared_chapter: 66, status: 'unknown',
+      first_appeared_quote: 'عائلات يعقوب وآمون',
+      pathway: null,            // member of the Amon family (Fourth-Epoch bloodline); pathway not clearly named within cutoff
+      aliases: [],
+      states: [
+        { since_chapter: 66, role: 'سليل عائلة آمون (سلالة الحقبة الرابعة)', domain: 'غير معروف',
+          notes: 'عائلة آمون من سلالات الحقبة الرابعة العظيمة (إلى جانب إبراهيم وتمارا وأنتيغونوس وزاراتول ويعقوب)؛ ذُكرت أولاً بين قوى تلك الحقبة المدفونة في التاريخ.' },
+      ],
+      events: [
+        { chapter: 66, type: 'mention', text: 'ذكرى أولاً كإحدى عائلات الحقبة الرابعة (إلى جانب إبراهيم وتمارا وأنتيغونوس وزاراتول ويعقوب) — أسرار مدفونة في تاريخ تلك الحقبة.',
+          quote: 'عائلات يعقوب وآمون' },
+        // ch355: the stranger who arrives at the City of Silver — analysis: dangerous, possibly on the verge of losing control.
+        { chapter: 355, type: 'manifestation', text: 'رجلٌ غريب يصل مدينة الفضة (أرض الآلهة المهجورة)؛ يحتجزه الحراس وبالادين الفجر يحذّر ديريك "لا تنخدع" ويصف سلوكه بأنه سلوك من على وشك فقدان السيطرة. لاحقًا يكشف اسمه: آمون — تحليل: صلة محتملة بعائلة آمون القديمة وتهديد خطير لمدينة الفضة.',
+          quote: 'آمون' },
+      ],
+      blurb_ar: 'آمون — سليل عائلة آمون من سلالات الحقبة الرابعة العظيمة (إلى جانب إبراهيم وتمارا وأنتيغونوس وزاراتول ويعقوب). يظهر في الفصل ٣٥٥ كرجل غريب يصل مدينة الفضة؛ يحتجزه الحراس ويُحذَر ديريك منه بوصفه على وشك فقدان السيطرة. تحليل: قد يكون تهديداً خطيراً مرتبطاً بالماضي القديم لتلك الأرض.',
+      sources: [66, 355],
+    },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.entities;
 })(typeof window !== 'undefined' ? window : globalThis);

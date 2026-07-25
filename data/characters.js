@@ -108,6 +108,9 @@
         // batch-ch323: Blasphemy Slate heist at the Roselle Memorial Exhibition.
         { chapter: 323, type: 'lore_acquisition', text: 'سرق بطاقة الكفر من معرض روزيل التذكاري بالمتحف الملكي؛ فُكّ ختمها بالتعويذة "برناديت" (بلغة فيزاك القديمة).',
           quote: 'بطاقة الكفر' },
+        // batch-ch335: Klein guides Sharron's spirit, obtains the Demoness Seq-6 (شيطانة الشهوة) formula.
+        { chapter: 335, type: 'lore_acquisition', text: 'حصل على تركيبة "شيطانة الشهوة" (التسلسل 6 من مسار الشيطانة) بتوجيه روح السيدة شارون — أول تسلسل علٍي معلوم لمسار الشيطانة بعد القاتل المتسلسل (التسلسل 7).',
+          quote: 'التسلسل 6 من مسار الشيطانة' },
       ],
       abilities: ['العرافة الدقيقة', 'خفة حركة خارقة', 'قراءة حركات الخصم', 'التحكم بتعابير الوجه'],
       relationships: [
@@ -493,7 +496,7 @@
     // ─ـ batch-ch173/200: السيدة شارون — Demoness Sect member in Tingen ──
     {
       id: 'sharron',
-      name_ar: 'شارون', name_en: 'Sharron',
+      image: 'characters/sharron.webp', name_ar: 'شارون', name_en: 'Sharron',
       first_appeared_chapter: 248, status: 'alive',
       first_appeared_quote: 'الأنسة حارس شخصي',
       pathway: null,            // Seq-5; pathway not clearly named within ch324 cutoff
