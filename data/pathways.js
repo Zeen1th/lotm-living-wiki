@@ -256,12 +256,12 @@
       first_appeared_chapter: 314,
       first_appeared_quote: 'مسار العنقاء',
       sequences: [
-        // ch302 + ch314: Seq-5 — Sharron is a Seq-5 Phoenix-pathway Beyonder.
-        { n: 5, name_ar: 'التسلسل 5 (مسار العنقاء)', name_en: 'Seq-5 (Phoenix)', known_chapter: 314,
-          quote: 'مسار العنقاء' },
+        // ch348: Seq-5 الروح (Spirit) — mind-control ability (numbs opponents' minds).
+        { n: 5, name_ar: 'الروح', name_en: 'Spirit', known_chapter: 348,
+          quote: 'التسلسل 5 الروح' },
       ],
-      blurb_ar: 'مسار العنقاء — مسار مرتبط بالعنقاء القديمة (سلفها غريغريس من الآلهة القديمة للحقبة الثانية). يُذكر أولاً حين يستنتج ديريك (ch314) أن شارون متجاوزة منه (تتجاوز يبدو جنسها غامضاً). التسلسل ٥ معروف فقط؛ باقي التسلسلات لم تُكشف بعد.',
-      sources: [314],
+      blurb_ar: 'مسار العنقاء — مسار مرتبط بالعنقاء القديمة (سلفها غريغريس من الآلهة القديمة للحقبة الثانية). يُذكر أولاً حين يستنتج ديريك (ch314) أن شارون متجاوزة منه. تسلسلاته المعروفة: 5 الروح (قدرة سيطرة روحية). كل متجاوزي هذا المسار ملعونون ولهم خصائص مجنونة (ch331)، وجنسهم الغامض من سمات المسار. باقي التسلسلات لم تُكشف بعد.',
+      sources: [314, 331, 348],
     },
   ];
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;
