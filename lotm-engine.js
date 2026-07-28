@@ -33,12 +33,15 @@
 
   function resolveCharacter(char, chapter) {
     if (!isVisible(char, chapter)) return null;
+    // pathway is chapter-aware: hidden until pathway_reveal_chapter (if set),
+    // so a late-revealed pathway doesn't spoil readers who haven't reached it yet.
+    const showPathway = !char.pathway_reveal_chapter || char.pathway_reveal_chapter <= chapter;
     return {
       id: char.id,
       name_ar: char.name_ar,
       name_en: char.name_en,
       image: char.image || null,
-      pathway: char.pathway || null,
+      pathway: showPathway ? (char.pathway || null) : null,
       // status is chapter-aware: a death only shows once the reader reaches death_chapter
       status: (char.death_chapter && char.death_chapter <= chapter) ? 'dead' : (char.status || 'unknown'),
       first_appeared_chapter: char.first_appeared_chapter,

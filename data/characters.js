@@ -471,11 +471,17 @@
       first_appeared_chapter: 311, status: 'alive',
       first_appeared_quote: 'الساحر',
       pathway: { id: 'apprentice', name_ar: 'مسار المبتدئ' },
+      pathway_reveal_chapter: 312,   // pathway/sequence hidden until ch312 reveal — avoids spoiling
       aliases: [{ name: 'الساحر', since_chapter: 311, quote: 'الساحر' }],
       states: [
-        { since_chapter: 311, sequence: 'التسلسل 9: المبتدئ (مسار المبتدئ)', location: 'باكلوند', faction: 'نادي التاروت',
-          notes: 'كاتبة ومتجاوزة من مسار المبتدئ؛ تنزعج من القمر المكتمل (ارتباط رمزي بالسيد باب). تطلب شراء تركيبة التسلسل 8 (سيد الخدع).',
+        // ch311: generic — her pathway/sequence NOT yet revealed to reader.
+        { since_chapter: 311, sequence: 'غير معروف', location: 'باكلوند', faction: 'نادي التاروت',
+          notes: 'كاتبة وعضوة جديدة في نادي التاروت باسم "الساحر". تنزعج من القمر المكتمل.',
           quote: 'الساحر' },
+        // ch312: pathway + sequence revealed.
+        { since_chapter: 312, sequence: 'التسلسل 9: المبتدئ (مسار المبتدئ)', location: 'باكلوند', faction: 'نادي التاروت',
+          notes: 'كاتبة ومتجاوزة من مسار المبتدئ؛ تنزعج من القمر المكتمل (ارتباط رمزي بالسيد باب). تطلب شراء تركيبة التسلسل 8 (سيد الخدع).',
+          quote: 'المبتدئ' },
       ],
       events: [
         { chapter: 311, type: 'join', text: 'انضمت إلى نادي التاروت كعضوة جديدة باسم "الساحر".',
@@ -500,13 +506,23 @@
       first_appeared_chapter: 248, status: 'alive',
       first_appeared_quote: 'الأنسة حارس شخصي',
       pathway: { id: 'phoenix', name_ar: 'مسار العنقاء' },
+      pathway_reveal_chapter: 314,   // pathway hidden until Derek deduces it (ch314) — avoids spoiling
       aliases: [
         { name: 'الأنسة حارس شخصي', since_chapter: 248, quote: 'الأنسة حارس شخصي' },
       ],
       states: [
-        { since_chapter: 248, sequence: 'التسلسل 5: الروح (مسار العنقاء)', location: 'باكلوند', faction: 'مرتزقة',
-          notes: 'متجاوزة التسلسل 5 "الروح" من مسار العنقاء؛ قدرتها السيطرة الروحية (تخدير عقول الخصوم). جنسها الغامض (كلاين يغيّر الضمير من "هي" إلى "هو") من سمات متجاوزي المسار. ككل متجاوزي مسار العنقاء: ملعونة وذات خصائص مجنونة. ترتبط بشعار النبالة للعائلة المالكة ثيودور من الحقبة الرابعة.',
+        // ch248: generic — her pathway/sequence NOT yet revealed to reader.
+        { since_chapter: 248, sequence: 'غير معروف', location: 'باكلوند', faction: 'مرتزقة',
+          notes: 'حارس شخصي محترف (ألف جنيه لثلاثة أيام). مسارها وتسلسلها غير معروفين للقارئ بعد.',
           quote: 'الأنسة حارس شخصي' },
+        // ch314: pathway revealed (Phoenix), seq-5 confirmed but name unknown.
+        { since_chapter: 314, sequence: 'التسلسل 5 (مسار العنقاء)', location: 'باكلوند', faction: 'مرتزقة',
+          notes: 'متجاوزة التسلسل 5 من مسار العنقاء. جنسها الغامض (كلاين يغيّر الضمير من "هي" إلى "هو") من سمات المسار. ككل متجاوزي مسار العنقاء: ملعونة وذات خصائص مجنونة. ترتبط بشعار النبالة للعائلة المالكة ثيودور من الحقبة الرابعة.',
+          quote: 'مسار العنقاء' },
+        // ch348: seq name الروح revealed.
+        { since_chapter: 348, sequence: 'التسلسل 5: الروح (مسار العنقاء)', location: 'باكلوند', faction: 'مرتزقة',
+          notes: 'قدرة الروح: سيطرة روحية تخدّر عقول الخصوم، غريبة ولا يمكن الدفاع ضدها.',
+          quote: 'التسلسل 5 الروح' },
       ],
       events: [
         { chapter: 248, type: 'intro', text: 'أول ظهور بصفة "الأنسة حارس شخصي" — يوظفها كلاين لحمايته.',
