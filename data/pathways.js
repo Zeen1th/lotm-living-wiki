@@ -148,6 +148,153 @@
       sources: [1, 21, 22, 210],
     },
 
+    // ── batch-ch292/313: مسار الموت (Death pathway) — "مسار جامع الجثث" — old Death pathway ──
+    // ch191: "متجاوز التسلسلات عليا من مسار الموت، ربما يكون عضوًا في الأسقفية المقدسة"
+    // ch203: swap chart — Death is swappable at high sequences with الليل الدائم (اللانائم) + العمالقة.
+    //        Also known as مسار جامع الجثث (ch203). Seq-9 = جامع الجثث (ch28).
+    // ch210: Ince Zangwill was "التسلسل 5 من مسار الموت، حارس البوابة" before advancing to الليل الدائم Seq-4.
+    // ch314: Klein deduces the ancient Phoenix progenitor Gregris was "Death in primordial times"
+    //        → Death pathway has an ancient Seq-0 (the primordial Death deity).
+    {
+      id: 'death',
+      name_ar: 'مسار الموت',
+      name_en: 'Death Pathway',
+      family_id: null,
+      color: '#3a4a3a',
+      first_appeared_chapter: 191,
+      first_appeared_quote: 'متجاوز التسلسلات عليا من مسار الموت',
+      sequences: [
+        // Seq-9 جامع الجثث (Corpse Collector) — name attested ch28; confirmed as Death's Seq-9 in ch203/314.
+        { n: 9, name_ar: 'جامع الجثث', name_en: 'Corpse Collector', known_chapter: 203,
+          quote: 'يُعرف مسار الموت أيضًا باسم مسار جامع الجثث' },
+        // Seq-5 حارس البوابة (Gatekeeper) — Ince Zangwill's pre-advancement rung (ch210).
+        { n: 5, name_ar: 'حارس البوابة', name_en: 'Gatekeeper', known_chapter: 210,
+          quote: 'التسلسل 5 من مسار تسلسل الموت، حارس البوابة' },
+      ],
+      blurb_ar: 'مسار الموت — يُعرف أيضاً بمسار جامع الجثث (Seq-9). تسلسلاته العليا قابلة للتبادل مع مسار الليل الدائم ومسار العمالقة (ch203). يرتبط قديماً بسلف العنقاء غريغريس الذي كان "الموت في العصور القديمة" (ch314). حارس البوابة (Seq-5) كان تسلسل إنس زانغويل قبل أن يتقدّم إلى مراقب الليل (مسار الليل الدائم، Seq-4) باستخدام رماد القديسة سيلينا (ch210).',
+      sources: [191, 203, 210, 314],
+    },
+
+    // ── batch-ch292: مسار الهاوية (Abyss pathway) — old name مسار الشيطان; Seq-6 = الشيطان ──
+    // ch292: Derrick — "التسلسل 06 لمسار الهاوية يسمى الشيطان. هذا هو أيضا أصل اسم هذا العرق."
+    //         Klein: "قبل الكارثة، كان مسار الشيطان يسمى مسار الهاوية، والشيطان هو فقط اسم التسلسل 6…
+    //                 يمكن أن التسلسل 0 يكون الهاوية؟"
+    // ch305: high-sequence Abyss Beyonders risk losing control at the 7→6 advancement.
+    // ch313: Abyss Seq-7 can interfere effectively with divination & spiritual guidance (cross-path anti-Oracle).
+    {
+      id: 'abyss',
+      name_ar: 'مسار الهاوية',
+      name_en: 'Abyss Pathway',
+      family_id: null,
+      color: '#2a1a3a',
+      first_appeared_chapter: 292,
+      first_appeared_quote: 'التسلسل 06 لمسار الهاوية يسمى الشيطان',
+      sequences: [
+        // Seq-6 الشيطان (Devil) — the namesake rung; gave the Devil race its name.
+        { n: 6, name_ar: 'الشيطان', name_en: 'Devil', known_chapter: 292,
+          quote: 'التسلسل 06 لمسار الهاوية يسمى الشيطان. هذا هو أيضا أصل اسم هذا العرق' },
+        // Seq-7 inferred from ch313 interference ability (no explicit rung name in EPUB ≤356).
+      ],
+      blurb_ar: 'مسار الهاوية — الاسم القديم "مسار الشيطان"، إذ كان الشيطان (Seq-6) يُظن أنه اسم المسار كله قبل أن يُكتشف أنه اسم التسلسل السادس فقط (ch292). يُرجَّح أن التسلسل 0 هو "الهاوية" نفسها. تسلسلاته العليا محفوفة بخطر فقدان السيطرة عند التقدم من Seq-7 إلى Seq-6 (ch305)، و Seq-7 قادر على التشويش الفعّال على العرافة والتوجيه الروحي (ch313).',
+      sources: [292, 305, 313],
+    },
+
+    // ── batch-ch217: مسار العلّامة (Paragon / Savant pathway) — Knowledge deity group ──
+    // ch217 (Roselle's diary): the diary-owner chose "مسار العلّامة" and laments the first rungs lack combat power.
+    //   Seq-9 العلّامة — exceptional memory/learning/practical skills only.
+    //   Seq-8 عالم الآثار (Archaeologist) — strong body, ancient knowledge, minor ritual magic.
+    //   Seq-7 المثمّن (Appraiser) — rapidly identifies mystic items, avoids hidden dangers.
+    //   Seq-6 الحرفي (Craftsman) → modern name أخصائي الآلات (Machinery Specialist) — produces wondrous devices.
+    // Held by كنيسة إله المعرفة (church_knowledge org).
+    {
+      id: 'paragon',
+      name_ar: 'مسار العلّامة',
+      name_en: 'Paragon (Savant) Pathway',
+      family_id: null,
+      color: '#5a6a8c',
+      first_appeared_chapter: 217,
+      first_appeared_quote: 'اختيار مسار العلّامة',
+      sequences: [
+        { n: 9, name_ar: 'العلّامة', name_en: 'Savant', known_chapter: 217,
+          quote: 'التسلسل 9 العلّامة قدرات استثنائية فقط في الذاكرة والتعلم والمهارات العملية' },
+        { n: 8, name_ar: 'عالم الآثار', name_en: 'Archaeologist', known_chapter: 217,
+          quote: 'عالم الآثار في التسلسل 8 بنية جسدية قوية ومعرفة قديمة' },
+        { n: 7, name_ar: 'المثمّن', name_en: 'Appraiser', known_chapter: 217,
+          quote: 'التسلسل 7 المثمن، الذي تكون قدرته على التعرف بسرعة على الأشياء الغامضة' },
+        { n: 6, name_ar: 'أخصائي الآلات', name_en: 'Machinery Specialist', known_chapter: 217,
+          quote: 'لا عجب أن يكون اسمه الحديث هو أخصائي الألات' },
+      ],
+      blurb_ar: 'مسار العلّامة — مسار المعرفة الذي تتبنّاه كنيسة إله المعرفة والحكمة. أوائل تسلسلاته تفتقر إلى قوى قتالية وتعتمد على الأغراض الغامضة والعناصر الخارجية. تسلسلاته المعروفة من مذكرات الإمبراطور روزيل (ch217): 9 العلّامة، 8 عالم الآثار، 7 المثمّن، 6 الحرفي/أخصائي الآلات (الاسم الحديث).',
+      sources: [217],
+    },
+
+    // ── batch-ch217: مسار باحث الغموض (Hermit pathway) — Knowledge deity group; Seq-0 = الحكيم المخفي ──
+    // ch217: "التسلسل 7 المشعوذ و التسلسل 6 بروفيسور اللفائف لمسار باحث الغموض مغري بما فيه الكفاية…
+    //         لو كان للكنيسة التسلسل الكامل وأن الحكيم المخفي غير موجود."
+    // → Seq-7 المشعوذ, Seq-6 بروفيسور اللفائف, Seq-0 الحكيم المخفي (the Hidden Sage, a deity ch61+).
+    {
+      id: 'hermit',
+      name_ar: 'مسار باحث الغموض',
+      name_en: 'Hermit (Mystery Pryer) Pathway',
+      family_id: null,
+      color: '#3a5a4a',
+      first_appeared_chapter: 217,
+      first_appeared_quote: 'التسلسل 7 المشعوذ و التسلسل 6 بروفيسور اللفائف لمسار باحث الغموض',
+      sequences: [
+        { n: 7, name_ar: 'المشعوذ', name_en: 'Mystery Magician', known_chapter: 217,
+          quote: 'التسلسل 7 المشعوذ و التسلسل 6 بروفيسور اللفائف لمسار باحث الغموض' },
+        { n: 6, name_ar: 'بروفيسور اللفائف', name_en: 'Scrolls Professor', known_chapter: 217,
+          quote: 'التسلسل 6 بروفيسور اللفائف لمسار باحث الغموض' },
+        // Seq-0 الحكيم المخفي (Hidden Sage) — a deity, named ch61; identified as this pathway's apex in ch217.
+        { n: 0, name_ar: 'الحكيم المخفي', name_en: 'Hidden Sage', known_chapter: 217,
+          quote: 'لو كان للكنيسة التسلسل الكامل وأن الحكيم المخفي غير موجود' },
+      ],
+      blurb_ar: 'مسار باحث الغموض — مسار المعرفة الثاني، تسلسلاته العليا مماثلة (وفقاً لمذكرات روزيل ch217): Seq-7 المشعوذ و Seq-6 بروفيسور اللفائف. تسلسله الأعلى (Seq-0) هو الحكيم المخفي — كيان يُعدّه البعض أحد الكيانات القديمة المخيفة (يُذكر منذ ch61).',
+      sources: [61, 217],
+    },
+
+    // ── batch-ch200/234: مسار الصياد (Red Priest pathway) — held by imperial families ──
+    // ch200: "كان مسار الصياد تسلسل الذي كان يسيطر عليه حكام إمبراطورية فيزاك، عائلة إينهورن؛
+    //         العائلة الملكية السابقة لجمهورية إنتيس، عائلة سورون، وأيضاً… نظام صليب الحديد والدم."
+    // ch234: Seq-9 الصياد (Hunter) potion — "جرعة الصياد" given to Mersu; urban-hunting philosophy.
+    //   NOTE: the English-fandom name is "Red Priest"; the EPUB Arabic term is مسار الصياد (Hunter pathway).
+    {
+      id: 'red_priest',
+      name_ar: 'مسار الصياد',
+      name_en: 'Red Priest (Hunter) Pathway',
+      family_id: null,
+      color: '#8a2a2a',
+      first_appeared_chapter: 200,
+      first_appeared_quote: 'كان مسار الصياد تسلسل الذي كان يسيطر عليه حكام إمبراطورية فيزاك',
+      sequences: [
+        // Seq-9 الصياد (Hunter) — the urban-hunter rung; potion named in ch234.
+        { n: 9, name_ar: 'الصياد', name_en: 'Hunter', known_chapter: 234,
+          quote: 'اشربه، اشرب جرعة الصياد هذه' },
+      ],
+      blurb_ar: 'مسار الصياد — مسار تسيطر عليه العائلات الإمبراطورية: عائلة إينهورن حكّام إمبراطورية فيزاك، عائلة سورون (السلالة الملكية السابقة لجمهورية إنتيس)، والمنظمة السرية "نظام صليب الحديد والدم" (ch200). فلسفته أن "أكبر مدينة هي أكبر غابة مظلمة" — لكلٍّ هويتان: الفريسة والصياد (ch234). تسلسله التاسع هو الصياد.',
+      sources: [200, 234],
+    },
+
+    // ── batch-ch329: مسار السجين (Chained pathway) = مسار المتحول — held by Rose School ──
+    // ch329: "لطالما اشتبهت في أن الفصيل هو مدرسة روز للفكر لأنهم يحملون مسار السجين،
+    //          وهو أيضًا مسار المتحول. وكان أحد أنواع المتحولين المستذئب!"
+    // → مسار السجين = مسار المتحول (Mutant). Werewolf is one mutant type.
+    // Sharron & Maric are defectors from the Rose School of Thought (ch329).
+    {
+      id: 'chained',
+      name_ar: 'مسار السجين',
+      name_en: 'Chained (Mutant) Pathway',
+      family_id: null,
+      color: '#4a3a2a',
+      first_appeared_chapter: 329,
+      first_appeared_quote: 'يحملون مسار السجين، وهو أيضًا مسار المتحول',
+      sequences: [
+        // No explicit sequence rung names in EPUB ≤ch356 — only the pathway identity + Mutant/Werewolf types.
+      ],
+      blurb_ar: 'مسار السجين — ويُعرف أيضاً بمسار المتحول (ch329). تحمله مدرسة روز للفكر، وأنواع متجاوزيه تشمل المستذئب. الآنسة شارون وماريك من المنشقّين عن مدرسة روز للفكر. أسماء التسلسلات الفردية لم تُكشف بعد في حدود الفصول الحالية.',
+      sources: [329],
+    },
+
     // ── batch-ch200/323: مسار الإمبراطور الأسود (Black Emperor pathway) ──
     // The full sequence set was revealed on the Blasphemy Slate card Klein stole (ch323).
     // Seq-0 = a true god (الإمبراطور الأسود); the pathway "evolves gradually into Order" — the path to deity.
@@ -264,5 +411,34 @@
       sources: [314, 331, 348],
     },
   ];
+
+  // ── Pathway symbols ──
+  // Each pathway maps to the symbol of its English wiki "pathway-group" name
+  // (downloaded from the Lord of the Mysteries Fandom wiki "Pathways" page, then
+  // optimized to webp in assets/pathways/). Arabic pathway names are EPUB-grounded
+  // and often differ from the wiki group name (e.g. sailor→tyrant, sleepless→darkness,
+  // paragon→paragon, apprentice→door). phoenix has no standard modern-era symbol
+  // (it is an ancient pathway), so it falls back to its color dot in the UI.
+  // The stored value is the bare file basename (no extension); PathwaySymbol() in
+  // app/pathways.js resolves it to 'assets/pathways/<name>.webp'.
+  const PATHWAY_SYMBOLS = {
+    seer: 'fool',
+    spectator: 'visionary',
+    sailor: 'tyrant',
+    sun: 'sun',
+    giant: 'twilight_giant',
+    sleepless: 'darkness',
+    death: 'death',
+    abyss: 'abyss',
+    paragon: 'paragon',
+    hermit: 'hermit',
+    red_priest: 'red_priest',
+    chained: 'chained',
+    black_emperor: 'black_emperor',
+    apprentice: 'door',
+    demoness: 'demoness',
+  };
+  L.pathways.forEach(p => { if (PATHWAY_SYMBOLS[p.id]) p.symbol = PATHWAY_SYMBOLS[p.id]; });
+
   if (typeof module !== 'undefined' && module.exports) module.exports = L.pathways;
 })(typeof window !== 'undefined' ? window : globalThis);

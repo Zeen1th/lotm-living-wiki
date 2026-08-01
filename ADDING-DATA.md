@@ -6,7 +6,7 @@ and `docs/INJECTION.md` (philosophy). **When in doubt, this file wins.**
 
 ---
 
-## 0. The 5 golden rules (never break these)
+## 0. The 7 golden rules (never break these)
 
 1. **Every atomic fact needs a real `quote`.** A short verbatim Arabic span copied from the cited
    chapter that *actually supports the claim*. No quote → don't add the fact.
@@ -31,6 +31,29 @@ and `docs/INJECTION.md` (philosophy). **When in doubt, this file wins.**
    `كنيسة إله X` — these are established names, not descriptions. (c) **Established place/era terms**
    like `أرض الآلهة المهجورة` and `عصر الآلهة` (named era) — keep them. When in doubt: if it's a
    *generic* "a god / true god / the gods" → "كيان"; if it's part of a *named* deity/church → keep.
+7. **The Arabic EPUB pathway names ≠ the English fandom wiki names.** Always verify a pathway's
+   `name_ar` from the EPUB text (`مسار X` phrase) before adding it — do **not** transliterate or
+   assume from the wiki group name. Verified mappings so far (ch ≤ cutoff 356):
+   | wiki group (symbol file) | EPUB Arabic pathway name | our `id` |
+   |---|---|---|
+   | Fool | مسار المتنبئ | seer |
+   | Visionary | مسار المتفرّج | spectator |
+   | Tyrant | مسار البحّار | sailor |
+   | Sun | مسار الشمس | sun |
+   | Twilight Giant | مسار العملاق | giant |
+   | Darkness | مسار الليل الدائم | sleepless |
+   | Death | مسار الموت (also مسار جامع الجثث) | death |
+   | Abyss | مسار الهاوية (old name مسار الشيطان) | abyss |
+   | Paragon | مسار العلّامة | paragon |
+   | Hermit | مسار باحث الغموض | hermit |
+   | Red Priest | مسار الصياد | red_priest |
+   | Chained | مسار السجين = مسار المتحول | chained |
+   | Black Emperor | مسار الإمبراطور الأسود | black_emperor |
+   | Door | مسار المبتدئ | apprentice |
+   | Demoness | مسار الشيطانة | demoness |
+   (Phoenix = مسار العنقاء is an **ancient** pathway with no modern-era symbol → color-dot fallback.)
+   Some wiki groups (Error, White Tower, Wheel of Fortune, Moon, Mother, Justiciar) are **not named
+   in the EPUB by ch356** — do not add them until the text reveals them.
 
 ---
 

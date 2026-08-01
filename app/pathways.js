@@ -1,4 +1,28 @@
 /** @jsxRuntime classic */ /** @jsx React.createElement */
+
+// Renders a pathway's sigil. `size` is px; falls back to a colored dot when the
+// pathway has no symbol (e.g. phoenix — an ancient pathway with no modern-era sigil).
+// The badge is a tinted disc so the transparent sigil reads against the dark UI.
+function PathwaySymbol({ pathway, size = 32 }){
+  const color = pathway.color || 'var(--brass)';
+  if(pathway.symbol){
+    return (
+      <span className="shrink-0 rounded-full grid place-items-center"
+            style={{ width:size, height:size, background:'rgba(0,0,0,.35)',
+                    border:`1px solid ${color}55`, boxShadow:`inset 0 0 ${size*0.3}px ${color}22` }}>
+        <img src={`assets/pathways/${pathway.symbol}.webp`} alt=""
+             loading="lazy" decoding="async"
+             style={{ width:size*0.78, height:size*0.78, objectFit:'contain',
+                      filter:`drop-shadow(0 0 ${size*0.12}px ${color}88)` }}/>
+      </span>
+    );
+  }
+  return (
+    <span className="shrink-0 rounded-full grid place-items-center"
+          style={{ width:size, height:size, background:color, opacity:.85 }}/>
+  );
+}
+
 function PathwayDetail({ pathway, chapter, onClose, navigate, fontScale }){
   useEffect(()=>{
     const h = (e)=>{ if(e.key==='Escape') onClose(); };
@@ -34,8 +58,10 @@ function PathwayDetail({ pathway, chapter, onClose, navigate, fontScale }){
         <div className="px-6 pt-5 pb-4">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 min-w-0">
-              <span className="shrink-0 w-3 h-3 rounded-full" style={{ background:dotColor }}/>
-              <h2 className="font-deco text-[24px] leading-tight" style={{ color:'var(--parchment)' }}>{pathway.name_ar}</h2>
+              <PathwaySymbol pathway={pathway} size={44}/>
+              <div className="min-w-0">
+                <h2 className="font-deco text-[24px] leading-tight" style={{ color:'var(--parchment)' }}>{pathway.name_ar}</h2>
+              </div>
             </div>
             <button onClick={onClose} aria-label="إغلاق"
               className="shrink-0 w-9 h-9 grid place-items-center rounded-md focus-ring"
@@ -145,13 +171,12 @@ function PathwaysView({ chapter, focus, clearFocus, navigate, fontScale }){
   }
 
   function renderPathwayCard(p){
-    const dotColor = p.color || 'var(--brass)';
     return (
       <button key={p.id}
         onClick={()=>openDetail(p)}
-        className="listrow w-full text-right px-3 py-3 rounded-md flex items-center gap-3 mb-1.5 focus-ring"
+        className="listrow w-full text-right px-3 py-2.5 rounded-md flex items-center gap-3 mb-1.5 focus-ring"
         style={{ border:'1px solid var(--line)', background:'rgba(255,255,255,.015)' }}>
-        <span className="shrink-0 w-3 h-3 rounded-full" style={{ background:dotColor }}/>
+        <PathwaySymbol pathway={p} size={34}/>
         <span className="min-w-0 flex-1">
           <span className="font-display block text-[14px]" style={{ color:'var(--parchment)' }}>{p.name_ar}</span>
           <span className="block text-[11.5px]" style={{ color:'var(--parchment-dim)' }}>{p.name_en}</span>
