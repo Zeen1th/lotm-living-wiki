@@ -215,7 +215,7 @@ const ORG_KIND_AR = { club:'نادٍ', sect:'طائفة', church:'كنيسة', s
 
 const HUB_CARDS = [
   { id:'characters',    label:'الشخصيات',      desc:'تصفح الشخصيات المعروفة حتى فصلك الحالي', image:'characters/klein.webp' },
-  { id:'pathways',      label:'المسارات',      desc:'مسارات التحول والتسلسلات المكتشفة',     icon:Eye },
+  { id:'pathways',      label:'المسارات',      desc:'مسارات التحول والتسلسلات المكتشفة',     image:'pathways/_hub-card.webp' },
   { id:'map',           label:'الخريطة',       desc:'مملكات وجزر العالم المرتبطة بالشخصيات', image:'map/world.webp' },
   { id:'organizations', label:'المنظمات',      desc:'المنظمات السرية والكنائس والأندية',     icon:Landmark },
   { id:'artifacts',     label:'التحف',          desc:'التحف الأثرية المختومة والأدوات الخارقة', icon:Scroll },
